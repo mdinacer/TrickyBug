@@ -1,13 +1,8 @@
 import { lazy, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import agent from "../../api/agent";
-import {
-  IssueNature,
-  IssueOccurrence,
-  IssueSeverity,
-  TicketPriority,
-  TicketStatus,
-} from "../../models/enums";
+import { Tickets } from "../../models/dataLists";
+import { TicketPriority, TicketStatus } from "../../models/enums";
 import { ProjectDetails } from "../../models/project";
 
 const Moment = lazy(() => import("react-moment"));
@@ -166,7 +161,7 @@ export default function ProjectDetailsPage() {
                 </Link>
               </div>
               <ul className="list-none flex flex-col py-5 gap-y-4">
-                {tickets.map((ticket) => (
+                {Tickets.map((ticket) => (
                   <li key={ticket.id} className="list-item">
                     <Link
                       to={`/projects/${project.slug}/tickets/${ticket.id}`}
@@ -234,64 +229,3 @@ export default function ProjectDetailsPage() {
     </div>
   );
 }
-
-const ticketDescription = {
-  operatingSystem: "Mac OS Monterey",
-  browser: "Chrome Latest",
-  occurrence: IssueOccurrence.Persistent,
-  severity: IssueSeverity.Critical,
-  nature: IssueNature.Functional,
-};
-
-const tickets = [
-  {
-    id: 1,
-    creationDate: "2022-02-5",
-    subject: "Server not responding",
-    body: "Server stop responding after adding a new item",
-    priority: TicketPriority.Medium,
-    description: ticketDescription,
-    author: "Tom Hardy",
-    status: TicketStatus.New,
-  },
-  {
-    id: 2,
-    creationDate: "2022-02-15",
-    subject: "UI not responsive",
-    body: "The user interface doesn't support mobile display",
-    priority: TicketPriority.Medium,
-    description: ticketDescription,
-    author: "Jake Jackson",
-    status: TicketStatus.Pending,
-  },
-  {
-    id: 3,
-    creationDate: "2022-02-13",
-    subject: "Can't access the profile",
-    body: "when I try to access my profile I get a 500 error",
-    priority: TicketPriority.Urgent,
-    description: ticketDescription,
-    author: "Lilly Morison",
-    status: TicketStatus.Fixed,
-  },
-  {
-    id: 4,
-    creationDate: "2022-02-8",
-    subject: "Server not responding",
-    body: "Server stop responding after adding a new Product",
-    priority: TicketPriority.Medium,
-    description: ticketDescription,
-    author: "Jimmy Useless",
-    status: TicketStatus.Duplicate,
-  },
-  {
-    id: 5,
-    creationDate: "2022-02-5",
-    subject: "The response time is big",
-    body: "Server is slow",
-    priority: TicketPriority.Low,
-    description: ticketDescription,
-    author: "Mark Flash",
-    status: TicketStatus.Deferred,
-  },
-];
