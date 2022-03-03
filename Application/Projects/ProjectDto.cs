@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Application.Actions;
+using Application.Phases;
 using Application.ProjectMembers;
 using Application.Tickets;
-using Domain.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace Application.Projects;
@@ -18,6 +18,10 @@ public class ProjectDto
     public bool isActive { get; set; }
     public string PhotoId { get; set; }
     public string Photo { get; set; }
+    public int TicketsCount { get; set; }
+    public string ActualPhase { get; set; }
+
+
 }
 
 public class ProjectDetailsDto
@@ -34,6 +38,9 @@ public class ProjectDetailsDto
     public List<TicketDto> Tickets { get; set; } = new();
     public List<ActionDto> Actions { get; set; } = new();
     public List<ProjectMemberDto> Members { get; set; } = new();
+    public List<PhaseDto> Phases { get; set; } = new();
+    public int TicketsCount { get; set; }
+    public string ActualPhase { get; set; }
 }
 
 public class CreateProjectDto

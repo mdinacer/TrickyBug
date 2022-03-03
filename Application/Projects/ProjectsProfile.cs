@@ -13,6 +13,7 @@ public class ProjectsProfile : Profile
             .ForMember(d => d.Photo, o => { o.Ignore(); });
         CreateMap<Project, ProjectDto>()
             .ForMember(d => d.Photo, o => { o.MapFrom(s => s.Photo.Url); });
-        CreateMap<Project, ProjectDetailsDto>().ForMember(d => d.Photo, o => { o.MapFrom(s => s.Photo.Url); });
+        CreateMap<Project, ProjectDetailsDto>()
+            .ForMember(d => d.Photo, o => { o.MapFrom(s => s.Photo.Url); });
     }
 }

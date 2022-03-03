@@ -10,7 +10,7 @@ public class IsLeaderRequirement : IAuthorizationRequirement
 {
 }
 
-public class IsLeaderRequirementHandler : AuthorizationHandler<IsMemberRequirement>
+public class IsLeaderRequirementHandler : AuthorizationHandler<IsLeaderRequirement>
 {
     private readonly DataContext _dbContext;
     private readonly IHttpContextAccessor _httpContextAccessor;
@@ -22,7 +22,7 @@ public class IsLeaderRequirementHandler : AuthorizationHandler<IsMemberRequireme
         _dbContext = dbContext;
     }
 
-    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsMemberRequirement requirement)
+    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsLeaderRequirement requirement)
     {
         var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
 

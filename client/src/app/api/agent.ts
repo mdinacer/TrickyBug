@@ -5,7 +5,7 @@ import { AppUser } from "../models/user";
 import { store } from "../store/configureStore";
 import { history } from "../..";
 
-const sleep = () => new Promise(resolve => setTimeout(resolve, 1000));
+const sleep = () => new Promise(resolve => setTimeout(resolve, 0));
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -111,8 +111,13 @@ const Projects = {
     create: (project: any) => requests.postForm<Project>('projects', createFormData(project)),
     update: (project: any) => requests.putForm<Project>('projects', createFormData(project)),
     delete: (id: number) => requests.delete<void>(`projects/${id}`),
+    listMembers: (id: number) => requests.get(`projects/${id}/members`),
+    listActions: (id: number, params: URLSearchParams) => requests.get(`projects/${id}/actions`, params),
+    listRecentActions: (id: number) => requests.get(`projects/${id}/recentActions`),
+    listTickets: (id: number, params: URLSearchParams) => requests.get(`projects/${id}/tickets`, params),
+    listRecentTickets: (id: number) => requests.get(`projects/${id}/recentTickets`),
+    listPhases: (id: number) => requests.get(`projects/${id}/tickets`),
 }
-
 
 const agent = {
     Account,

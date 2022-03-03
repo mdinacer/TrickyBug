@@ -3,10 +3,17 @@ import { useAppDispatch, useAppSelector } from "../store/configureStore";
 import { fetchCurrentUser, signInUser } from "../slices/accountSlice";
 import Header from "../components/Header/Header";
 import { Route, Routes } from "react-router-dom";
+import HomePage from "../pages/Home/HomePage";
 
-const Login = lazy(() => import("../pages/account/Login"));
-const Register = lazy(() => import("../pages/account/Register"));
-const ConfirmEmail = lazy(() => import("../pages/account/ConfirmEmail"));
+const PrivateRoute = lazy(() => import("../layout/PrivateRoute"));
+const Login = lazy(() => import("../pages/account/LoginPage"));
+const Register = lazy(() => import("../pages/account/RegisterPage"));
+const ConfirmEmail = lazy(() => import("../pages/account/ConfirmEmailPage"));
+const Profile = lazy(() => import("../pages/account/ProfilePage"));
+const Projects = lazy(() => import("../pages/projects/ProjectsPage"));
+const ProjectDetails = lazy(
+  () => import("../pages/projects/ProjectDetailsPage")
+);
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -39,35 +46,71 @@ function App() {
   }
 
   return (
-    <>
+    <div className="select-none">
       <Header />
       <Routes>
-        <Route
-          path="/login"
-          element={
-            <Suspense fallback={<div />}>
-              <Login />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <Suspense fallback={<div />}>
-              <Register />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/account/verifyEmail"
-          element={
-            <Suspense fallback={<div />}>
-              <ConfirmEmail />
-            </Suspense>
-          }
-        />
+        <Route path="/">
+          <Route index element={<HomePage />} />
+          <Route path="projects">
+            <Route
+              index
+              element={
+                <Suspense fallback={<div />}>
+                  <Projects />
+                </Suspense>
+              }
+            />
+            <Route path=":slug">
+              <Route
+                index
+                element={
+                  <Suspense fallback={<div />}>
+                    <ProjectDetails />
+                  </Suspense>
+                }
+              />
+            </Route>
+          </Route>
+
+          <Route path="account">
+            <Route
+              path="login"
+              element={
+                <Suspense fallback={<div />}>
+                  <Login />
+                </Suspense>
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <Suspense fallback={<div />}>
+                  <Register />
+                </Suspense>
+              }
+            />
+            <Route
+              path="verifyEmail"
+              element={
+                <Suspense fallback={<div />}>
+                  <ConfirmEmail />
+                </Suspense>
+              }
+            />
+            <Route
+              index
+              element={
+                <Suspense fallback={<div />}>
+                  <PrivateRoute>
+                    <Profile />
+                  </PrivateRoute>
+                </Suspense>
+              }
+            />
+          </Route>
+        </Route>
       </Routes>
-    </>
+    </div>
   );
 }
 

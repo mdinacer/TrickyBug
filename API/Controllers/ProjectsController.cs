@@ -57,6 +57,17 @@ public class ProjectsController : BaseApiController
     {
         return HandleResult(await Mediator.Send(new ListTickets.Query { Id = id, Params = ticketParams }));
     }
+    [HttpGet("{id}/recentTickets")]
+    public async Task<IActionResult> ListRecentTickets(string id)
+    {
+        return HandleResult(await Mediator.Send(new ListRecentTikcets.Query { Id = id }));
+    }
+    
+    [HttpGet("{id}/recentActions")]
+    public async Task<IActionResult> ListRecentActions(string id)
+    {
+        return HandleResult(await Mediator.Send(new ListRecentActions.Query { Id = id}));
+    }
 
     [HttpGet("{id}/actions")]
     public async Task<IActionResult> ListActions(string id, [FromQuery] PaginationParams pagingParams)

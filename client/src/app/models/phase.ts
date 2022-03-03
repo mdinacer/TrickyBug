@@ -1,4 +1,4 @@
-export interface Phase {
+export interface ProjectPhase {
     id: number;
     title: string;
     description: string;

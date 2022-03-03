@@ -1,5 +1,6 @@
 import { ProjectAction } from "./action";
 import { ProjectMember } from "./member";
+import { ProjectPhase } from "./phase";
 import { ProjectTicket } from "./ticket";
 
 export interface Project {
@@ -12,6 +13,8 @@ export interface Project {
     isActive: boolean;
     photoId: string;
     photo: string;
+    ticketsCount: number,
+    actualPhase: string
 }
 
 export interface ProjectDetails {
@@ -25,8 +28,11 @@ export interface ProjectDetails {
     photoId: string;
     photo: string;
     tickets: ProjectTicket[];
+    phases: ProjectPhase[];
     actions: ProjectAction[];
     members: ProjectMember[];
+    ticketsCount: number,
+    actualPhase: string
 }
 
 export interface CreateProject {

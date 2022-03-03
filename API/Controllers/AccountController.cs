@@ -38,13 +38,13 @@ public class AccountController : ControllerBase
             BaseAddress = new Uri("https://graph.facebook.com")
         };
     }
-    
+
     [AllowAnonymous]
     [HttpGet("listAll")]
     public async Task<ActionResult<List<UserFullDto>>> ListUsers()
     {
         var list = new List<UserFullDto>();
-        
+
         foreach (var user in _userManager.Users)
         {
             list.Add(new UserFullDto
@@ -54,7 +54,7 @@ public class AccountController : ControllerBase
                 Username = user.UserName
             });
         }
-        
+
         return list;
     }
 
@@ -67,10 +67,10 @@ public class AccountController : ControllerBase
 
         if (user == null) return Unauthorized("Invalid email");
 
-       // if (user.UserName == "bob") 
-            user.EmailConfirmed = true;
+        // if (user.UserName == "bob") 
+        user.EmailConfirmed = true;
 
-       // if (!user.EmailConfirmed) return Unauthorized("Email not confirmed");
+        // if (!user.EmailConfirmed) return Unauthorized("Email not confirmed");
 
         var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
@@ -85,7 +85,7 @@ public class AccountController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("register")]
-    public async Task<ActionResult<UserDto>> Register([FromForm]RegisterDto registerDto)
+    public async Task<ActionResult<UserDto>> Register([FromForm] RegisterDto registerDto)
     {
         if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
         {
@@ -264,7 +264,7 @@ public class AccountController : ControllerBase
             DisplayName = user.DisplayName,
             //Image = user?.Photos?.FirstOrDefault(x => x.IsMain)?.Url,
             Token = await _tokenService.CreateToken(user),
-            Username = user.UserName
+            Username = user.UserName,
         };
     }
 }

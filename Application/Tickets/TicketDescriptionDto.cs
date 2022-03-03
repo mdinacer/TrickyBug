@@ -22,7 +22,7 @@ public class CreateTicketDescriptionDto
     public IssueOccurrence Occurrence { get; set; }
     public IssueSeverity Severity { get; set; }
     public IssueNature Nature { get; set; }
-    public IFormFile Photo { get; set; }
+    public IFormFile? Photo { get; set; }
    // public int TicketId { get; set; }
 }
 

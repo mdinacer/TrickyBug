@@ -14,4 +14,18 @@ public class Project
     public List<ProjectTicket> Tickets { get; set; } = new();
     public List<ProjectAction> Actions { get; set; } = new();
     public List<ProjectMember> Members { get; set; } = new();
+    public List<ProjectPhase> Phases { get; set; } = new();
+
+    public int GetTicketsCount()
+    {
+        return Tickets?.Count() ?? 0;
+    }
+
+    public string? GetActualPhase()
+    {
+        var lastPhase = Phases.LastOrDefault();
+        return lastPhase?.Title;
+    }
 }
+
+

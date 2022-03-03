@@ -22,7 +22,7 @@ export default function Header() {
     <div className="w-screen h-auto py-2 bg-slate-800 fixed z-10 top-0 left-0 text-white flex items-center justify-between">
       <div className="container px-5 mx-auto flex items-center justify-between">
         <div>
-          <p className=" font-Oswald text-3xl">TrickyBug</p>
+          <p className=" font-Oswald text-3xl">TrickyBugg</p>
         </div>
 
         {!isMobile && (
@@ -95,12 +95,12 @@ export default function Header() {
             </div>
           ) : (
             <Link
-              to={"/login"}
+              to={loginElement.path}
               className={
                 " font-Oswald text-lg uppercase font-thin bg-orange-500 py-1 px-3 rounded-md"
               }
             >
-              LOGIN
+              {loginElement.title}
             </Link>
           ))}
 
@@ -179,10 +179,10 @@ export default function Header() {
               ))}
               <li className="list-item">
                 <Link
-                  to={"/login"}
+                  to={loginElement.path}
                   className={"font-Oswald text-4xl uppercase font-thin"}
                 >
-                  Login
+                  {loginElement.title}
                 </Link>
               </li>
             </ul>
@@ -200,3 +200,4 @@ const links = [
   { title: "About", path: "/about" },
   { title: "Contact", path: "/contact" },
 ];
+const loginElement = { title: "Login", path: "/account/login" };

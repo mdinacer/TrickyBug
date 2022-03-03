@@ -41,20 +41,31 @@ public class Create
 
         public async Task<Result<PhaseDto>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var project = await _context.Projects.FindAsync(request.ProjectId);
+            var project = await _context.Projects
+                .Include(p => p.Phases)
+                .SingleOrDefaultAsync(p=> p.Id== request.ProjectId, cancellationToken);
 
             if (project == null) return Result<PhaseDto>.Failure("Unable to find project");
 
             var user = await _context.Users.FirstOrDefaultAsync(x => 
-                x.UserName == _userAccessor.GetUsername());
+                x.UserName == _userAccessor.GetUsername(), cancellationToken);
             
             if (user == null) return Result<PhaseDto>.Failure("You must be authenticated");
             
             // TODO: Check if user is Admin or Project Member
 
+            
+
             var phase = _mapper.Map<ProjectPhase>(request.Phase);
             phase.Project = project;
             phase.StartDate = DateTime.UtcNow;
+            
+            var lastPhase = project.Phases.LastOrDefault();
+
+            if (lastPhase != null)
+            {
+                lastPhase.EndDate = DateTime.UtcNow;
+            }
             
             _context.Phases.Add(phase);
 

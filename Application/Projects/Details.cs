@@ -31,6 +31,11 @@ public class Details
         public async Task<Result<ProjectDetailsDto>> Handle(Query request, CancellationToken cancellationToken)
         {
             var project = await _context.Projects
+                .Include(p => p.Members)
+                .ThenInclude(m => m.User)
+                .Include(p => p.Phases)
+                .Include(p => p.Actions)
+                .Include(p => p.Photo)
                 .FirstOrDefaultAsync(x => x.Slug == request.Slug, cancellationToken);
 
             return Result<ProjectDetailsDto>.Success(_mapper.Map<ProjectDetailsDto>(project));
