@@ -196,7 +196,7 @@ export default function Header() {
 const links = [
   { title: "Home", path: "/" },
   { title: "Projects", path: "/projects" },
-  { title: "Recent Bugs", path: "/recent" },
+  { title: "Tickets", path: "/tickets" },
   { title: "About", path: "/about" },
   { title: "Contact", path: "/contact" },
 ];

@@ -70,7 +70,7 @@ export const accountSlice = createSlice({
         builder.addCase(fetchCurrentUser.rejected, (state) => {
             state.user = null;
             localStorage.removeItem('user');
-            history.push('/login');
+            history.push('/account/login');
         });
 
         builder.addCase(signInUser.rejected, (state, action) => {

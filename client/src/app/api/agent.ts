@@ -4,8 +4,9 @@ import { Project } from "../models/project";
 import { AppUser } from "../models/user";
 import { store } from "../store/configureStore";
 import { history } from "../..";
+import { ProjectTicket } from "../models/ticket";
 
-const sleep = () => new Promise(resolve => setTimeout(resolve, 0));
+const sleep = () => new Promise(resolve => setTimeout(resolve, 1000));
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -111,17 +112,27 @@ const Projects = {
     create: (project: any) => requests.postForm<Project>('projects', createFormData(project)),
     update: (project: any) => requests.putForm<Project>('projects', createFormData(project)),
     delete: (id: number) => requests.delete<void>(`projects/${id}`),
-    listMembers: (id: number) => requests.get(`projects/${id}/members`),
-    listActions: (id: number, params: URLSearchParams) => requests.get(`projects/${id}/actions`, params),
-    listRecentActions: (id: number) => requests.get(`projects/${id}/recentActions`),
-    listTickets: (id: number, params: URLSearchParams) => requests.get(`projects/${id}/tickets`, params),
-    listRecentTickets: (id: number) => requests.get(`projects/${id}/recentTickets`),
-    listPhases: (id: number) => requests.get(`projects/${id}/tickets`),
+    listMembers: (id: string) => requests.get(`projects/${id}/members`),
+    listActions: (id: string, params: URLSearchParams) => requests.get(`projects/${id}/actions`, params),
+    listRecentActions: (id: string) => requests.get(`projects/${id}/recentActions`),
+    listTickets: (id: string, params: URLSearchParams) => requests.get(`projects/${id}/tickets`, params),
+    listRecentTickets: (id: string) => requests.get(`projects/${id}/recentTickets`),
+    listPhases: (id: string) => requests.get(`projects/${id}/phases`),
+    listRecentPhases: (id: string) => requests.get(`projects/${id}/recentPhases`),
+}
+
+const Tickets = {
+    list: (params: URLSearchParams) => requests.get<ProjectTicket[]>('tickets', params),
+    details: (id: number) => requests.get<ProjectTicket>(`tickets/${id}`),
+    create: (ticket: any) => requests.postForm<ProjectTicket>('tickets', createFormData(ticket)),
+    update: (ticket: any) => requests.putForm<ProjectTicket>('tickets', createFormData(ticket)),
+    delete: (id: number) => requests.delete<void>(`tickets/${id}`),
 }
 
 const agent = {
     Account,
     Projects,
+    Tickets
 }
 
 export default agent;

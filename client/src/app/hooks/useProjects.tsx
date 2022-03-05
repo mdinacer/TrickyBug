@@ -11,8 +11,7 @@ export default function useProjects() {
     if (!projectsLoaded) {
       dispatch(fetchProjectsAsync());
     }
-  }, [dispatch, projectsLoaded]);
-
+  }, [dispatch, projects, projectsLoaded]);
   return {
     projects,
     projectsLoaded,

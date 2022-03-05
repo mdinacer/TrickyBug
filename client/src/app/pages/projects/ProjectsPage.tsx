@@ -1,4 +1,5 @@
 import { lazy, useState } from "react";
+import LoadingComponent from "../../components/common/LoadingComponent";
 import useProjects from "../../hooks/useProjects";
 import { SortOptions } from "../../models/dataLists";
 
@@ -11,7 +12,14 @@ const ProjectsList = lazy(
 
 export default function ProjectsPage() {
   const [selectedSort, setSelectedSort] = useState(SortOptions[0]);
-  const { projects } = useProjects();
+  const { projects, projectsLoaded } = useProjects();
+
+  if (!projectsLoaded)
+    return (
+      <div className="py-20 w-screen h-screen bg-slate-300 flex items-center justify-center">
+        <LoadingComponent message="Loading Projects..." />
+      </div>
+    );
 
   return (
     <div className="h-full min-h-screen w-screen bg-slate-300 py-20 flex">

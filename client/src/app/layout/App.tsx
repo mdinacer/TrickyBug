@@ -1,30 +1,23 @@
 import React, { lazy, Suspense, useCallback, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../store/configureStore";
-import { fetchCurrentUser, signInUser } from "../slices/accountSlice";
+import { useAppDispatch } from "../store/configureStore";
+import { fetchCurrentUser } from "../slices/accountSlice";
 import Header from "../components/Header/Header";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "../pages/Home/HomePage";
-
-const PrivateRoute = lazy(() => import("../layout/PrivateRoute"));
-const Login = lazy(() => import("../pages/account/LoginPage"));
-const Register = lazy(() => import("../pages/account/RegisterPage"));
-const ConfirmEmail = lazy(() => import("../pages/account/ConfirmEmailPage"));
-const Profile = lazy(() => import("../pages/account/ProfilePage"));
-const Projects = lazy(() => import("../pages/projects/ProjectsPage"));
-const ProjectDetails = lazy(
-  () => import("../pages/projects/ProjectDetailsPage")
-);
+import LoadingComponent from "../components/common/LoadingComponent";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.account);
 
   const initApp = useCallback(async () => {
     try {
+      setLoading(true);
       await dispatch(fetchCurrentUser());
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }, [dispatch]);
 
@@ -32,18 +25,7 @@ function App() {
     initApp().then(() => setLoading(false));
   }, [initApp]);
 
-  async function tryLogin() {
-    try {
-      await dispatch(
-        signInUser({
-          email: "bob@test.com",
-          password: "Pa$$w0rd",
-        })
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  if (loading) return <LoadingComponent message="Initializing Application" />;
 
   return (
     <div className="select-none">
@@ -56,7 +38,7 @@ function App() {
               index
               element={
                 <Suspense fallback={<div />}>
-                  <Projects />
+                  <ProjectsPage />
                 </Suspense>
               }
             />
@@ -65,7 +47,50 @@ function App() {
                 index
                 element={
                   <Suspense fallback={<div />}>
-                    <ProjectDetails />
+                    <ProjectDetailsPage />
+                  </Suspense>
+                }
+              />
+
+              <Route
+                path="phases"
+                element={
+                  <Suspense fallback={<div />}>
+                    <ProjectPhasesPage />
+                  </Suspense>
+                }
+              />
+
+              <Route
+                path="tickets"
+                element={
+                  <Suspense fallback={<div />}>
+                    <ProjectTicketsPage />
+                  </Suspense>
+                }
+              />
+            </Route>
+          </Route>
+
+          <Route path="tickets">
+            <Route
+              index
+              element={
+                <Suspense
+                  fallback={
+                    <LoadingComponent message="Loading Tickets please wait" />
+                  }
+                >
+                  <TicketsPage />
+                </Suspense>
+              }
+            />
+            <Route path=":id">
+              <Route
+                index
+                element={
+                  <Suspense fallback={<div />}>
+                    <TicketDetailsPage />
                   </Suspense>
                 }
               />
@@ -113,5 +138,28 @@ function App() {
     </div>
   );
 }
+
+const PrivateRoute = lazy(() => import("../layout/PrivateRoute"));
+const Login = lazy(() => import("../pages/account/LoginPage"));
+const Register = lazy(() => import("../pages/account/RegisterPage"));
+const ConfirmEmail = lazy(() => import("../pages/account/ConfirmEmailPage"));
+const Profile = lazy(() => import("../pages/account/ProfilePage"));
+const ProjectsPage = lazy(() => import("../pages/projects/ProjectsPage"));
+const ProjectDetailsPage = lazy(
+  () => import("../pages/projects/ProjectDetailsPage")
+);
+
+const ProjectPhasesPage = lazy(
+  () => import("../pages/projects/ProjectPhasesPage")
+);
+
+const ProjectTicketsPage = lazy(
+  () => import("../pages/projects/ProjectTicketsPage")
+);
+
+const TicketsPage = lazy(() => import("../pages/Tickets/TicketsPage"));
+const TicketDetailsPage = lazy(
+  () => import("../pages/Tickets/TicketDetailsPage")
+);
 
 export default App;

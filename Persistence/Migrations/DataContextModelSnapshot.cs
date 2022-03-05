@@ -212,7 +212,7 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsActive")
@@ -380,7 +380,6 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhotoId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Severity")
@@ -624,7 +623,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Models.ProjectPhase", b =>
                 {
                     b.HasOne("Domain.Models.Project", "Project")
-                        .WithMany()
+                        .WithMany("Phases")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -691,9 +690,7 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Models.Photo", "Photo")
                         .WithMany()
-                        .HasForeignKey("PhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PhotoId");
 
                     b.HasOne("Domain.Models.ProjectTicket", "Ticket")
                         .WithOne("Description")
@@ -791,6 +788,8 @@ namespace Persistence.Migrations
                     b.Navigation("Actions");
 
                     b.Navigation("Members");
+
+                    b.Navigation("Phases");
 
                     b.Navigation("Tickets");
                 });

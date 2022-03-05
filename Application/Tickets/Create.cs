@@ -23,7 +23,7 @@ public class Create
     {
         public CommandValidator()
         {
-           // RuleFor(x => x.Ticket).SetValidator(new CreateProjectValidator());
+            // RuleFor(x => x.Ticket).SetValidator(new CreateProjectValidator());
         }
     }
 
@@ -50,9 +50,9 @@ public class Create
 
             if (project == null) return Result<TicketDto>.Failure("Unable to find project");
 
-            var user = await _context.Users.FirstOrDefaultAsync(x => 
+            var user = await _context.Users.FirstOrDefaultAsync(x =>
                 x.UserName == _userAccessor.GetUsername());
-            
+
             if (user == null) return Result<TicketDto>.Failure("You must be authenticated");
 
             var ticket = _mapper.Map<ProjectTicket>(request.Ticket);
@@ -63,7 +63,7 @@ public class Create
             {
                 var description = _mapper.Map<TicketDescription>(request.Ticket.Description);
 
-                if (request.Ticket.Description.Photo  != null)
+                if (request.Ticket.Description.Photo != null)
                 {
                     var photoUploadResult = await _photoAccessor.AddPhoto(request.Ticket.Description.Photo);
                     description.Photo = new Photo
@@ -75,17 +75,17 @@ public class Create
 
                 ticket.Description = description;
             }
-            
-            _context.Tickets.Add(ticket);
-            
-           
 
-           var result = await _context.SaveChangesAsync(cancellationToken) > 0;
+            _context.Tickets.Add(ticket);
+
+
+
+            var result = await _context.SaveChangesAsync(cancellationToken) > 0;
 
             var ticketResult = _mapper.Map<TicketDto>(ticket);
 
             return !result
-                ? Result<TicketDto>.Failure("Failed to create ticker")
+                ? Result<TicketDto>.Failure("Failed to create ticket")
                 : Result<TicketDto>.Success(ticketResult);
         }
     }

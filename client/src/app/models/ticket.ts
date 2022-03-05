@@ -1,5 +1,7 @@
+import { ProjectAction } from "./action";
 import { TicketComment } from "./comment";
 import { TicketPriority, TicketStatus } from "./enums";
+import { ProjectPhase } from "./phase";
 import { CreateDescription, TicketDescription, UpdateDescription } from "./ticketDescription";
 
 
@@ -10,27 +12,31 @@ export interface ProjectTicket {
     body: string;
     priority: TicketPriority;
     projectId: string;
-    description: TicketDescription;
+    project: string;
+    //description: TicketDescription;
     authorId: string;
     author: string;
     status: TicketStatus;
 }
 
-export interface TicketFull {
+export interface ProjectTicketFull {
     id: number;
     projectId: string;
+    project: string;
     authorId: string;
     author: string;
     creationDate: string;
     subject: string;
     body: string;
-    priority: string;
+    priority: TicketPriority;
     assignedMemberId: number | null;
     assignedMember: string;
     descriptionId: number | null;
     status: TicketStatus;
     description: TicketDescription;
     comments: TicketComment[];
+    actions?: ProjectAction[];
+    phase?: ProjectPhase
 }
 
 export interface CreateTicket {

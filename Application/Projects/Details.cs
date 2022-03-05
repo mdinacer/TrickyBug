@@ -34,8 +34,9 @@ public class Details
                 .Include(p => p.Members)
                 .ThenInclude(m => m.User)
                 .Include(p => p.Phases)
-                .Include(p => p.Actions)
                 .Include(p => p.Photo)
+                .Include(p => p.Actions)
+                .Include(p => p.Tickets)
                 .FirstOrDefaultAsync(x => x.Slug == request.Slug, cancellationToken);
 
             return Result<ProjectDetailsDto>.Success(_mapper.Map<ProjectDetailsDto>(project));

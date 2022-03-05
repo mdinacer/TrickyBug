@@ -1,0 +1,23 @@
+import { useEffect } from "react";
+import { fetchTicketsAsync, ticketSelectors } from "../slices/ticketSlice";
+import { useAppDispatch, useAppSelector } from "../store/configureStore";
+
+export default function useProjects() {
+  const tickets = useAppSelector(ticketSelectors.selectAll);
+  const { ticketsLoaded, metaData, ticketParams } = useAppSelector(
+    (state) => state.ticket
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!ticketsLoaded) {
+      dispatch(fetchTicketsAsync());
+    }
+  }, [dispatch, tickets, ticketsLoaded]);
+  return {
+    tickets,
+    ticketParams,
+    ticketsLoaded,
+    metaData,
+  };
+}

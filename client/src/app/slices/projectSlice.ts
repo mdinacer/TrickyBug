@@ -8,7 +8,7 @@ import { RootState } from "../store/configureStore";
 interface ProjectState {
     projectsLoaded: boolean;
     status: string;
-    projectParams: ProjectParams;
+    projectParams: ProjectParams; 
     metaData: MetaData | null;
 }
 
@@ -58,13 +58,10 @@ export const fetchProjectAsync = createAsyncThunk<Project, string>(
     }
 )
 
-
 function initParams() {
     return {
         pageNumber: 1,
         pageSize: 8,
-        isLead: null,
-        isMember: null,
     }
 }
 

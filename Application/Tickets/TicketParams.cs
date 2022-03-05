@@ -7,7 +7,7 @@ public class TicketParams : PaginationParams
 {
     public TicketStatus? Status { get; set; }
     public TicketPriority? Priority { get; set; }
-    public IssueOccurrence? Occurrence { get; set; }
-    public IssueSeverity? Severity { get; set; }
-    public IssueNature? Nature { get; set; }
+    public DateTime? StartDate { get; set; }
+    public DateTime? EndDate { get; set; }
+    public string? SearchTerm { get; set; }
 }

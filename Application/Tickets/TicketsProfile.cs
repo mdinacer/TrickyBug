@@ -8,11 +8,13 @@ public class TicketsProfile : Profile
     public TicketsProfile()
     {
         CreateMap<ProjectTicket, TicketDto>()
-            .ForMember(d => d.Author, o => { o.MapFrom(s => s.Author.DisplayName); });
+            .ForMember(d => d.Author, o => { o.MapFrom(s => s.Author.DisplayName); })
+            .ForMember(d => d.Project, o => { o.MapFrom(s => s.Project.Title); });
         //.ForMember(d => d.Priority, o => { o.MapFrom(s => s.Priority.ToString()); });
         CreateMap<ProjectTicket, TicketFullDto>()
-            .ForMember(d => d.Description, o => { o.MapFrom(s => s.Description.Nature.ToString()); })
-            .ForMember(d => d.Author, o => { o.MapFrom(s => s.Author.DisplayName); });
+            .ForMember(d => d.Author, o => { o.MapFrom(s => s.Author.DisplayName); })
+            .ForMember(d => d.AssignedMember, o => { o.MapFrom(s => s.AssignedMember.User.DisplayName); })
+            .ForMember(d => d.Project, o => { o.MapFrom(s => s.Project.Title); });
         CreateMap<CreateTicketDto, ProjectTicket>()
             .ForMember(d => d.Description, o => { o.Ignore(); });
         CreateMap<UpdateTicketDto, ProjectTicket>()

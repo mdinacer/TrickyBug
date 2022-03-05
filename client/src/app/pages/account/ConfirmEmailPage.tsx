@@ -67,7 +67,7 @@ export default function ConfirmEmailPage() {
             <button
               type="button"
               className="mx-auto py-1 px-5 rounded-md bg-green-600 text-white"
-              onClick={() => navigate("/login", { state: { email } })}
+              onClick={() => navigate("/account/login", { state: { email } })}
             >
               <p className="font-Montserrat text-base font-bold text-white uppercase">
                 Login

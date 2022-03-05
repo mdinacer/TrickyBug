@@ -9,6 +9,11 @@ module.exports = {
       Island: ["'Island Moments'", "sans-serif"],
       CinzelDeco: ["'Cinzel Decorative'", "sans-serif"],
     },
+    animation: {
+      "spin-slow": "spin 2s linear infinite",
+      "spin-normal": "spin 1.5s linear infinite",
+      "spin-slow-reverse": "spin 1.75s linear reverse infinite",
+    },
   },
   plugins: [],
 };
