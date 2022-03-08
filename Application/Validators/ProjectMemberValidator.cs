@@ -7,7 +7,6 @@ public class ProjectMemberValidator: AbstractValidator<CreateProjectMemberDto>
 {
     public ProjectMemberValidator()
     {
-        RuleFor(x => x.Title).NotEmpty();
         RuleFor(x => x.Role).NotEmpty();
         // RuleFor(x => x.Date).NotEmpty();
         // RuleFor(x => x.Category).NotEmpty();

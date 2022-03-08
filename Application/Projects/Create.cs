@@ -50,9 +50,9 @@ public class Create
                 Description = request.Project.Description
             };
 
-            if (request.Project.Photo != null)
+            if (request.Project.File != null)
             {
-                var photoUploadResult = await _photoAccessor.AddPhoto(request.Project.Photo);
+                var photoUploadResult = await _photoAccessor.AddPhoto(request.Project.File);
                 project.Photo = new Photo
                 {
                     Url = photoUploadResult.Url,

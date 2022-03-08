@@ -43,7 +43,7 @@ public class Edit
             if (action == null) return Result<ActionDto>.Failure("Failed to find action");
             
             var user = await _context.Users.FirstOrDefaultAsync(x => 
-                x.UserName == _userAccessor.GetUsername());
+                x.UserName == _userAccessor.GetUsername(), cancellationToken: cancellationToken);
             
             if (user == null) return Result<ActionDto>.Failure("You must be authenticated");
             

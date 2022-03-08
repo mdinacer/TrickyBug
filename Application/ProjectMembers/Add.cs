@@ -14,6 +14,7 @@ public class Add
 {
     public class Command : IRequest<Result<Unit>>
     {
+        public string Id { get; set; }
         public CreateProjectMemberDto Member { get; set; }
     }
 
@@ -38,7 +39,7 @@ public class Add
 
         public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var project = await _context.Projects.FindAsync(request.Member.ProjectId);
+            var project = await _context.Projects.FindAsync(request.Id);
             var user = await _context.Users.FindAsync(request.Member.UserId);
 
             if (project == null) return Result<Unit>.Failure("Unable to find project");

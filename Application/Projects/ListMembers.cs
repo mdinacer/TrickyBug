@@ -31,7 +31,8 @@ public class ListMembers
             var members = await _context.ProjectMembers
                 .Include(p => p.User)
                 .Where(p => p.ProjectId == request.Id)
-                .OrderBy(d => d.User.DisplayName)
+                .OrderByDescending(d => d.IsLeader)
+                .ThenByDescending(d => d.User.DisplayName)
                 .ProjectTo<ProjectMemberDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

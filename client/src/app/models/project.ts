@@ -15,6 +15,8 @@ export interface Project {
     photo: string;
     ticketsCount: number,
     actualPhase: string
+    isLeader: boolean,
+    isMember: boolean
 }
 
 export interface ProjectDetails {
@@ -27,12 +29,14 @@ export interface ProjectDetails {
     isActive: boolean;
     photoId: string;
     photo: string;
-    tickets: ProjectTicket[];
-    phases: ProjectPhase[];
-    actions: ProjectAction[];
-    members: ProjectMember[];
+    // tickets: ProjectTicket[];
+    // phases: ProjectPhase[];
+    // actions: ProjectAction[];
+    // members: ProjectMember[];
     ticketsCount: number,
     actualPhase: string
+    isLeader: boolean,
+    isMember: boolean
 }
 
 export interface CreateProject {

@@ -8,26 +8,25 @@ import { RootState } from "../store/configureStore";
 interface ProjectState {
     projectsLoaded: boolean;
     status: string;
-    projectParams: ProjectParams; 
+    projectParams: ProjectParams;
     metaData: MetaData | null;
 }
 
-const projectsAdapter = createEntityAdapter<Project>();
+const projectsAdapter = createEntityAdapter<Project>({
+    selectId: (project) => project.id,
+    sortComparer: (a, b) => a.title.localeCompare(b.title),
+});
 
 export function getAxiosParams(projectParams: ProjectParams) {
     const params = new URLSearchParams();
     params.append("pageNumber", projectParams.pageNumber.toString());
     params.append("pageSize", projectParams.pageSize.toString());
-    // params.append("orderBy", projectParams.orderBy);
-    // if (projectParams.searchTerm) {
-    //     params.append("searchTerm", projectParams.searchTerm);
-    // }
+    params.append("orderBy", projectParams.orderBy);
+    if (projectParams.searchTerm) {
+        params.append("searchTerm", projectParams.searchTerm);
+    }
 
-    // if (projectParams.category && projectParams.category > 0) {
-    //     params.append("category", projectParams.category.toString());
-    // } else {
-    //     params.delete("category");
-    // }
+    params.append("isMember", String(projectParams.isMember));
 
     return params;
 }
@@ -61,7 +60,10 @@ export const fetchProjectAsync = createAsyncThunk<Project, string>(
 function initParams() {
     return {
         pageNumber: 1,
-        pageSize: 8,
+        pageSize: 6,
+        orderBy: "name",
+        searchTerm: null,
+        isMember: false
     }
 }
 
@@ -132,7 +134,7 @@ export const projectSlice = createSlice({
 
 
 export const projectSelectors = projectsAdapter
-    .getSelectors((state: RootState) => state.project);
+    .getSelectors<RootState>(state => state.project);
 
 export const {
     setProjectParams,

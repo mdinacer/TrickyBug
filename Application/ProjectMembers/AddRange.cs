@@ -31,11 +31,15 @@ public class AddRange
             var project = await _context.Projects.FindAsync(request.Id);
 
             if (project == null) return Result<Unit>.Failure("Unable to find project");
+            
+            
 
 
             var membersList = (from member in request.Members
                 where !_context.ProjectMembers.Any(pm => pm.ProjectId == project.Id && pm.UserId == member.UserId)
                 select _mapper.Map<ProjectMember>(member)).ToList();
+            
+            membersList.ForEach(m => m.ProjectId = project.Id);
 
             _context.ProjectMembers.AddRange(membersList);
 

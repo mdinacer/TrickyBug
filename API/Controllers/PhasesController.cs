@@ -23,12 +23,10 @@ public class PhasesController : BaseApiController
     {
         return HandleResult(await Mediator.Send(new Create.Command {ProjectId = id, Phase = phase }));
     }
-
-   
-
+    
     //Authorize(Policy = "IsActivityHost")]
-    [HttpPut]
-    public async Task<IActionResult> EditPhase([FromForm] UpdatePhaseDto phase)
+    [HttpPut()]
+    public async Task<IActionResult> EditPhase(UpdatePhaseDto phase)
     {
         return HandleResult(await Mediator.Send(new Edit.Command { Phase = phase }));
     }

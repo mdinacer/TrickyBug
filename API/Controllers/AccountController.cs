@@ -51,7 +51,8 @@ public class AccountController : ControllerBase
             {
                 Id = user.Id,
                 DisplayName = user.DisplayName,
-                Username = user.UserName
+                Username = user.UserName,
+                Title = user.Title
             });
         }
 
@@ -265,6 +266,7 @@ public class AccountController : ControllerBase
             //Image = user?.Photos?.FirstOrDefault(x => x.IsMain)?.Url,
             Token = await _tokenService.CreateToken(user),
             Username = user.UserName,
+            Title = user.Title
         };
     }
 }

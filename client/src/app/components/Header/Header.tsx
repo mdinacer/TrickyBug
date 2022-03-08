@@ -19,10 +19,13 @@ export default function Header() {
   }, [isMobile, open]);
 
   return (
-    <div className="w-screen h-auto py-2 bg-slate-800 fixed z-10 top-0 left-0 text-white flex items-center justify-between">
+    <div className="w-screen h-auto  bg-slate-800 fixed z-10 top-0 left-0 py-4 text-white flex items-center justify-between">
       <div className="container px-5 mx-auto flex items-center justify-between">
         <div>
-          <p className=" font-Oswald text-3xl">TrickyBugg</p>
+          <p className=" font-Oswald text-3xl">
+            <span className="font-thin uppercase">Tricky</span>
+            <span>Bugg</span>
+          </p>
         </div>
 
         {!isMobile && (
@@ -31,12 +34,12 @@ export default function Header() {
               <li
                 key={index}
                 className={`${
-                  pathname === link.path ? "text-orange-600" : "text-inherit"
+                  pathname === link.path ? "text-red-500" : "text-inherit"
                 } hover:scale-110 transition-all duration-300`}
               >
                 <Link
                   to={link.path}
-                  className={" font-Oswald text-lg uppercase font-thin"}
+                  className={" font-Oswald text-xl uppercase font-thin"}
                 >
                   {link.title}
                 </Link>
@@ -48,7 +51,7 @@ export default function Header() {
         {!isMobile &&
           (user ? (
             <div className="flex flex-row gap-x-5 items-center">
-              <Link to={"/profile"}>
+              <Link to={"/profile"} className={"px-5"}>
                 <div className=" flex flex-row items-center justify-center gap-x-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +67,7 @@ export default function Header() {
                       d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  <p className=" font-Oswald text-lg uppercase">
+                  <p className=" font-Oswald text-xl uppercase">
                     {user.displayName}
                   </p>
                 </div>
@@ -74,7 +77,7 @@ export default function Header() {
                 type="button"
                 onClick={() => dispatch(signOut())}
                 className={
-                  " font-Oswald text-lg uppercase font-thin bg-orange-500 py-1 px-3 rounded-md"
+                  " font-Oswald text-lg uppercase font-thin bg-red-500 py-1 px-3 rounded-md flex flex-row gap-x-2 items-center"
                 }
               >
                 <svg
@@ -91,13 +94,14 @@ export default function Header() {
                     d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                   />
                 </svg>
+                <p>Logout</p>
               </button>
             </div>
           ) : (
             <Link
               to={loginElement.path}
               className={
-                " font-Oswald text-lg uppercase font-thin bg-orange-500 py-1 px-3 rounded-md"
+                " font-Oswald text-lg uppercase font-thin bg-red-500 py-1 px-3 rounded-md"
               }
             >
               {loginElement.title}
@@ -110,7 +114,7 @@ export default function Header() {
             type="button"
             onClick={() => setOpen((prev) => !prev)}
             className={
-              " font-Oswald text-lg uppercase font-thin bg-orange-500 py-1 px-3 rounded-md"
+              " font-Oswald text-lg uppercase font-thin bg-red-500 py-1 px-3 rounded-md"
             }
           >
             <svg
@@ -148,7 +152,7 @@ export default function Header() {
               type="button"
               onClick={() => setOpen(false)}
               className={
-                "absolute bottom-0 right-0 m-5 font-Oswald text-lg uppercase font-thin bg-orange-500 py-1 px-3 rounded-md"
+                "absolute bottom-0 right-0 m-5 font-Oswald text-lg uppercase font-thin bg-red-500 py-1 px-3 rounded-md"
               }
             >
               <svg

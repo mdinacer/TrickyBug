@@ -20,6 +20,8 @@ public class ProjectDto
     public string Photo { get; set; }
     public int TicketsCount { get; set; }
     public string ActualPhase { get; set; }
+    public bool IsMember { get; set; }
+    public bool IsLeader { get; set; }
 
 
 }
@@ -35,10 +37,8 @@ public class ProjectDetailsDto
     public bool isActive { get; set; }
     public string PhotoId { get; set; }
     public string Photo { get; set; }
-    // public List<TicketDto> Tickets { get; set; } = new();
-    // public List<ActionDto> Actions { get; set; } = new();
-    // public List<ProjectMemberDto> Members { get; set; } = new();
-    // public List<PhaseDto> Phases { get; set; } = new();
+    public bool IsMember { get; set; }
+    public bool IsLeader { get; set; }
     public int TicketsCount { get; set; }
     public string ActualPhase { get; set; }
 }
@@ -49,7 +49,7 @@ public class CreateProjectDto
 
     [Required] public string Description { get; set; }
 
-    public IFormFile? Photo { get; set; }
+    public IFormFile? File { get; set; }
 }
 
 public class UpdateProjectDto
@@ -57,5 +57,5 @@ public class UpdateProjectDto
     public string Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
-    public IFormFile? Photo { get; set; }
+    public IFormFile? File { get; set; }
 }

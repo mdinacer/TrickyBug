@@ -1,8 +1,11 @@
+import { PencilAltIcon } from "@heroicons/react/solid";
 import { lazy, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import agent from "../../api/agent";
 import LoadingComponent from "../../components/common/LoadingComponent";
-import { Project } from "../../models/project";
+import ProjectForm from "../../components/projects/projectDetails/ProjectForm";
+import { ProjectDetails } from "../../models/project";
+import { useAppSelector } from "../../store/configureStore";
 
 const ProjectHeader = lazy(
   () => import("../../components/projects/projectDetails/ProjectHeader")
@@ -28,9 +31,18 @@ const ProjectActions = lazy(
 );
 
 export default function ProjectDetailsPage() {
+  const { user } = useAppSelector((state) => state.account);
   const { slug } = useParams<{ slug: string }>();
-  const [project, setProject] = useState<Project | undefined>(undefined);
+  const [project, setProject] = useState<ProjectDetails | undefined>(undefined);
   const [loading, setLoading] = useState(false);
+  const [isPermitted, setIsPermitted] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+
+  useEffect(() => {
+    if (user && project) {
+      setIsPermitted(user.roles.includes("Admin") || project.isLeader);
+    }
+  }, [project, user]);
 
   useEffect(() => {
     setLoading(true);
@@ -56,17 +68,28 @@ export default function ProjectDetailsPage() {
       </div>
     );
 
+  if (isEdit)
+    return (
+      <ProjectForm project={project} handleClose={() => setIsEdit(false)} />
+    );
+
   return (
     <div className="h-full min-h-screen w-screen bg-slate-300 pb-10 pt-20  flex">
-      {/* <img
-        src={project.photo}
-        alt={project.title}
-        className="object-cover object-center fixed top-0 left-0 bottom-0 right-0 w-full h-full"
-      /> */}
-
       <div className="container mx-auto flex flex-col rounded-md overflow-hidden flex-auto">
         <div className="flex-auto w-full flex flex-row h-full">
-          <div className="relative py-10 w-1/3 bg-slate-700   text-white flex flex-col">
+          <div className="relative py-5 w-1/3 bg-slate-700 rounded-md overflow-hidden text-white flex flex-col">
+            {isPermitted && (
+              <div className="absolute top-0 right-0 w-full flex justify-end p-1 ">
+                <button
+                  title="edit members"
+                  className=" ml-auto font-Montserrat text-sm uppercase h-12 w-12  py-1 px-2 text-white rounded-md"
+                  type="button"
+                  onClick={() => setIsEdit((prev) => !prev)}
+                >
+                  <PencilAltIcon className="h-8 w-8" />
+                </button>
+              </div>
+            )}
             <div className="h-1/3">
               <ProjectHeader project={project} />
             </div>
@@ -77,25 +100,28 @@ export default function ProjectDetailsPage() {
               <ProjectMembers projectId={project.id} />
             </div>
           </div>
-          <div className=" relative w-2/3 bg-slate-400 ">
-            <div className="h-1/3">
+          <div className=" relative w-2/3 px-5">
+            <div className="h-1/3 ">
               <ProjectPhases
                 projectId={project.id}
                 projectSlug={project.slug}
+                isPermitted={isPermitted}
               />
             </div>
 
-            <div className="h-1/3 py-5">
+            <div className="h-1/3  py-5">
               <ProjectTickets
                 projectId={project.id}
                 projectSlug={project.slug}
+                isPermitted={isPermitted}
               />
             </div>
 
-            <div className="h-1/3">
+            <div className="h-1/3 ">
               <ProjectActions
                 projectId={project.id}
                 projectSlug={project.slug}
+                isPermitted={isPermitted}
               />
             </div>
           </div>

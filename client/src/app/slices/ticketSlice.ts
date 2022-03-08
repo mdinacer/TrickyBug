@@ -12,7 +12,10 @@ interface TicketState {
     metaData: MetaData | null;
 }
 
-const ticketsAdapter = createEntityAdapter<ProjectTicket>();
+const ticketsAdapter = createEntityAdapter<ProjectTicket>({
+    selectId: (ticket) => ticket.id,
+    sortComparer: (a, b) => a.creationDate.localeCompare(b.creationDate),
+});
 
 export function getAxiosParams(ticketParams: TicketParams) {
     const params = new URLSearchParams();
@@ -78,7 +81,7 @@ function initParams() {
         orderBy: "date",
         searchTerm: null,
         pageNumber: 1,
-        pageSize: 10,
+        pageSize: 6,
     }
 }
 
@@ -149,7 +152,9 @@ export const ticketSlice = createSlice({
 
 
 export const ticketSelectors = ticketsAdapter
-    .getSelectors((state: RootState) => state.ticket);
+    .getSelectors<RootState>(
+        (state) => state.ticket
+    )
 
 export const {
     setTicketParams,

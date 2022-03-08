@@ -1,3 +1,4 @@
+import { PencilIcon } from "@heroicons/react/solid";
 import { lazy, useEffect, useState } from "react";
 import agent from "../../../api/agent";
 import { ProjectMember } from "../../../models/member";
@@ -28,8 +29,8 @@ export default function ProjectMembers({ projectId }: Props) {
   }, [loaded, projectId]);
 
   return (
-    <div className="max-w-sm mx-auto my-10 mt-auto flex-initial w-full">
-      <p className=" font-Oswald text-lg font-bold uppercase underline underline-offset-1 pb-3">
+    <div className="max-w-md mx-auto my-10 mt-auto flex-initial w-full">
+      <p className="font-Oswald text-3xl pb-4 font-thin uppercase underline-offset-2">
         Team
       </p>
       {members.length > 0 ? (

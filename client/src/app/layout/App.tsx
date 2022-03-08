@@ -5,6 +5,7 @@ import Header from "../components/Header/Header";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "../pages/Home/HomePage";
 import LoadingComponent from "../components/common/LoadingComponent";
+import ProjectFormPage from "../pages/projects/ProjectFormPage";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -42,6 +43,14 @@ function App() {
                 </Suspense>
               }
             />
+            <Route
+              path="new"
+              element={
+                <Suspense fallback={<div />}>
+                  <ProjectFormPage />
+                </Suspense>
+              }
+            />
             <Route path=":slug">
               <Route
                 index
@@ -66,6 +75,15 @@ function App() {
                 element={
                   <Suspense fallback={<div />}>
                     <ProjectTicketsPage />
+                  </Suspense>
+                }
+              />
+
+              <Route
+                path="actions"
+                element={
+                  <Suspense fallback={<div />}>
+                    <ProjectActionsPage />
                   </Suspense>
                 }
               />
@@ -151,6 +169,10 @@ const ProjectDetailsPage = lazy(
 
 const ProjectPhasesPage = lazy(
   () => import("../pages/projects/ProjectPhasesPage")
+);
+
+const ProjectActionsPage = lazy(
+  () => import("../pages/projects/ProjectActionsPage")
 );
 
 const ProjectTicketsPage = lazy(

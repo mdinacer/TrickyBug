@@ -22,7 +22,7 @@ public class CreateTicketDescriptionDto
     public IssueOccurrence Occurrence { get; set; }
     public IssueSeverity Severity { get; set; }
     public IssueNature Nature { get; set; }
-    public IFormFile? Photo { get; set; }
+    public IFormFile? File { get; set; }
    // public int TicketId { get; set; }
 }
 
@@ -33,6 +33,6 @@ public class UpdateTicketDescriptionDto
     public IssueOccurrence Occurrence { get; set; }
     public IssueSeverity Severity { get; set; }
     public IssueNature Nature { get; set; }
-    public IFormFile Photo { get; set; }
+    public IFormFile? File { get; set; }
    // public int TicketId { get; set; }
 }

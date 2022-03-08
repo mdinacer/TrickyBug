@@ -31,15 +31,37 @@ public class Details
         public async Task<Result<ProjectDetailsDto>> Handle(Query request, CancellationToken cancellationToken)
         {
             var project = await _context.Projects
+                .Include(p => p.Tickets)
+                .Include(p => p.Phases)
                 .Include(p => p.Members)
                 .ThenInclude(m => m.User)
-                .Include(p => p.Phases)
                 .Include(p => p.Photo)
-                .Include(p => p.Actions)
-                .Include(p => p.Tickets)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Slug == request.Slug, cancellationToken);
 
-            return Result<ProjectDetailsDto>.Success(_mapper.Map<ProjectDetailsDto>(project));
+
+            if (project != null)
+            {
+                // var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x =>
+                //     x.UserName == _userAccessor.GetUsername(), cancellationToken);
+                //
+                // if (user == null) return Result<ProjectDetailsDto>.Failure("You must be authenticated");
+                //
+                // var projectMember = project.Members
+                //     .SingleOrDefault(pm => pm.ProjectId == project.Id && pm.UserId == user.Id);
+                //     
+                // var projectDto = _mapper.Map<ProjectDetailsDto>(project);
+                //
+                // if (projectMember != null)
+                // {
+                //     projectDto.IsMember = true;
+                //     projectDto.IsLeader = projectMember.IsLeader;
+                // }
+                var projectDto = _mapper.Map<ProjectDetailsDto>(project);
+                return Result<ProjectDetailsDto>.Success(projectDto);
+            }
+
+            return Result<ProjectDetailsDto>.Failure("Sorry, the requested project cannot be found.");
         }
     }
 }

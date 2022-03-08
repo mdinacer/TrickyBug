@@ -54,9 +54,8 @@ public class Create
             
             // TODO: Check if user is Admin or Project Member
 
-            
-
             var phase = _mapper.Map<ProjectPhase>(request.Phase);
+            
             phase.Project = project;
             phase.StartDate = DateTime.UtcNow;
             

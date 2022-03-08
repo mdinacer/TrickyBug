@@ -101,7 +101,7 @@ export default function ProjectTicketsPage() {
             {tickets.map((ticket) => (
               <li key={ticket.id} className="list-item">
                 <Link
-                  to={`/projects/${slug}/tickets/${ticket.id}`}
+                  to={`/tickets/${ticket.id}`}
                   className="flex flex-row justify-start border-b px-5  border-b-black hover:border-red-700 hover:text-white hover:bg-red-500 transition-all duration-200"
                 >
                   <p className="font-Oswald text-xl font-thin w-full max-w-xs">

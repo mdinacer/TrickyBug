@@ -15,6 +15,7 @@ public class PhaseDto
 
 public class CreatePhaseDto
 {
+   
     [Required]
     public string Title { get; set; }
     [Required]

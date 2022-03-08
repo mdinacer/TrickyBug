@@ -1,9 +1,10 @@
 import { lazy } from "react";
+import AppPagination from "../../components/common/AppPagination";
 import LoadingComponent from "../../components/common/LoadingComponent";
 import LoadingComponentSmall from "../../components/common/LoadingComponentSmall";
 import useTickets from "../../hooks/useTickets";
 import { TicketParams } from "../../models/ticketParams";
-import { setTicketParams } from "../../slices/ticketSlice";
+import { setPageNumber, setTicketParams } from "../../slices/ticketSlice";
 import { useAppDispatch } from "../../store/configureStore";
 
 const TicketsFilters = lazy(
@@ -12,7 +13,7 @@ const TicketsFilters = lazy(
 const TicketsGrid = lazy(() => import("../../components/Tickets/TicketsGrid"));
 
 export default function TicketsPage() {
-  const { tickets, ticketsLoaded, ticketParams } = useTickets();
+  const { tickets, ticketsLoaded, ticketParams, metaData } = useTickets();
   const dispatch = useAppDispatch();
 
   const handleChangParams = (value: TicketParams) => {
@@ -25,10 +26,20 @@ export default function TicketsPage() {
   return (
     <div className="h-full min-h-screen w-screen bg-slate-300 pb-10 pt-20 flex ">
       <div className="container flex flex-col mx-auto   flex-auto  w-full rounded-md overflow-hidden">
-        <p className="text-5xl flex-initial font-Oswald uppercase underline underline-offset-2 ">
+        <h1 className="flex-initial font-Oswald text-7xl pb-10  uppercase">
           Tickets
-        </p>
+        </h1>
         <TicketsFilters params={ticketParams} setParams={handleChangParams} />
+        {metaData && (
+          <div className="py-5 border-black w-full">
+            <AppPagination
+              metaData={metaData}
+              onPageChange={(page: number) =>
+                dispatch(setPageNumber({ pageNumber: page + 1 }))
+              }
+            />
+          </div>
+        )}
         <div className="flex-auto">
           {ticketsLoaded ? (
             <TicketsGrid tickets={tickets} />

@@ -42,12 +42,29 @@ public class Edit
 
         public async Task<Result<TicketDto>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var ticket = await _context.Tickets.Include(t => t.Description)
+            var ticket = await _context.Tickets
+                .Include(t => t.Description)
                 .SingleOrDefaultAsync(t => t.Id == request.Ticket.Id,  cancellationToken);
 
             if (ticket == null) return Result<TicketDto>.Failure("Failed to find ticket");
 
             _mapper.Map(request.Ticket, ticket);
+            
+            if (ticket.Description != null && request.Ticket.Description.File != null)
+            {
+                if (!string.IsNullOrEmpty(ticket.Description.PhotoId))
+                {
+                    await _photoAccessor.DeletePhoto(ticket.Description.PhotoId);
+                    ticket.Description.PhotoId = "";
+                }
+
+                var photoUploadResult = await _photoAccessor.AddPhoto(request.Ticket.Description.File);
+                ticket.Description.Photo = new Photo
+                {
+                    Url = photoUploadResult.Url,
+                    Id = photoUploadResult.PublicId
+                };
+            }
 
             var result = await _context.SaveChangesAsync(cancellationToken) > 0;
 

@@ -24,7 +24,7 @@ export default function ProjectPhasesList({ phases, projectSlug }: Props) {
                   Start:
                 </span>
                 <p className="font-Oswald text-xl font-thin  w-full max-w-xs">
-                  {format(new Date(phase.startDate), "dd/MM/YY")}
+                  {format(new Date(phase.startDate), "dd/MM/yy")}
                 </p>
               </div>
 
@@ -34,7 +34,7 @@ export default function ProjectPhasesList({ phases, projectSlug }: Props) {
                 </span>
                 {phase.endDate !== "0001-01-01T00:00:00" ? (
                   <p className="font-Oswald text-xl font-thin">
-                    {format(new Date(phase.endDate), "dd/MM/YY")}
+                    {format(new Date(phase.endDate), "dd/MM/yy")}
                   </p>
                 ) : (
                   <p className="font-Oswald text-xl uppercase font-thin ">

@@ -1,6 +1,6 @@
 import { ProjectAction } from "./action";
 import { TicketComment } from "./comment";
-import { TicketPriority, TicketStatus } from "./enums";
+import { IssueNature, IssueOccurrence, IssueSeverity, TicketPriority, TicketStatus } from "./enums";
 import { ProjectPhase } from "./phase";
 import { CreateDescription, TicketDescription, UpdateDescription } from "./ticketDescription";
 
@@ -47,6 +47,22 @@ export interface CreateTicket {
     description: CreateDescription;
 }
 
+export class InitialTicket {
+    subject = "";
+    body = "";
+    priority = TicketPriority.Low;
+    projectId = "";
+    file = "";
+    description = {
+        operatingSystem: "",
+        browser: "",
+        occurrence: null,
+        severity: null,
+        nature: null,
+    };
+
+}
+
 export interface UpdateTicket {
     id: number;
     subject: string;
@@ -59,4 +75,9 @@ export interface UpdateTicket {
 export interface UpdateTicketStatus {
     id: number;
     status: TicketStatus;
+}
+
+export interface UpdateTicketAssignedMemberStatus {
+    id: number;
+    assignedMemberId: string;
 }

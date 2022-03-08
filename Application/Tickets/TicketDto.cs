@@ -29,7 +29,7 @@ public class TicketFullDto
     public string Subject { get; set; }
     public string Body { get; set; }
     public string Priority { get; set; }
-    public int? AssignedMemberId { get; set; }
+    public string? AssignedMemberId { get; set; }
     public string? AssignedMember { get; set; }
     public int? DescriptionId { get; set; }
    
@@ -58,6 +58,8 @@ public class UpdateTicketDto
     public TicketPriority Priority { get; set; }
     public string ProjectId { get; set; }
     public UpdateTicketDescriptionDto Description { get; set; }
+    public string? AssignedMemberId { get; set; }
+    public TicketStatus Status { get; set; }
 }
 
 public class UpdateTicketStatusDto

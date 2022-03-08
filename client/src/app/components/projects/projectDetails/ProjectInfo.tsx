@@ -1,43 +1,41 @@
-import { Project } from "../../../models/project";
+import { ProjectDetails } from "../../../models/project";
+import LabelItem from "../../common/LabelItem";
 
 interface Props {
-  project: Project;
+  project: ProjectDetails;
 }
 
 export default function ProjectInfo({ project }: Props) {
   return (
-    <div className="relative max-w-sm mx-auto mb-5 flex-auto w-full">
-      <p className=" font-Oswald text-lg font-bold uppercase underline underline-offset-1">
+    <div className="relative max-w-md mx-auto mb-5 flex-auto w-full flex flex-col gap-3">
+      <p className=" font-Oswald text-3xl font-thin uppercase  underline-offset-2">
         info
       </p>
-      <p className=" font-Montserrat text-lg w-full flex flex-row justify-between items-end">
-        <span className="font-Montserrat text-sm">Creation Date</span>
-        <span className="font-Montserrat text-lg">
-          {new Date(project.creationDate).toLocaleDateString()}
-        </span>
-      </p>
-      <p className=" font-Montserrat text-lg w-full flex flex-row justify-between items-end ">
-        <span className="font-Montserrat text-sm">Last update</span>
-        <span className="font-Montserrat text-lg">
-          {project.lastUpdate
+      <LabelItem
+        title="Last update"
+        value={new Date(project.creationDate).toLocaleDateString()}
+      />
+
+      <LabelItem
+        title="Creation Date"
+        value={
+          project.lastUpdate
             ? new Date(project?.lastUpdate).toLocaleDateString()
-            : new Date(project?.creationDate).toLocaleDateString()}
-        </span>
-      </p>
-      <p className=" font-Montserrat text-lg w-full flex flex-row justify-between items-end">
-        <span className="font-Montserrat text-sm">Tickets Count</span>
-        <span className="font-Montserrat text-lg">
-          {`${project.ticketsCount} ${
-            project.ticketsCount > 1 ? "Tickets" : "Ticket"
-          }`}
-        </span>
-      </p>
-      <p className=" font-Montserrat text-lg w-full flex flex-row justify-between items-end">
-        <span className="font-Montserrat text-sm">Current Phase</span>
-        <span className="font-Montserrat text-lg">
-          {project.actualPhase ?? "Starting"}
-        </span>
-      </p>
+            : new Date(project?.creationDate).toLocaleDateString()
+        }
+      />
+
+      <LabelItem
+        title="Tickets Count"
+        value={`${project.ticketsCount} ${
+          project.ticketsCount > 1 ? "Tickets" : "Ticket"
+        }`}
+      />
+
+      <LabelItem
+        title="Current Phase"
+        value={project.actualPhase ?? "Starting"}
+      />
     </div>
   );
 }

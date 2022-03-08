@@ -18,6 +18,7 @@ export interface CreateDescription {
     occurrence: IssueOccurrence;
     severity: IssueSeverity;
     nature: IssueNature;
+    
 }
 
 export interface UpdateDescription {

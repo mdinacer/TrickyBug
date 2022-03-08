@@ -52,11 +52,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// app.UseEndpoints(endpoints =>
-// {
-//     endpoints.MapControllers();
-//     endpoints.MapHub<ChatHub>("/chat");
-//     endpoints.MapFallbackToController("Index", "Fallback");
-// });
+
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    //endpoints.MapHub<ChatHub>("/chat");
+    endpoints.MapFallbackToController("Index", "Fallback");
+});
 
 app.Run();

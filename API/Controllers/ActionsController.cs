@@ -21,7 +21,7 @@ public class ActionsController : BaseApiController
 
    
     [HttpPost("{id}")]
-    public async Task<IActionResult> CreateAction(string id,[FromForm] CreateActionDto actionDto)
+    public async Task<IActionResult> CreateAction(string id, CreateActionDto actionDto)
     {
         return HandleResult(await Mediator.Send(new Create.Command {ProjectId = id, Action = actionDto }));
     }
@@ -30,7 +30,7 @@ public class ActionsController : BaseApiController
 
     //Authorize(Policy = "IsActivityHost")]
     [HttpPut]
-    public async Task<IActionResult> EditAction([FromForm] UpdateActionDto actionDto)
+    public async Task<IActionResult> EditAction(UpdateActionDto actionDto)
     {
         return HandleResult(await Mediator.Send(new Edit.Command { Action = actionDto }));
     }

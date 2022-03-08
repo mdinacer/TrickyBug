@@ -51,7 +51,7 @@ public class Create
             if (project == null) return Result<TicketDto>.Failure("Unable to find project");
 
             var user = await _context.Users.FirstOrDefaultAsync(x =>
-                x.UserName == _userAccessor.GetUsername());
+                x.UserName == _userAccessor.GetUsername(), cancellationToken);
 
             if (user == null) return Result<TicketDto>.Failure("You must be authenticated");
 
@@ -63,9 +63,9 @@ public class Create
             {
                 var description = _mapper.Map<TicketDescription>(request.Ticket.Description);
 
-                if (request.Ticket.Description.Photo != null)
+                if (request.Ticket.Description.File != null)
                 {
-                    var photoUploadResult = await _photoAccessor.AddPhoto(request.Ticket.Description.Photo);
+                    var photoUploadResult = await _photoAccessor.AddPhoto(request.Ticket.Description.File);
                     description.Photo = new Photo
                     {
                         Url = photoUploadResult.Url,

@@ -7,7 +7,7 @@ export interface ProjectMember {
 }
 
 export interface CreateMember {
-    projectId: string;
+    //projectId: string;
     userId: string;
     isLeader: boolean;
     title: string;

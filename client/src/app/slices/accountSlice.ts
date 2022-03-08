@@ -7,11 +7,12 @@ import agent from "../api/agent";
 
 interface AccountState {
     user: AppUser | null,
-
+    isAdmin: boolean
 }
 
 const initialState: AccountState = {
     user: null,
+    isAdmin: false
 }
 
 export const signInUser = createAsyncThunk<AppUser, FieldValues>(
@@ -59,8 +60,9 @@ export const accountSlice = createSlice({
             const data = action.payload.token.split('.')[1];
             if (data) {
                 let claims = JSON.parse(atob(data));
-                let roles = claims["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+                let roles = claims["role"];
                 state.user = { ...action.payload, "role": typeof (roles) === "string" ? [roles] : roles };
+                state.isAdmin = roles.includes("Admin") ?? false;
             } else {
                 state.user = action.payload;
             }
@@ -84,6 +86,8 @@ export const accountSlice = createSlice({
                 let claims = JSON.parse(atob(data));
                 let roles = claims["role"];
                 state.user = { ...action.payload, "roles": typeof (roles) === "string" ? [roles] : roles };
+                state.isAdmin = roles.includes("Admin") ?? false;
+
             } else {
                 state.user = action.payload;
             }

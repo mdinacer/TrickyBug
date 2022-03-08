@@ -4,6 +4,7 @@ export interface AppUser {
     username: string;
     image: string;
     roles: string[]
+    title: string
 }
 
 export interface AppUserFull {
@@ -11,6 +12,7 @@ export interface AppUserFull {
     displayName: string;
     username: string;
     image: string;
+    title: string
 }
 
 export interface RegisterUser {
