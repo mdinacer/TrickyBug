@@ -9,12 +9,12 @@ namespace Application.Comments;
 
 public class List
 {
-    public class Query : IRequest<Result<PagedList<TicketCommentDto>>>
+    public class Query : IRequest<Result<List<TicketCommentDto>>>
     {
-        public PaginationParams Params { get; set; }
+        public int TicketId { get; set; }
     }
 
-    public class Handler : IRequestHandler<Query, Result<PagedList<TicketCommentDto>>>
+    public class Handler : IRequestHandler<Query, Result<List<TicketCommentDto>>>
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
@@ -25,18 +25,17 @@ public class List
             _context = context;
         }
 
-        public async Task<Result<PagedList<TicketCommentDto>>> Handle(Query request,
+        public async Task<Result<List<TicketCommentDto>>> Handle(Query request,
             CancellationToken cancellationToken)
         {
-            var query = _context.Comments
+            var comments = await _context.Comments
                 .Include(p => p.Author)
+                .Where(c => c.TicketId == request.TicketId)
                 .OrderBy(d => d.CreationDate)
                 .ProjectTo<TicketCommentDto>(_mapper.ConfigurationProvider)
-                .AsQueryable();
+                .ToListAsync();
 
-            return Result<PagedList<TicketCommentDto>>.Success(await PagedList<TicketCommentDto>.CreateAsync(query,
-                request.Params.PageNumber,
-                request.Params.PageSize));
+            return Result<List<TicketCommentDto>>.Success(comments);
         }
     }
 }

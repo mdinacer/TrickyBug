@@ -75,17 +75,17 @@ export default function ProjectActionsPage() {
 
   if (loading)
     return (
-      <div className="py-20 w-screen h-screen bg-slate-300 flex items-center justify-center">
+      <div className="py-20 w-screen h-screen bg-slate-300 flex  items-center justify-center">
         <LoadingComponent message={"Loading Tickets..."} />
       </div>
     );
   if (!project) return <div className="py-20">Not Found</div>;
 
   return (
-    <div className="h-full min-h-screen w-screen bg-slate-300 pb-10 pt-20 ">
+    <div className="h-full min-h-screen w-screen bg-slate-300 px-5 pb-10 pt-20 ">
       <div className="container mx-auto flex flex-col  w-full rounded-md overflow-hidden">
-        <div className=" w-full border-b-2 py-1 border-b-black flex flex-row justify-between items-end">
-          <h1 className="flex-initial text-5xl font-Oswald  uppercase">
+        <div className=" w-full border-b-2 py-1 border-b-black flex flex-col lg:flex-row justify-between lg:items-end">
+          <h1 className="flex-initial text-3xl lg:text-5xl font-Oswald  uppercase">
             {project.title}
           </h1>
           <p className="text-2xl font-Oswald uppercase font-thin">Tickets</p>
@@ -102,8 +102,8 @@ export default function ProjectActionsPage() {
           <ul className="list-none flex flex-col py-5 gap-y-5">
             {actions.map((action) => (
               <li key={action.id} className="list-item  ">
-                <div className="flex flex-row justify-start items-center px-5 border-b border-b-black">
-                  <p className="font-Oswald text-xl font-thin w-full max-w-[6rem]">
+                <div className="flex flex-col lg:flex-row justify-start lg:items-center px-5 border-b border-b-black">
+                  <p className="font-Oswald text-xl ml-auto lg:ml-0 font-thin w-full max-w-[6rem]">
                     {format(new Date(action.actionDate), "dd-MM-yy")}
                   </p>
                   <div className="">
@@ -114,7 +114,7 @@ export default function ProjectActionsPage() {
                       {action.description}
                     </p>
                   </div>
-                  <p className="ml-auto font-Oswald uppercase font-thin text-lg">
+                  <p className="lg:ml-auto font-Oswald uppercase font-thin text-lg">
                     {action.author}
                   </p>
                 </div>

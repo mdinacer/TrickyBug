@@ -16,16 +16,16 @@ export default function ProjectPhasesList({
     <ul className="list-none flex flex-col py-5 gap-y-6">
       {phases.map((phase) => (
         <li key={phase.id} className="list-item w-full">
-          <div className="flex flex-row justify-between border-b px-5  border-b-black ">
+          <div className="flex flex-col lg:flex-row justify-between border-b px-5  border-b-black ">
             <div className="py-1 max-w-sm w-full">
               <p className=" font-Montserrat text-lg uppercase ">
                 {`${phase.id} - ${phase.title}`}
               </p>
               <p className=" font-Montserrat text-sm">{phase.description}</p>
             </div>
-            <div className=" flex flex-row gap-x-10 items-center max-w-md w-full">
+            <div className=" flex flex-col lg:flex-row gap-x-10 items-center max-w-md w-full">
               <div className="flex flex-row gap-x-3 items-end max-w-md w-full">
-                <span className=" font-Montserrat text-base uppercase">
+                <span className=" font-Montserrat text-base uppercase min-w-[5rem]">
                   Start:
                 </span>
                 <p className="font-Oswald text-xl font-thin  w-full max-w-xs">
@@ -34,7 +34,7 @@ export default function ProjectPhasesList({
               </div>
 
               <div className="flex flex-row gap-x-3 items-end max-w-md w-full">
-                <span className=" font-Montserrat text-base uppercase">
+                <span className=" font-Montserrat text-base uppercase min-w-[5rem]">
                   End:
                 </span>
                 {phase.endDate !== "0001-01-01T00:00:00" ? (
@@ -49,7 +49,7 @@ export default function ProjectPhasesList({
               </div>
             </div>
 
-            <div className=" flex flex-row justify-between items-center gap-x-10 uppercase text-sm font-Montserrat">
+            <div className=" flex flex-row justify-between font-bold lg:font-normal  items-center gap-x-5 lg:gap-x-10 py-5 lg:py-0 uppercase text-base underline lg:no-underline underline-offset-2 lg:text-sm font-Montserrat">
               <Link
                 state={{ fromPhase: true }}
                 to={{

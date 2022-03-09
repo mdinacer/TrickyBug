@@ -7,10 +7,10 @@ public static class MiddlewareExtensions
     public static WebApplication AddMiddlewaresConfig(this WebApplication app)
     {
         app.UseMiddleware<ExceptionMiddleware>();
-        app.UseXContentTypeOptions();
-        app.UseReferrerPolicy(opt => opt.NoReferrer());
-        app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
-        app.UseXfo(opt => opt.Deny());
+        // app.UseXContentTypeOptions();
+        // app.UseReferrerPolicy(opt => opt.NoReferrer());
+        // app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
+        // app.UseXfo(opt => opt.Deny());
         // app.UseCsp(opt => opt
         //     .BlockAllMixedContent()
         //     .StyleSources(s => s.Self().CustomSources(

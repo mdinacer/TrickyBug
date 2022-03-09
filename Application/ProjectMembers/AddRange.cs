@@ -1,5 +1,4 @@
 using Application.Core;
-using Application.Projects;
 using AutoMapper;
 using Domain.Models;
 using MediatR;
@@ -32,9 +31,6 @@ public class AddRange
 
             if (project == null) return Result<Unit>.Failure("Unable to find project");
             
-            
-
-
             var membersList = (from member in request.Members
                 where !_context.ProjectMembers.Any(pm => pm.ProjectId == project.Id && pm.UserId == member.UserId)
                 select _mapper.Map<ProjectMember>(member)).ToList();
@@ -45,7 +41,6 @@ public class AddRange
 
             var result = await _context.SaveChangesAsync(cancellationToken) > 0;
 
-            var projectResult = _mapper.Map<ProjectDto>(project);
 
             return !result
                 ? Result<Unit>.Failure("Failed to create project")

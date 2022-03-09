@@ -54,15 +54,15 @@ public static class DataSeed
             foreach (var user in users.Where(user => !userManager.Users.Any(u => u.Email == user.Email)))
             {
                 await userManager.CreateAsync(user, "Pa$$w0rd");
-                switch (user.DisplayName)
+                switch (user.UserName)
                 {
-                    case "Bob":
+                    case "bob":
                         await userManager.AddToRoleAsync(user, "Admin");
                         break;
-                    case "Jane":
+                    case "jane":
                         await userManager.AddToRoleAsync(user, "Leader");
                         break;
-                    case "Tom":
+                    case "tom":
                         await userManager.AddToRoleAsync(user, "Developer");
                         break;
                     default:

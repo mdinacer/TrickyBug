@@ -1,10 +1,6 @@
-import { useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { useSearchParams } from "react-router-dom";
 import { TicketPriority, TicketStatus } from "../../models/enums";
 import { TicketParams } from "../../models/ticketParams";
-import { setTicketParams } from "../../slices/ticketSlice";
-import { useAppDispatch } from "../../store/configureStore";
 import { EnumToArray } from "../../util/enumToArray";
 import Dropdown from "../common/Dropdown";
 import AppTextInput from "../common/TextInput";
@@ -24,8 +20,11 @@ export default function TicketsFilters({ params, setParams }: Props) {
   }
 
   return (
-    <div className="w-full flex flex-row  justify-around items-center  py-5">
-      <form onSubmit={handleSubmit(handleSubmitData)} className="flex flex-row">
+    <div className="w-full flex flex-col lg:flex-row  justify-around items-center lg:gap-y-0 gap-y-3  lg:py-5">
+      <form
+        onSubmit={handleSubmit(handleSubmitData)}
+        className="flex flex-col lg:flex-row w-full gap-y-2"
+      >
         <AppTextInput
           control={control}
           label="search"

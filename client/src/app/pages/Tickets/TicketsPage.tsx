@@ -40,7 +40,7 @@ export default function TicketsPage() {
   //     return <LoadingComponent message="Loading Tickets please wait" />;
 
   return (
-    <div className="h-full min-h-screen w-screen bg-slate-300 pb-10 pt-20 flex ">
+    <div className="h-full min-h-screen w-screen bg-slate-300 pb-10 pt-20 flex px-5 ">
       <div className="container flex flex-col mx-auto   flex-auto  w-full rounded-md overflow-hidden">
         <h1 className="flex-initial font-Oswald text-7xl pb-10  uppercase">
           Tickets

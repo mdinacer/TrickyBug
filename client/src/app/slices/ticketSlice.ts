@@ -100,8 +100,6 @@ export const ticketSlice = createSlice({
     }),
     reducers: {
         setTicketParams: (state, action) => {
-            console.log(action.payload);
-
             state.ticketsLoaded = false;
             state.ticketParams = { ...state.ticketParams, ...action.payload, pageNumber: 1 };
         },

@@ -5,16 +5,17 @@ import CommentsContainer from "../../components/comments/CommentsContainer";
 import LoadingComponent from "../../components/common/LoadingComponent";
 import TicketHeader from "../../components/ticketDetails/TicketHeader";
 import TicketInfo from "../../components/ticketDetails/TicketInfo";
+import useComments from "../../hooks/useComments";
 import { ProjectTicketFull } from "../../models/ticket";
-import { useAppDispatch, useAppSelector } from "../../store/configureStore";
+import { useAppSelector } from "../../store/configureStore";
 
 export default function TicketDetailsPage() {
   const { id } = useParams<{ id: string }>();
-  const dispatch = useAppDispatch();
   const [ticket, setTicket] = useState<ProjectTicketFull | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const { status: ticketStatus } = useAppSelector((state) => state.ticket);
+  const { comments, metaData, setTicketId } = useComments();
 
   useEffect(() => {
     if (id && !loaded && !loading) {
@@ -23,12 +24,21 @@ export default function TicketDetailsPage() {
         .then((response) => {
           setTicket(response);
           setLoaded(true);
-          console.log(response);
         })
         .catch((err) => console.log(err))
         .finally(() => setLoading(false));
     }
   }, [id, loaded, loading, ticket]);
+
+  useEffect(() => {
+    if (ticket) {
+      setTicketId(ticket.id);
+    }
+
+    return () => {
+      setTicketId(null);
+    };
+  }, [setTicketId, ticket]);
 
   if (ticketStatus.includes("pending"))
     return <LoadingComponent message="Loading ticket..." />;
@@ -47,7 +57,7 @@ export default function TicketDetailsPage() {
       </div>
       <div className="w-2/3 relative h-full flex-auto px-10 py-5 flex flex-col gap-y-5">
         <div className=" bg-slate-300 flex-auto rounded-md overflow-hidden px-10 py-5 flex flex-col ">
-          <CommentsContainer />
+          <CommentsContainer ticketId={ticket.id} comments={comments} />
         </div>
       </div>
     </div>

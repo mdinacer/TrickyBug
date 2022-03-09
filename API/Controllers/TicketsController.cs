@@ -1,3 +1,4 @@
+using Application.Core;
 using Application.Tickets;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,5 +44,11 @@ public class TicketsController : BaseApiController
     public async Task<IActionResult> DeleteTicket(string id)
     {
         return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
+    }
+    
+    [HttpGet("{id}/comments")]
+    public async Task<IActionResult> GetTicketComments(int id,[FromQuery] PaginationParams param)
+    {
+        return HandlePagedResult(await Mediator.Send(new ListComments.Query { Id = id,Params = param }));
     }
 }

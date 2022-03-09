@@ -1,15 +1,22 @@
 import { useForm, FieldValues } from "react-hook-form";
+import agent from "../../api/agent";
+import useComments from "../../hooks/useComments";
 import AppTextArea from "../common/TextArea";
-import AppTextInput from "../common/TextInput";
+import { HubConnection, HubConnectionState } from "@microsoft/signalr";
 
-export default function CommentForm() {
+interface Props {
+  ticketId: number;
+}
+
+export default function CommentForm({ ticketId }: Props) {
   const { control, handleSubmit } = useForm({
     mode: "all",
-    //resolver: yupResolver<any>(productValidation)
   });
 
-  function handleSubmitData(data: FieldValues) {
-    // dispatch(setProjectParams(data));
+  async function handleSubmitData(data: FieldValues) {
+    agent.Comments.create(ticketId, data)
+      .then(() => {})
+      .catch((error) => console.log(error));
   }
   return (
     <form onSubmit={handleSubmit(handleSubmitData)} className="flex flex-row">
@@ -17,9 +24,10 @@ export default function CommentForm() {
         rows={4}
         fullWidth
         control={control}
-        label="search"
+        label="comment"
         placeholder="post a comment"
-        name="searchTerm"
+        name="body"
+        rules={{ required: "Comment cant be empty" }}
       />
       <input
         className="cursor-pointer bg-slate-800 text-white py-1 px-5 uppercase font-Oswald text-xl font-thin"

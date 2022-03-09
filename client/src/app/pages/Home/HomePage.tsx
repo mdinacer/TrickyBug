@@ -29,19 +29,19 @@ export default function HomePage() {
       />
       <section className="relative w-screen h-screen flex items-center justify-center">
         <div className=" flex flex-col items-center">
-          <div className="text-white flex flex-row ">
+          <div className="relative text-white flex flex-row  h-auto ">
             <p className="font-Oswald text-9xl z-[2] leading-tight">Tricky</p>
 
             <motion.p
               transition={{ duration: 1 }}
               animate={{ backgroundColor: colors[index] }}
-              className="font-Oswald text-xl uppercase py-4 px-4 h-auto rounded-sm -translate-x-16 translate-y-3"
+              className="absolute top-0 right-0 h-full font-Oswald text-xl uppercase py-4 px-4 rounded-sm "
             >
               Bugg
             </motion.p>
           </div>
           <div className="max-w-lg py-10">
-            <p className=" text-white font-Montserrat text-lg text-center">
+            <p className=" text-white font-Montserrat text-lg text-center px-5">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
               quisquam aperiam, ab officia excepturi cumque magni quo dicta
               nobis atque.

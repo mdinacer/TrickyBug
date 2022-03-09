@@ -74,15 +74,15 @@ export default function ProjectDetailsPage() {
     );
 
   return (
-    <div className="h-full min-h-screen w-screen bg-slate-300 pb-10 pt-20  flex">
-      <div className="container mx-auto flex flex-col rounded-md overflow-hidden flex-auto">
-        <div className="flex-auto w-full flex flex-row h-full">
-          <div className="relative py-5 w-1/3 bg-slate-700 rounded-md overflow-hidden text-white flex flex-col">
+    <div className="h-full min-h-screen w-screen bg-slate-300 pb-10 pt-16 lg:pt-20  flex">
+      <div className="lg:container lg:px-5 mx-auto flex flex-col rounded-md overflow-hidden flex-auto">
+        <div className="flex-auto w-full flex flex-col  gap-y-5 lg:gap-y-0 lg:flex-row h-auto">
+          <div className="relative py-10 px-5 lg:px-0 lg:py-5 w-full lg:w-1/3 bg-slate-700 lg:rounded-md overflow-hidden text-white flex flex-col">
             {isPermitted && (
               <div className="absolute top-0 right-0 w-full flex justify-end p-1 ">
                 <button
                   title="edit members"
-                  className=" ml-auto font-Montserrat text-sm uppercase h-12 w-12  py-1 px-2 text-white rounded-md"
+                  className=" ml-auto font-Montserrat text-sm uppercase h-12 w-12 m-3  lg:py-1 lg:px-2 text-white rounded-md"
                   type="button"
                   onClick={() => setIsEdit((prev) => !prev)}
                 >
@@ -90,18 +90,18 @@ export default function ProjectDetailsPage() {
                 </button>
               </div>
             )}
-            <div className="h-1/3">
+            <div className="lg:h-1/3">
               <ProjectHeader project={project} />
             </div>
-            <div className="h-1/3">
+            <div className="lg:h-1/3">
               <ProjectInfo project={project} />
             </div>
-            <div className="h-1/3">
+            <div className="lg:h-1/3">
               <ProjectMembers projectId={project.id} />
             </div>
           </div>
-          <div className=" relative w-2/3 px-5">
-            <div className="h-1/3 ">
+          <div className=" relative lg:w-2/3 lg:px-5">
+            <div className="lg:h-1/3 ">
               <ProjectPhases
                 projectId={project.id}
                 projectSlug={project.slug}
@@ -109,7 +109,7 @@ export default function ProjectDetailsPage() {
               />
             </div>
 
-            <div className="h-1/3  py-5">
+            <div className="lg:h-1/3  py-5">
               <ProjectTickets
                 projectId={project.id}
                 projectSlug={project.slug}
@@ -117,7 +117,7 @@ export default function ProjectDetailsPage() {
               />
             </div>
 
-            <div className="h-1/3 ">
+            <div className="lg:h-1/3 ">
               <ProjectActions
                 projectId={project.id}
                 projectSlug={project.slug}

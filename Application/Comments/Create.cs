@@ -13,7 +13,7 @@ public class Create
 {
     public class Command : IRequest<Result<TicketCommentDto>>
     {
-        public string ProjectId { get; set; }
+        public int TicketId { get; set; }
         public CreateTicketCommentDto Comment { get; set; }
     }
 
@@ -40,12 +40,12 @@ public class Create
 
         public async Task<Result<TicketCommentDto>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var ticket = await _context.Tickets.FindAsync(request.ProjectId);
+            var ticket = await _context.Tickets.FindAsync(request.TicketId);
 
             if (ticket == null) return Result<TicketCommentDto>.Failure("Unable to find Ticket");
 
             var user = await _context.Users.FirstOrDefaultAsync(x =>
-                x.UserName == _userAccessor.GetUsername());
+                x.UserName == _userAccessor.GetUsername(), cancellationToken: cancellationToken);
 
             if (user == null) return Result<TicketCommentDto>.Failure("You must be authenticated");
 
@@ -59,7 +59,7 @@ public class Create
 
             var result = await _context.SaveChangesAsync(cancellationToken) > 0;
 
-            var commentResult = _mapper.Map<TicketCommentDto>(ticket);
+            var commentResult = _mapper.Map<TicketCommentDto>(comment);
 
             return !result
                 ? Result<TicketCommentDto>.Failure("Failed to create comment")

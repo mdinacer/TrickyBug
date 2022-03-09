@@ -60,7 +60,7 @@ export default function ProjectRecentTickets({
       />
     );
   return (
-    <div className="relative pb-5 h-full flex flex-col bg-slate-200 rounded-md overflow-hidden">
+    <div className="relative pb-5 h-full flex flex-col bg-slate-200 lg:rounded-md overflow-hidden">
       <div className="flex-initial bg-slate-700 px-10 text-white  py-2 flex flex-row items-center justify-between">
         <p className="font-Oswald text-xl uppercase ">Recent Tickets</p>
         <div className="flex flex-row gap-x-5">

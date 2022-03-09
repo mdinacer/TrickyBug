@@ -11,9 +11,10 @@ public static class CorsExtensions
                 policy
                     .AllowAnyMethod()
                     .AllowAnyHeader()
+                    .WithOrigins("http://localhost:3000")
                     .AllowCredentials()
-                    .WithExposedHeaders("WWW-Authenticate", "Pagination")
-                    .WithOrigins("http://localhost:3000");
+                    .WithExposedHeaders("WWW-Authenticate", "Pagination");
+
             });
         });
 

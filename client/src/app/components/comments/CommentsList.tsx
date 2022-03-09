@@ -1,7 +1,8 @@
+import { TicketComment } from "../../models/comment";
 import CommentsListItem from "./CommentsListItem";
 
 interface Props {
-  comments: any[];
+  comments: TicketComment[];
 }
 
 export default function CommentsList({ comments }: Props) {

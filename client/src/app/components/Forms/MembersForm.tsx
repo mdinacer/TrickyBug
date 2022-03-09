@@ -176,9 +176,11 @@ export default function MembersForm({ isEdit, projectId }: Props) {
 
   return (
     <div className="w-full h-full bg-slate-400 overflow-hidden py-10">
-      <div className="w-full container mx-auto flex flex-row ">
+      <div className="w-full lg:container mx-auto flex flex-col lg:flex-row gap-y-5 lg:gap-y-0 ">
         <div className=" max-w-lg w-full">
-          <p className="font-Oswald text-3xl font-thin pb-4">Available Users</p>
+          <p className="font-Oswald text-3xl text-center lg:text-left font-thin pb-4">
+            Available Users
+          </p>
           <ul className={styles.menu}>
             {users.map((user) => (
               <li
@@ -213,10 +215,10 @@ export default function MembersForm({ isEdit, projectId }: Props) {
         </div>
         <form
           onSubmit={handleSubmit(handleSubmitData)}
-          className="w-full pl-10"
+          className="w-full lg:pl-10"
         >
-          <div className=" w-full flex flex-row justify-between items-center  ">
-            <p className="font-Oswald text-3xl font-thin pb-4">
+          <div className=" w-full flex flex-col lg:flex-row justify-between items-center  py-5 lg:py-0">
+            <p className="font-Oswald text-3xl  font-thin pb-4">
               Project Members
             </p>
             <div className="flex flex-row gap-x-2">
@@ -239,7 +241,7 @@ export default function MembersForm({ isEdit, projectId }: Props) {
             {fields.map((field: Record<string, any>, index) => (
               <li
                 key={field.id}
-                className="relative bg-slate-600 text-white px-3 rounded-sm flex flex-row justify-start items-center w-auto h-auto"
+                className="relative bg-slate-600 text-white lg:px-3 rounded-sm flex flex-col lg:flex-row justify-start items-center w-auto h-auto"
               >
                 <p className="font-Oswald font-thin text-2xl leading-loose px-2 max-w-[22rem] w-full">
                   <span>{field.username}</span>
@@ -260,7 +262,7 @@ export default function MembersForm({ isEdit, projectId }: Props) {
                 <button
                   type="button"
                   title="remove member"
-                  className="ml-auto w-auto h-full px-5 "
+                  className="lg:ml-auto w-auto h-auto p-3  lg:py-0 lg:px-5 absolute lg:relative top-0 right-0 "
                   onClick={() => handleRemoveMember(index, field.userId)}
                 >
                   <XIcon className="h-6 w-6 mx-2" />

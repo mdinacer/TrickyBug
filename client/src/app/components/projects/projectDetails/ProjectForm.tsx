@@ -4,6 +4,7 @@ import agent from "../../../api/agent";
 import { ProjectDetails } from "../../../models/project";
 import { updateProject, setProject } from "../../../slices/projectSlice";
 import { useAppDispatch } from "../../../store/configureStore";
+import useMediaQuery from "../../../util/mediaQuery";
 import MediaDropZone from "../../common/MediaDropZone";
 import AppTextArea from "../../common/TextArea";
 import AppTextInput from "../../common/TextInput";
@@ -17,6 +18,7 @@ interface Props {
 export default function ProjectForm({ project, handleClose }: Props) {
   const [projectId, setProjectId] = useState<string | null>(null);
   const isEdit = !!project;
+  const isMobile = useMediaQuery("(max-width: 1024px)");
 
   const {
     control,
@@ -78,10 +80,10 @@ export default function ProjectForm({ project, handleClose }: Props) {
   return (
     <div className="w-screen min-h-screen h-full py-16 bg-slate-600 flex   ">
       <div className="flex-auto my-auto mx-auto">
-        <div className="container mx-auto text-white py-5 border-b-2 border-b-white">
+        <div className="container mx-auto text-white py-5 border-b-2 border-b-white px-5 lg:px-0">
           <p className=" font-Oswald text-5xl">
             {isSubmitting
-              ? "Pleas wait"
+              ? "Please wait"
               : isEdit
               ? "Edit Project"
               : "New Project"}
@@ -90,7 +92,7 @@ export default function ProjectForm({ project, handleClose }: Props) {
         <div className="my-auto h-full flex-auto">
           <div className="container mx-auto pt-16 text-white">
             <form onSubmit={handleSubmit(handleSubmitData)}>
-              <div className="grid grid-cols-3 w-full gap-10">
+              <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-10 px-5 lg:px-0">
                 <div className=" w-full flex flex-col h-full">
                   <p className="font-Oswald text-3xl font-thin pb-4">
                     Project Info
@@ -103,14 +105,14 @@ export default function ProjectForm({ project, handleClose }: Props) {
                       label="Title"
                       placeholder="Title"
                       rules={{ required: "Title is required" }}
-                      fullWidth
+                      fullWidth={!isMobile}
                     />
 
                     <AppTextArea
                       name="description"
                       placeholder="Description"
                       label="Description"
-                      fullWidth
+                      fullWidth={!isMobile}
                       rows={4}
                       control={control}
                       rules={{ required: "Description is required" }}

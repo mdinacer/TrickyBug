@@ -1,4 +1,5 @@
 using API.Extensions;
+using API.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,11 +54,11 @@ app.UseAuthorization();
 app.MapControllers();
 
 
-
+app.UseWebSockets();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    //endpoints.MapHub<ChatHub>("/chat");
+    endpoints.MapHub<ChatHub>("/chat");
     endpoints.MapFallbackToController("Index", "Fallback");
 });
 

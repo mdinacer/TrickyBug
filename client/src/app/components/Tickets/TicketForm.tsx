@@ -144,9 +144,9 @@ export default function TicketForm({ projectSlug, ticketId, onClose }: Props) {
   }
 
   return (
-    <div className="fixed top-0 left-0 h-screen w-screen bg-slate-600 z-[5] flex items-center  py-20">
+    <div className="lg:fixed top-0 left-0 h-full min-h-screen w-screen bg-slate-600 z-[5] px-5 lg:px-0 flex items-center  py-20">
       <div className="container mx-auto flex flex-col text-white max-w-4xl">
-        <div className="flex flex-row justify-between border-b border-b-white py-1 items-end ">
+        <div className="flex flex-col lg:flex-row justify-between border-b border-b-white py-1 lg:items-end ">
           <p className="font-Oswald text-5xl uppercase">
             {isEdit ? "Edit Ticket" : "New Ticket"}
           </p>
@@ -159,7 +159,7 @@ export default function TicketForm({ projectSlug, ticketId, onClose }: Props) {
           onSubmit={handleSubmit(handleSubmitData)}
           className="w-full flex flex-col gap-y-5"
         >
-          <div className="grid grid-cols-2  gap-x-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2  lg:gap-x-10">
             <div className="flex flex-col gap-y-5 py-5">
               <AppTextInput
                 type="text"
@@ -263,7 +263,7 @@ export default function TicketForm({ projectSlug, ticketId, onClose }: Props) {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-10 h-[200px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 lg:h-[200px]">
             <div className="h-auto border-x-2 px-5 border-x-white text-white bg-slate-500 bg-opacity-50 flex-auto">
               <MediaDropZone control={control} name="file" />
             </div>

@@ -7,6 +7,7 @@ import { ProjectTicket } from "../models/ticket";
 import { ProjectPhase } from "../models/phase";
 import { ProjectAction } from "../models/action";
 import { toast } from "react-toastify";
+import { TicketComment } from "../models/comment";
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, 0));
 
@@ -132,6 +133,7 @@ const Tickets = {
     create: (ticket: any) => requests.postForm(`tickets`, createFormData(ticket)),
     update: (ticket: any) => requests.putForm('tickets', createFormData(ticket)),
     delete: (id: number) => requests.delete<void>(`tickets/${id}`),
+    listComments: (id: number, params: URLSearchParams) => requests.get(`tickets/${id}/comments`, params),
 }
 
 const Members = {
@@ -161,9 +163,16 @@ const Actions = {
     delete: (id: number) => requests.delete<void>(`actions/${id}`),
 }
 
+const Comments = {
+    create: (ticketId: number, comment: any) => requests.post<TicketComment>(`comments/${ticketId}`, comment),
+    update: (comment: any) => requests.put<TicketComment>(`comments`, comment),
+    delete: (id: number) => requests.delete<void>(`comments/${id}`),
+}
+
 const agent = {
     Account,
     Actions,
+    Comments,
     Members,
     Phases,
     Projects,

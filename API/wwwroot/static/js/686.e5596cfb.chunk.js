@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[686],{8686:function(n,t,e){e.r(t),e.d(t,{default:function(){return c}});var r=e(2791),i=e(184),u=(0,r.lazy)((function(){return e.e(594).then(e.bind(e,3594))}));function c(n){var t=n.tickets;return(0,i.jsx)("div",{className:"grid grid-cols-3 gap-5",children:t.map((function(n){return(0,i.jsx)(u,{ticket:n},n.id)}))})}}}]);
-//# sourceMappingURL=686.e5596cfb.chunk.js.map

@@ -51,7 +51,7 @@ export default function ProjectPhasesPage() {
   if (!project) return <div className="py-20">Not Found</div>;
 
   return (
-    <div className="h-full min-h-screen w-screen bg-slate-300 pb-10 pt-20 ">
+    <div className="h-full min-h-screen w-screen bg-slate-300 pb-10 pt-20  px-5">
       <div className="container mx-auto flex flex-col  w-full rounded-md overflow-hidden">
         <p className="text-2xl font-Oswald uppercase underline underline-offset-2 ">
           Phases

@@ -43,8 +43,6 @@ export default function PhaseForm({ projectId, phase, onClose }: Props) {
       phase &&
       (phase.title !== item.title || phase.description !== item.description);
 
-    console.log(item, itemChanged);
-
     try {
       if (isEdit && itemChanged) {
         await agent.Phases.update({
@@ -64,7 +62,7 @@ export default function PhaseForm({ projectId, phase, onClose }: Props) {
   }
 
   return (
-    <div className="fixed top-0 left-0 h-screen w-screen bg-slate-600 z-[5] flex items-center justify-center py-20">
+    <div className="fixed top-0 left-0 h-screen w-screen bg-slate-600 z-[5] px-5 lg:px-0 flex items-center justify-center py-20">
       <div className=" max-w-xl w-full text-white">
         <div>
           <div className="flex flex-row justify-between border-b border-b-white py-1 items-end ">

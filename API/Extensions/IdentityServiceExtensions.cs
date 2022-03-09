@@ -18,7 +18,7 @@ public static class IdentityServiceExtensions
             {
                 opt.User.RequireUniqueEmail = true;
                 opt.Password.RequireNonAlphanumeric = false;
-                opt.SignIn.RequireConfirmedEmail = false; //TODO: Enable in production
+                opt.SignIn.RequireConfirmedEmail = true; 
             })
             .AddRoles<UserRole>()
             .AddEntityFrameworkStores<DataContext>()

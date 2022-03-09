@@ -21,12 +21,12 @@ export default function Header() {
   return (
     <div className="w-screen h-auto  bg-slate-800 fixed z-10 top-0 left-0 py-4 text-white flex items-center justify-between">
       <div className="container px-5 mx-auto flex items-center justify-between">
-        <div>
+        <Link to={"/"}>
           <p className=" font-Oswald text-3xl">
             <span className="font-thin uppercase">Tricky</span>
             <span>Bugg</span>
           </p>
-        </div>
+        </Link>
 
         {!isMobile && (
           <ul className=" list-none flex flex-row gap-x-5 ">
@@ -174,6 +174,7 @@ export default function Header() {
               {links.map((link, index) => (
                 <li className="list-item" key={index}>
                   <Link
+                    onClick={() => setOpen(false)}
                     to={link.path}
                     className={"font-Oswald text-4xl uppercase font-thin"}
                   >
@@ -181,13 +182,29 @@ export default function Header() {
                   </Link>
                 </li>
               ))}
+
               <li className="list-item">
-                <Link
-                  to={loginElement.path}
-                  className={"font-Oswald text-4xl uppercase font-thin"}
-                >
-                  {loginElement.title}
-                </Link>
+                {user ? (
+                  <button
+                    title="logout"
+                    type="button"
+                    onClick={() => dispatch(signOut())}
+                    className={
+                      " font-Oswald w-full text-lg uppercase font-thin text-red-500 py-1  rounded-md flex flex-row gap-x-2 items-center"
+                    }
+                  >
+                    <p className={"font-Oswald text-4xl uppercase font-thin"}>
+                      Logout
+                    </p>
+                  </button>
+                ) : (
+                  <Link
+                    to={loginElement.path}
+                    className={"font-Oswald text-4xl uppercase font-thin"}
+                  >
+                    {loginElement.title}
+                  </Link>
+                )}
               </li>
             </ul>
           </motion.div>

@@ -35,15 +35,21 @@ export default function ProjectFilters() {
     dispatch(setProjectParams(data));
   }
   return (
-    <div className="w-full h-auto ml-auto flex-initial z-[3] flex flex-row gap-x-5 items-center justify-start">
-      <Dropdown
-        items={SortOptions}
-        title="Order By"
-        onChange={handleSortChange}
-        selectedValue={selectedSort}
-      />
+    <div className="w-full h-auto ml-auto flex-initial z-[3] flex flex-col lg:flex-row gap-x-0 gap-y-2 lg:gap-y-0 lg:gap-x-5 items-center justify-start">
+      <div className=" px-5 w-full lg:max-w-sm ">
+        <Dropdown
+          items={SortOptions}
+          title="Order By"
+          onChange={handleSortChange}
+          selectedValue={selectedSort}
+          fullWidth
+        />
+      </div>
 
-      <form onSubmit={handleSubmit(handleSubmitData)} className="flex flex-row">
+      <form
+        onSubmit={handleSubmit(handleSubmitData)}
+        className="flex flex-col w-full lg:w-auto gap-y-2 lg:gap-y-0 lg:flex-row px-5"
+      >
         <AppTextInput
           control={control}
           label="search"
@@ -59,7 +65,7 @@ export default function ProjectFilters() {
 
       <div className="border-black">
         <AppCheckbox
-          label="I'm a member"
+          label="Projects where I'm a member"
           isChecked={isMemberOnly}
           onChange={handleIsMemberOnlyChange}
         />

@@ -19,9 +19,9 @@ public class CommentsController : BaseApiController
 
    
     [HttpPost("{id}")]
-    public async Task<IActionResult> CreateComment(string id, CreateTicketCommentDto comment)
+    public async Task<IActionResult> CreateComment(int id, CreateTicketCommentDto comment)
     {
-        return HandleResult(await Mediator.Send(new Create.Command {ProjectId = id, Comment = comment }));
+        return HandleResult(await Mediator.Send(new Create.Command {TicketId = id, Comment = comment }));
     }
 
    
@@ -36,8 +36,8 @@ public class CommentsController : BaseApiController
     //
     // [Authorize(Policy = "IsActivityHost")]
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteComment(string id)
+    public async Task<IActionResult> DeleteComment(int id)
     {
-        return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
+        return HandleResult(await Mediator.Send(new Delete.Command { TicketId = id }));
     }
 }

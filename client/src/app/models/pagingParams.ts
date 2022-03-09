@@ -1,5 +1,5 @@
 export interface PaginationParams {
-    searchTerm: string | null;
+    searchTerm?: string | null;
     pageNumber: number,
     pageSize: number,
 }
