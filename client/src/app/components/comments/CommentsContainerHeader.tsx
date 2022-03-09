@@ -1,8 +1,8 @@
 interface Props {
-  commentsCount?: number;
+  commentsCount: number;
 }
 
-export default function CommentsContainerHeader({ commentsCount = 52 }: Props) {
+export default function CommentsContainerHeader({ commentsCount }: Props) {
   return (
     <>
       <p className=" font-Oswald uppercase text-2xl">Comments</p>
