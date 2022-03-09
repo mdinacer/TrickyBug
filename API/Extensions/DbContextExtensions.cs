@@ -19,7 +19,7 @@ public static class DbContextExtensions
             {
                 // Use connection string from file.
                 connStr = config.GetConnectionString("DefaultConnection");
-                options.UseSqlite(connStr);
+                options.UseNpgsql(connStr);
             }
             else
             {

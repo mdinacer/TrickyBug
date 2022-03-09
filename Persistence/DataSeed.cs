@@ -22,27 +22,32 @@ public static class DataSeed
             {
                 new()
                 {
-                    DisplayName = "Bob",
+                    DisplayName = "Bob Marley",
                     UserName = "bob",
-                    Email = "bob@test.com"
+                    Email = "bob@test.com",
+                    Title = "Projects Manager"
+                    
                 },
                 new()
                 {
-                    DisplayName = "Jane",
+                    DisplayName = "Jane Dark",
                     UserName = "jane",
-                    Email = "jane@test.com"
+                    Email = "jane@test.com",
+                    Title = "UI/UX Designer"
                 },
                 new()
                 {
-                    DisplayName = "Tom",
+                    DisplayName = "Tom Cruise",
                     UserName = "tom",
-                    Email = "tom@test.com"
+                    Email = "tom@test.com",
+                    Title = "Frontend Developer"
                 },
                 new()
                 {
-                    DisplayName = "Jack",
+                    DisplayName = "Jack Bower",
                     UserName = "jack",
-                    Email = "jack@test.com"
+                    Email = "jack@test.com",
+                    Title = "Backend Developer"
                 },
             };
 
