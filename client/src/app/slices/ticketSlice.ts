@@ -27,6 +27,10 @@ export function getAxiosParams(ticketParams: TicketParams) {
         params.append("searchTerm", ticketParams.searchTerm);
     }
 
+    if (ticketParams.projectId) {
+        params.append("projectId", ticketParams.projectId);
+    }
+
     if (ticketParams.status) {
         params.append("status", ticketParams.status.toString());
     }
@@ -74,6 +78,7 @@ export const fetchTicketAsync = createAsyncThunk<ProjectTicket, number>(
 
 function initParams() {
     return {
+        projectId: null,
         status: null,
         priority: null,
         startDate: null,
@@ -95,6 +100,8 @@ export const ticketSlice = createSlice({
     }),
     reducers: {
         setTicketParams: (state, action) => {
+            console.log(action.payload);
+
             state.ticketsLoaded = false;
             state.ticketParams = { ...state.ticketParams, ...action.payload, pageNumber: 1 };
         },

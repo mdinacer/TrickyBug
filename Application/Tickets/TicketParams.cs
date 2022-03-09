@@ -5,6 +5,7 @@ namespace Application.Tickets;
 
 public class TicketParams : PaginationParams
 {
+    public string? ProjectId { get; set; }
     public TicketStatus? Status { get; set; }
     public TicketPriority? Priority { get; set; }
     public DateTime? StartDate { get; set; }

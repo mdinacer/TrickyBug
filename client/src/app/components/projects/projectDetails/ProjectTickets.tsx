@@ -75,7 +75,10 @@ export default function ProjectRecentTickets({
           )}
           <Link
             className="text-Montserrat text-sm uppercase underline underline-offset-2"
-            to={`/projects/${projectSlug}/tickets/`}
+            to={{
+              pathname: `/tickets`,
+              search: `?projectId=${projectId}`,
+            }}
           >
             view all
           </Link>

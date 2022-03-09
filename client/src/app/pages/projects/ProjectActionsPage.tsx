@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { useCallback, useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import agent from "../../api/agent";
 import LoadingComponent from "../../components/common/LoadingComponent";
 import { ProjectAction } from "../../models/action";
@@ -83,7 +83,7 @@ export default function ProjectActionsPage() {
 
   return (
     <div className="h-full min-h-screen w-screen bg-slate-300 pb-10 pt-20 ">
-      <div className="container mx-auto flex flex-col  w-full rounded-md overflow-hidden max-w-5xl">
+      <div className="container mx-auto flex flex-col  w-full rounded-md overflow-hidden">
         <div className=" w-full border-b-2 py-1 border-b-black flex flex-row justify-between items-end">
           <h1 className="flex-initial text-5xl font-Oswald  uppercase">
             {project.title}
@@ -106,11 +106,11 @@ export default function ProjectActionsPage() {
                   <p className="font-Oswald text-xl font-thin w-full max-w-[6rem]">
                     {format(new Date(action.actionDate), "dd-MM-yy")}
                   </p>
-                  <div>
-                    <p className=" font-Oswald font-thin text-xl flex flex-row gap-x-2">
+                  <div className="">
+                    <p className=" font-Oswald font-thin text-2xl">
                       {action.title}
                     </p>
-                    <p className=" font-Montserrat text-lg text-center ">
+                    <p className=" font-Montserrat text-xl ">
                       {action.description}
                     </p>
                   </div>

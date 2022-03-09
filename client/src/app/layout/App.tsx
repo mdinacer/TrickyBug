@@ -1,15 +1,20 @@
 import React, { lazy, Suspense, useCallback, useEffect, useState } from "react";
-import { useAppDispatch } from "../store/configureStore";
+import { useAppDispatch, useAppSelector } from "../store/configureStore";
 import { fetchCurrentUser } from "../slices/accountSlice";
 import Header from "../components/Header/Header";
-import { Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 import HomePage from "../pages/Home/HomePage";
 import LoadingComponent from "../components/common/LoadingComponent";
 import ProjectFormPage from "../pages/projects/ProjectFormPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { HomeIcon } from "@heroicons/react/solid";
 
 function App() {
+  const { user } = useAppSelector((state) => state.account);
   const [loading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
+  const { pathname } = useLocation();
 
   const initApp = useCallback(async () => {
     try {
@@ -29,17 +34,33 @@ function App() {
   if (loading) return <LoadingComponent message="Initializing Application" />;
 
   return (
-    <div className="select-none">
-      <Header />
+    <div className="select-none relative">
+      <ToastContainer position="bottom-right" hideProgressBar />
+      {user ? (
+        <Header />
+      ) : (
+        pathname !== "/" && (
+          <div className="fixed top-0 left-0 p-10 ">
+            <Link to="/" className="flex flex-row gap-x-2 items-center">
+              <HomeIcon className="h-6 w-6" />
+              <p className="font-Oswald text-lg font-thin">Home</p>
+            </Link>
+          </div>
+        )
+      )}
+
       <Routes>
         <Route path="/">
           <Route index element={<HomePage />} />
+
           <Route path="projects">
             <Route
               index
               element={
                 <Suspense fallback={<div />}>
-                  <ProjectsPage />
+                  <PrivateRoute>
+                    <ProjectsPage />
+                  </PrivateRoute>
                 </Suspense>
               }
             />
@@ -47,7 +68,9 @@ function App() {
               path="new"
               element={
                 <Suspense fallback={<div />}>
-                  <ProjectFormPage />
+                  <PrivateRoute>
+                    <ProjectFormPage />
+                  </PrivateRoute>
                 </Suspense>
               }
             />
@@ -56,7 +79,9 @@ function App() {
                 index
                 element={
                   <Suspense fallback={<div />}>
-                    <ProjectDetailsPage />
+                    <PrivateRoute>
+                      <ProjectDetailsPage />
+                    </PrivateRoute>
                   </Suspense>
                 }
               />
@@ -65,16 +90,9 @@ function App() {
                 path="phases"
                 element={
                   <Suspense fallback={<div />}>
-                    <ProjectPhasesPage />
-                  </Suspense>
-                }
-              />
-
-              <Route
-                path="tickets"
-                element={
-                  <Suspense fallback={<div />}>
-                    <ProjectTicketsPage />
+                    <PrivateRoute>
+                      <ProjectPhasesPage />
+                    </PrivateRoute>
                   </Suspense>
                 }
               />
@@ -83,7 +101,9 @@ function App() {
                 path="actions"
                 element={
                   <Suspense fallback={<div />}>
-                    <ProjectActionsPage />
+                    <PrivateRoute>
+                      <ProjectActionsPage />
+                    </PrivateRoute>
                   </Suspense>
                 }
               />
@@ -99,7 +119,9 @@ function App() {
                     <LoadingComponent message="Loading Tickets please wait" />
                   }
                 >
-                  <TicketsPage />
+                  <PrivateRoute>
+                    <TicketsPage />
+                  </PrivateRoute>
                 </Suspense>
               }
             />
@@ -108,7 +130,9 @@ function App() {
                 index
                 element={
                   <Suspense fallback={<div />}>
-                    <TicketDetailsPage />
+                    <PrivateRoute>
+                      <TicketDetailsPage />
+                    </PrivateRoute>
                   </Suspense>
                 }
               />
@@ -173,10 +197,6 @@ const ProjectPhasesPage = lazy(
 
 const ProjectActionsPage = lazy(
   () => import("../pages/projects/ProjectActionsPage")
-);
-
-const ProjectTicketsPage = lazy(
-  () => import("../pages/projects/ProjectTicketsPage")
 );
 
 const TicketsPage = lazy(() => import("../pages/Tickets/TicketsPage"));

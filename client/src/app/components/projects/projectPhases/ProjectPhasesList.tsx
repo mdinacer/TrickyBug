@@ -5,8 +5,13 @@ import { format } from "date-fns";
 interface Props {
   phases: ProjectPhase[];
   projectSlug: string;
+  projectId: string;
 }
-export default function ProjectPhasesList({ phases, projectSlug }: Props) {
+export default function ProjectPhasesList({
+  phases,
+  projectSlug,
+  projectId,
+}: Props) {
   return (
     <ul className="list-none flex flex-col py-5 gap-y-6">
       {phases.map((phase) => (
@@ -66,8 +71,8 @@ export default function ProjectPhasesList({ phases, projectSlug }: Props) {
               <Link
                 state={{ fromPhase: true }}
                 to={{
-                  pathname: `/projects/${projectSlug}/tickets`,
-                  search: `?startDate=${
+                  pathname: `/tickets`,
+                  search: `?projectId=${projectId}&startDate=${
                     phase.startDate
                       ? new Date(phase.startDate).toLocaleDateString()
                       : null

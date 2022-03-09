@@ -13,7 +13,7 @@ public class Create
 {
     public class Command : IRequest<Result<TicketCommentDto>>
     {
-        public int Id { get; set; }
+        public string ProjectId { get; set; }
         public CreateTicketCommentDto Comment { get; set; }
     }
 
@@ -40,7 +40,7 @@ public class Create
 
         public async Task<Result<TicketCommentDto>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var ticket = await _context.Tickets.FindAsync(request.Id);
+            var ticket = await _context.Tickets.FindAsync(request.ProjectId);
 
             if (ticket == null) return Result<TicketCommentDto>.Failure("Unable to find Ticket");
 

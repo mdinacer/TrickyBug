@@ -16,9 +16,9 @@ export default function PrivateRoute({
   }
 
   const userHasRequiredRole =
-    user && roles?.some((r) => user.roles?.includes(r));
+    user && roles && roles?.some((r) => user.roles?.includes(r));
 
-  if (!userHasRequiredRole) {
+  if (roles && !userHasRequiredRole) {
     console.log("You are not allowed to go there");
     return <Navigate to="/" />;
   }

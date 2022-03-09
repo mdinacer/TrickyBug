@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useAppSelector } from "../../store/configureStore";
 
 export default function HomePage() {
   const [index, setIndex] = useState(0);
+  const { user } = useAppSelector((state) => state.account);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -25,8 +28,8 @@ export default function HomePage() {
         src="../assets/videos/hero.mp4"
       />
       <section className="relative w-screen h-screen flex items-center justify-center">
-        <div>
-          <div className="text-white flex flex-row">
+        <div className=" flex flex-col items-center">
+          <div className="text-white flex flex-row ">
             <p className="font-Oswald text-9xl z-[2] leading-tight">Tricky</p>
 
             <motion.p
@@ -37,10 +40,48 @@ export default function HomePage() {
               Bugg
             </motion.p>
           </div>
+          <div className="max-w-lg py-10">
+            <p className=" text-white font-Montserrat text-lg text-center">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
+              quisquam aperiam, ab officia excepturi cumque magni quo dicta
+              nobis atque.
+            </p>
+          </div>
+          {!user ? (
+            <div className="p-10 flex flex-row justify-around">
+              <Link
+                to={"/account/login"}
+                className={`${styles.buttonStyle} bg-[#D82148]`}
+              >
+                <p className={`${styles.buttonTextStyle}`}>Login</p>
+              </Link>
+              <Link
+                to={"/account/register"}
+                className={`${styles.buttonStyle}  border-[#D82148] border-2`}
+              >
+                <p className={`${styles.buttonTextStyle}`}>Register</p>
+              </Link>
+            </div>
+          ) : (
+            <div className="p-10 flex flex-row justify-around">
+              <Link
+                to={"/projects"}
+                className={`${styles.buttonStyle} bg-[#019267] rounded-md`}
+              >
+                <p className={`${styles.buttonTextStyle}`}>Browse Projects</p>
+              </Link>
+            </div>
+          )}
         </div>
       </section>
     </div>
   );
 }
+
+const styles = {
+  buttonStyle: "py-1 px-5 rounded-xs",
+  buttonTextStyle:
+    "text-white uppercase font-Oswald text-2xl font-thin tex-white",
+};
 
 const colors = ["#D82148", "#D67D3E", "#FFC900", "#019267"];

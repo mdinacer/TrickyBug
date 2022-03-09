@@ -60,7 +60,11 @@ export default function ProjectPhasesPage() {
           {project.title}
         </h1>
         {phases.length > 0 ? (
-          <ProjectPhasesList phases={phases} projectSlug={project.slug} />
+          <ProjectPhasesList
+            projectId={project.id}
+            phases={phases}
+            projectSlug={project.slug}
+          />
         ) : (
           <div className="h-20 w-full flex items-center justify-center">
             <p className="font-Montserrat text-lg">

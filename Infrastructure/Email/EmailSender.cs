@@ -18,7 +18,7 @@ public class EmailSender
         var client = new SendGridClient(_config["SendGrid:Key"]);
         var message = new SendGridMessage
         {
-            From = new EmailAddress("mdi.nacer@outlook.com", _config["Sendgrid:User"]),
+            From = new EmailAddress("trickybugg.sg@gmail.com", _config["Sendgrid:User"]),
             Subject = emailSubject,
             PlainTextContent = msg,
             HtmlContent = msg

@@ -36,6 +36,9 @@ public class List
 
             if (request.Params.SearchTerm != null)
                 query = query.Where(t => t.Subject.Contains(request.Params.SearchTerm));
+            
+            if (request.Params.ProjectId != null) 
+                query = query.Where(t => t.ProjectId == request.Params.ProjectId);
 
             if (request.Params.Status != null) 
                 query = query.Where(t => t.Status == request.Params.Status);

@@ -1,12 +1,12 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { PaginatedResponse } from "../models/pagination";
-import { Project } from "../models/project";
 import { AppUser } from "../models/user";
 import { store } from "../store/configureStore";
 import { history } from "../..";
 import { ProjectTicket } from "../models/ticket";
 import { ProjectPhase } from "../models/phase";
 import { ProjectAction } from "../models/action";
+import { toast } from "react-toastify";
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, 0));
 
@@ -50,15 +50,15 @@ axios.interceptors.response.use(async response => {
                     }
                     throw modelStateErrors.flat();
                 }
-                console.log(data.title)
+                toast.error(data.title)
                 break;
 
             case 401:
-                console.log(data.title)
+                toast.error(data.title)
                 break;
 
             case 403:
-                console.log("You are not allowed")
+                toast.error("You are not allowed")
                 break;
 
             // case 404:

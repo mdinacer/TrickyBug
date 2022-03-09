@@ -7,6 +7,7 @@ export interface TicketParams {
     searchTerm: string | null;
     pageNumber: number,
     pageSize: number,
+    projectId?: string | null
 }
 
 export class TicketParamsInitial implements TicketParams {

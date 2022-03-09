@@ -15,23 +15,12 @@ interface Props {
 }
 
 export default function TicketsFilters({ params, setParams }: Props) {
-  const dispatch = useAppDispatch();
-  const [searchParams] = useSearchParams();
-  const startDate = searchParams.get("startDate");
-  const endDate = searchParams.get("endDate");
   const { control, handleSubmit } = useForm({
     mode: "all",
-    //resolver: yupResolver<any>(productValidation)
   });
 
-  useEffect(() => {
-    if (startDate || endDate) {
-      setParams({ startDate, endDate });
-    }
-  }, [endDate, setParams, startDate]);
-
   function handleSubmitData(data: FieldValues) {
-    dispatch(setTicketParams(data));
+    setParams(data);
   }
 
   return (
@@ -42,6 +31,7 @@ export default function TicketsFilters({ params, setParams }: Props) {
           label="search"
           placeholder="search"
           name="searchTerm"
+          fullWidth
         />
         <input
           className="cursor-pointer bg-slate-800 text-white py-1 px-5 uppercase font-Oswald text-xl font-thin"
