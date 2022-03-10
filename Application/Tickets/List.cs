@@ -35,7 +35,7 @@ public class List
                 .AsQueryable();
 
             if (request.Params.SearchTerm != null)
-                query = query.Where(t => t.Subject.Contains(request.Params.SearchTerm));
+                query = query.Where(t => t.Subject.ToLower().Contains(request.Params.SearchTerm.ToLower()));
             
             if (request.Params.ProjectId != null) 
                 query = query.Where(t => t.ProjectId == request.Params.ProjectId);

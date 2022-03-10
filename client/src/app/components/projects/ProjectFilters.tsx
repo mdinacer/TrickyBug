@@ -35,7 +35,7 @@ export default function ProjectFilters() {
     dispatch(setProjectParams(data));
   }
   return (
-    <div className="w-full h-auto ml-auto flex-initial z-[3] flex flex-col lg:flex-row gap-x-0 gap-y-2 lg:gap-y-0 lg:gap-x-5 items-center justify-start">
+    <div className="w-full h-auto ml-auto flex-initial z-[3] flex flex-col lg:flex-row gap-x-0 gap-y-5 lg:gap-y-0 lg:gap-x-5 items-center justify-start">
       <div className=" px-5 w-full lg:max-w-sm  flex-initial">
         <Dropdown
           items={SortOptions}
@@ -63,7 +63,7 @@ export default function ProjectFilters() {
         />
       </form>
 
-      <div className="border-black flex-initial">
+      <div className="border-black flex-initial w-full lg:w-auto mx-auto px-5">
         <AppCheckbox
           label="Projects where I'm a member"
           isChecked={isMemberOnly}

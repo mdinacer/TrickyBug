@@ -48,6 +48,17 @@ export default function TicketsPage() {
         {!projectId && (
           <TicketsFilters params={ticketParams} setParams={handleChangParams} />
         )}
+
+        <div className="flex-auto">
+          {ticketsLoaded ? (
+            <TicketsGrid tickets={tickets} />
+          ) : (
+            <div className="w-full h-full">
+              <LoadingComponentSmall message="loading tickets, please wait" />
+            </div>
+          )}
+        </div>
+
         {metaData && (
           <div className="py-5 border-black w-full">
             <AppPagination
@@ -58,15 +69,6 @@ export default function TicketsPage() {
             />
           </div>
         )}
-        <div className="flex-auto">
-          {ticketsLoaded ? (
-            <TicketsGrid tickets={tickets} />
-          ) : (
-            <div className="w-full h-full">
-              <LoadingComponentSmall message="loading tickets, please wait" />
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ interface Props {
 export default function ProjectListItem({ project }: Props) {
   return (
     <Link to={`/projects/${project.slug}`}>
-      <div className=" border-b-2 border-gray-500 lg:bg-transparent lg:hover:bg-white lg:duration-300 lg:transition-all lg:hover:drop-shadow-md">
+      <div className=" border-b-2 border-gray-500 lg:bg-transparent bg-white lg:hover:bg-white lg:duration-300 lg:transition-all lg:hover:drop-shadow-md">
         <div className="relative w-full h-64 lg:h-64 flex-initial">
           <img
             src={project.photo}
@@ -20,7 +20,7 @@ export default function ProjectListItem({ project }: Props) {
           />
         </div>
         <div className="px-5 py-5">
-          <p className="uppercase font-Oswald font-thin text-4xl mb-2">
+          <p className="uppercase font-Oswald font-thin text-3xl lg:text-4xl mb-2">
             {project.title}
           </p>
           <LabelItem

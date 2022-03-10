@@ -19,7 +19,7 @@ export default function Header() {
   }, [isMobile, open]);
 
   return (
-    <div className="w-screen h-auto  bg-slate-800 fixed z-10 top-0 left-0 py-4 text-white flex items-center justify-between">
+    <div className="w-screen h-auto  bg-slate-800 fixed z-10 top-0 left-0 py-4 text-white flex items-center justify-between drop-shadow-md">
       <div className="container px-5 mx-auto flex items-center justify-between">
         <Link to={"/"}>
           <p className=" font-Oswald text-3xl">
@@ -152,7 +152,7 @@ export default function Header() {
               type="button"
               onClick={() => setOpen(false)}
               className={
-                "absolute bottom-0 right-0 m-5 font-Oswald text-lg uppercase font-thin bg-red-500 py-1 px-3 rounded-md"
+                "absolute top-0 right-0 m-5 font-Oswald text-lg uppercase font-thin bg-red-500 py-1 px-3 rounded-md"
               }
             >
               <svg

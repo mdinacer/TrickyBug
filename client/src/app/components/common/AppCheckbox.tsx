@@ -8,7 +8,7 @@ interface Props {
 
 const styles = {
   buttonStyle:
-    "flex  bg-slate-200 text-inherit flex-row gap-x-2 items-center bg-inherit border-inherit transition-all duration-300",
+    "flex bg-slate-200 text-inherit flex-row gap-x-2 items-center  border-inherit w-full",
 };
 
 export default function AppCheckbox({ label, isChecked, onChange }: Props) {

@@ -138,8 +138,8 @@ export default function TicketForm({ projectId, ticketId, onClose }: Props) {
   }
 
   return (
-    <div className="lg:fixed top-0 left-0 h-full min-h-screen w-screen bg-slate-500 z-[5] px-5 lg:px-0 flex items-center  py-20">
-      <div className="container mx-auto flex flex-col text-white max-w-4xl">
+    <div className="lg:fixed top-0 left-0 h-full min-h-screen w-screen bg-slate-100 z-[5] px-5 lg:px-0 flex items-center  py-20">
+      <div className="container mx-auto flex flex-col max-w-4xl">
         <div className="flex flex-col lg:flex-row justify-between border-b border-b-white py-1 lg:items-end ">
           <p className="font-Oswald text-5xl uppercase">
             {isEdit ? "Edit Ticket" : "New Ticket"}
@@ -185,7 +185,7 @@ export default function TicketForm({ projectId, ticketId, onClose }: Props) {
               />
 
               <AppTextArea
-                rows={4}
+                rows={7}
                 type="text"
                 control={control}
                 label="Ticket Description"

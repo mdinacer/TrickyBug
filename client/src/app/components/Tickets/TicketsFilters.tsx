@@ -20,10 +20,10 @@ export default function TicketsFilters({ params, setParams }: Props) {
   }
 
   return (
-    <div className="w-full flex flex-col lg:flex-row  justify-around items-center lg:gap-y-0 gap-y-3  lg:py-5">
+    <div className="w-full flex flex-col lg:flex-row  justify-around items-center lg:gap-y-0 gap-y-5  py-5">
       <form
         onSubmit={handleSubmit(handleSubmitData)}
-        className="flex flex-col lg:flex-row w-full gap-y-2"
+        className="flex flex-col lg:flex-row w-full max-w-lg gap-y-2 flex-auto"
       >
         <AppTextInput
           control={control}
@@ -39,23 +39,27 @@ export default function TicketsFilters({ params, setParams }: Props) {
         />
       </form>
 
-      <Dropdown
-        title="Status"
-        selectedValue={"All"}
-        onChange={(value) =>
-          setParams({ status: value === "-1" ? null : value })
-        }
-        items={[{ name: "All", value: "-1" }, ...EnumToArray(TicketStatus)]}
-      />
+      <div className="flex-initial max-w-sm w-full">
+        <Dropdown
+          title="Status"
+          selectedValue={"All"}
+          onChange={(value) =>
+            setParams({ status: value === "-1" ? null : value })
+          }
+          items={[{ name: "All", value: "-1" }, ...EnumToArray(TicketStatus)]}
+        />
+      </div>
 
-      <Dropdown
-        title="Priority"
-        selectedValue={"All"}
-        onChange={(value) =>
-          setParams({ priority: value === "-1" ? null : value })
-        }
-        items={[{ name: "All", value: "-1" }, ...EnumToArray(TicketPriority)]}
-      />
+      <div className="flex-initial max-w-sm w-full">
+        <Dropdown
+          title="Priority"
+          selectedValue={"All"}
+          onChange={(value) =>
+            setParams({ priority: value === "-1" ? null : value })
+          }
+          items={[{ name: "All", value: "-1" }, ...EnumToArray(TicketPriority)]}
+        />
+      </div>
     </div>
   );
 }
