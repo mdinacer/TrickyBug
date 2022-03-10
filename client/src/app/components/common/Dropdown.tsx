@@ -15,8 +15,8 @@ const styles = {
   dropdownButton:
     "pb-2 pt-3 px-5 font-Oswald font-thin inline-flex justify-between items-center w-full",
   dropdownButtonText:
-    "flex flex-row items-center justify-between w-full gap-x-5 text-2xl",
-  dropdownButtonPlaceholder: "text-2xl text-gray-400",
+    "flex flex-row items-center justify-between w-full gap-x-5 text-lg lg:text-2xl",
+  dropdownButtonPlaceholder: "text-lg lg:text-2xl text-gray-400",
   inputValidationStyle:
     "h-auto font-Oswald text-lg leading-none w-full font-thin px-5 py-0 text-gray-600",
   dropdownButtonIcon: "w-8 h-8 ml-2 text-inherit",

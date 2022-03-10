@@ -42,13 +42,12 @@ export default function ProjectFilters() {
           title="Order By"
           onChange={handleSortChange}
           selectedValue={selectedSort}
-          fullWidth
         />
       </div>
 
       <form
         onSubmit={handleSubmit(handleSubmitData)}
-        className="flex flex-col w-full lg:w-auto gap-y-2 lg:gap-y-0 lg:flex-row px-5"
+        className="flex flex-row w-full lg:w-auto gap-y-2 lg:gap-y-0 px-5"
       >
         <AppTextInput
           control={control}

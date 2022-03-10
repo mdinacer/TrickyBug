@@ -59,31 +59,37 @@ export default function ProjectRecentTickets({
       />
     );
   return (
-    <div className="relative pb-5 h-full flex flex-col bg-slate-200 lg:rounded-md overflow-hidden">
-      <div className="flex-initial bg-slate-700 px-10 text-white  py-2 flex flex-row items-center justify-between">
-        <p className="font-Oswald text-xl uppercase ">Recent Tickets</p>
-        <div className="flex flex-row gap-x-5">
+    <div className="relative h-full flex flex-col overflow-hidden">
+      <div className="flex-initial flex flex-row items-end justify-between">
+        <p className="font-Oswald text-3xl font-thin uppercase leading-loose">
+          Recent Tickets
+        </p>
+        <div className="flex flex-row self-start gap-x-2">
           {isPermitted && (
             <button
               onClick={() => setIsOpen(true)}
-              className="text-Montserrat text-sm uppercase underline underline-offset-2"
+              className="px-2 py-1 bg-slate-600 text-white"
               type="button"
             >
-              Add
+              <p className="font-Oswald text-lg font-thin uppercase">
+                Add Ticket
+              </p>
             </button>
           )}
           <Link
-            className="text-Montserrat text-sm uppercase underline underline-offset-2"
+            className="px-2 py-1 bg-slate-600 text-white"
             to={{
               pathname: `/tickets`,
               search: `?projectId=${projectId}`,
             }}
           >
-            view all
+            <p className="font-Oswald text-lg font-thin uppercase">
+              View Tickets
+            </p>
           </Link>
         </div>
       </div>
-      <div className="px-10">
+      <div className="px-5">
         {tickets.length > 0 ? (
           <TicketsList
             tickets={tickets}

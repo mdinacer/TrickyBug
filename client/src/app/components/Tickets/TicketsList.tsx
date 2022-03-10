@@ -8,15 +8,17 @@ interface Props {
 
 export default function TicketsList({ tickets, onActionSelected }: Props) {
   return (
-    <ul className="list-none flex flex-col py-5 gap-y-4">
-      {tickets.map((ticket) => (
-        <li key={ticket.id} className="list-item">
-          <TicketsListItem
-            ticket={ticket}
-            onActionSelected={onActionSelected}
-          />
-        </li>
-      ))}
-    </ul>
+    <div className="relative w-full h-full">
+      <ul className="list-none flex flex-col py-5 gap-y-5">
+        {tickets.map((ticket) => (
+          <li key={ticket.id} className="list-item w-full">
+            <TicketsListItem
+              ticket={ticket}
+              onActionSelected={onActionSelected}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

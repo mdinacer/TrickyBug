@@ -62,29 +62,35 @@ export default function ProjectRecentActions({
       />
     );
   return (
-    <div className="relative pb-5 h-full flex flex-col bg-slate-200 lg:rounded-md overflow-hidden">
-      <div className="flex-initial bg-slate-700 px-10 text-white  py-2 flex flex-row items-center justify-between">
-        <p className="font-Oswald text-xl uppercase ">Recent Actions</p>
-        <div className="flex flex-row gap-x-5">
+    <div className="relative h-full flex flex-col overflow-hidden">
+      <div className="flex-initial flex flex-row items-end justify-between">
+        <p className="font-Oswald text-3xl font-thin uppercase leading-loose">
+          Recent Actions
+        </p>
+        <div className="flex flex-row items-end gap-x-2 self-start">
           {isPermitted && (
             <button
               onClick={() => setIsOpen(true)}
-              className="text-Montserrat text-sm uppercase underline underline-offset-2"
+              className="px-2 py-1 bg-slate-600 text-white"
               type="button"
             >
-              Add
+              <p className="font-Oswald text-lg font-thin uppercase">
+                Add Actioin
+              </p>
             </button>
           )}
           <Link
-            className="text-Montserrat text-sm uppercase underline underline-offset-2"
+            className="px-2 py-1 bg-slate-600 text-white"
             to={`/projects/${projectSlug}/actions/`}
           >
-            view all
+            <p className="font-Oswald text-lg font-thin uppercase">
+              View Actions
+            </p>
           </Link>
         </div>
       </div>
 
-      <div className="px-10">
+      <div className="px-5">
         {actions.length > 0 ? (
           <ActionsList
             onActionSelected={handleOnActionSelect}

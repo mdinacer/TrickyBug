@@ -54,36 +54,44 @@ export default function ProjectPhases({
 
   if (isOpen && projectId)
     return (
-      <PhaseForm
-        projectId={projectId}
-        onClose={handleOnClose}
-        phase={selectedPhase}
-      />
+      <div className="fixed z-10 top-0 left-0 w-full h-auto">
+        <PhaseForm
+          projectId={projectId}
+          onClose={handleOnClose}
+          phase={selectedPhase}
+        />
+      </div>
     );
 
   return (
-    <div className="relative pb-5 h-full flex flex-col bg-slate-200 lg:rounded-md overflow-hidden">
-      <div className="flex-initial bg-slate-700 px-10 text-white  py-2 flex flex-row items-center justify-between">
-        <p className="font-Oswald text-xl uppercase ">Recent Phases</p>
-        <div className="flex flex-row gap-x-5">
+    <div className="relative h-full flex flex-col overflow-hidden">
+      <div className="flex-initial flex flex-row items-end justify-between">
+        <p className="font-Oswald text-3xl font-thin uppercase leading-loose">
+          Recent Phases
+        </p>
+        <div className="flex flex-row items-end gap-x-2 self-start">
           {isPermitted && (
             <button
               onClick={() => setIsOpen(true)}
-              className="text-Montserrat text-sm uppercase underline underline-offset-2"
+              className="px-2 py-1 bg-slate-600 text-white"
               type="button"
             >
-              Add
+              <p className="font-Oswald text-lg font-thin uppercase">
+                Add Phase
+              </p>
             </button>
           )}
           <Link
-            className="text-Montserrat text-sm uppercase underline underline-offset-2"
+            className="px-2 py-1 bg-slate-600 text-white"
             to={`/projects/${projectSlug}/phases/`}
           >
-            view all
+            <p className="font-Oswald text-lg font-thin uppercase">
+              View Phases
+            </p>
           </Link>
         </div>
       </div>
-      <div className="flex-auto h-full w-full px-10">
+      <div className="flex-auto h-full w-full px-5">
         {phases.length > 0 ? (
           <PhasesList phases={phases} onPhaseSelected={handleOnPhaseSelect} />
         ) : (

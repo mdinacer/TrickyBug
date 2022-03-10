@@ -22,7 +22,9 @@ export default function AppCheckbox({ label, isChecked, onChange }: Props) {
       <div className="w-6 h-6 border-2 border-inherit  rounded-sm ">
         {isChecked && <CheckIcon className="h-full w-full" />}
       </div>
-      <p className=" font-Oswald text-2xl capitalize font-thin">{label}</p>
+      <p className=" font-Oswald text-lg lg:text-2xl capitalize font-thin">
+        {label}
+      </p>
     </button>
   );
 }
