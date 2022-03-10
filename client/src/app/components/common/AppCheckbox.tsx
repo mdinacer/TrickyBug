@@ -8,7 +8,7 @@ interface Props {
 
 const styles = {
   buttonStyle:
-    "flex pb-2 pt-3 px-5 text-inherit flex-row gap-x-2 items-center bg-inherit border-inherit transition-all duration-300",
+    "flex  bg-slate-200 text-inherit flex-row gap-x-2 items-center bg-inherit border-inherit transition-all duration-300",
 };
 
 export default function AppCheckbox({ label, isChecked, onChange }: Props) {
@@ -19,10 +19,14 @@ export default function AppCheckbox({ label, isChecked, onChange }: Props) {
       className={styles.buttonStyle}
       onClick={() => onChange(!isChecked)}
     >
-      <div className="w-6 h-6 border-2 border-inherit  rounded-sm ">
-        {isChecked && <CheckIcon className="h-full w-full" />}
+      <div className="pb-2 pt-3 px-3 h-full w-auto border-2 border-inherit  rounded-sm bg-slate-800 text-white ">
+        {isChecked ? (
+          <CheckIcon className="w-6 h-6" />
+        ) : (
+          <div className="w-6 h-6"></div>
+        )}
       </div>
-      <p className=" font-Oswald text-lg lg:text-2xl capitalize font-thin">
+      <p className=" font-Oswald text-lg lg:text-2xl capitalize font-thin pr-5">
         {label}
       </p>
     </button>

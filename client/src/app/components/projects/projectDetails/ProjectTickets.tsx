@@ -60,7 +60,7 @@ export default function ProjectRecentTickets({
     );
   return (
     <div className="relative h-full flex flex-col overflow-hidden">
-      <div className="flex-initial flex flex-row items-end justify-between">
+      <div className="flex-initial flex flex-col lg:flex-row lg:items-end justify-between px-5 lg:px-0">
         <p className="font-Oswald text-3xl font-thin uppercase leading-loose">
           Recent Tickets
         </p>

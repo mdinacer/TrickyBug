@@ -10,7 +10,7 @@ interface Props extends UseControllerProps {
 
 const styles = {
   inputContainer:
-    "border-x-2 border-x-slate-200 h-full bg-slate-200 flex flex-col lg:flex-row items-center",
+    "border-x-2 border-x-black h-full  bg-slate-200 flex flex-col lg:flex-row items-center",
   inputStyle:
     "font-Montserrat resize-none font-thin text-base lg:text-xl text-inherit placeholder:text-gray-500 placeholder:font-Oswald pb-2 pt-3 px-5 w-full h-full block bg-transparent focus-within:outline-none",
   inputValidationStyle:
@@ -24,7 +24,7 @@ export default function AppTextArea(props: Props) {
     <div
       className={`
       ${props.fullWidth ? "w-full" : "w-full max-w-sm"}
-      ${fieldState.error ? "border-x-red-500" : "border-x-white"}  
+      ${fieldState.error ? "border-x-red-500" : "border-x-inherit"}  
       ${styles.inputContainer}`}
     >
       <textarea

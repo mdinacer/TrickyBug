@@ -60,6 +60,19 @@ public class Create
                 };
             }
 
+            if (request.Project.Members != null && request.Project.Members.Any())
+            {
+                foreach (var member in request.Project.Members)
+                {
+                    project.Members.Add(new ProjectMember
+                    {
+                        IsLeader = member.IsLeader,
+                        UserId = member.UserId,
+                        ProjectId = project.Id
+                    });
+                }
+            }
+
             _context.Projects.Add(project);
 
             var result = await _context.SaveChangesAsync(cancellationToken) > 0;

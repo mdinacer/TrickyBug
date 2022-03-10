@@ -9,7 +9,8 @@ public class ProjectsProfile : Profile
     {
         string? currentUsername = null;
         CreateMap<CreateProjectDto, Project>()
-            .ForMember(d => d.Photo, o => { o.Ignore(); });
+            .ForMember(d => d.Photo, o => { o.Ignore(); })
+            .ForMember(d => d.Members, o => { o.Ignore(); });
         CreateMap<UpdateProjectDto, Project>()
             .ForMember(d => d.Photo, o => { o.Ignore(); });
         CreateMap<Project, ProjectDto>()

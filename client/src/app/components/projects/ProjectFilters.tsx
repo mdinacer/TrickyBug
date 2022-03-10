@@ -36,7 +36,7 @@ export default function ProjectFilters() {
   }
   return (
     <div className="w-full h-auto ml-auto flex-initial z-[3] flex flex-col lg:flex-row gap-x-0 gap-y-2 lg:gap-y-0 lg:gap-x-5 items-center justify-start">
-      <div className=" px-5 w-full lg:max-w-sm ">
+      <div className=" px-5 w-full lg:max-w-sm  flex-initial">
         <Dropdown
           items={SortOptions}
           title="Order By"
@@ -47,13 +47,14 @@ export default function ProjectFilters() {
 
       <form
         onSubmit={handleSubmit(handleSubmitData)}
-        className="flex flex-row w-full lg:w-auto gap-y-2 lg:gap-y-0 px-5"
+        className="flex flex-row w-full lg:w-auto gap-y-2 lg:gap-y-0 px-5 flex-auto"
       >
         <AppTextInput
           control={control}
           label="search"
           placeholder="search"
           name="searchTerm"
+          fullWidth
         />
         <input
           className="cursor-pointer bg-slate-800 text-white py-1 px-5 uppercase font-Oswald text-xl font-thin"
@@ -62,7 +63,7 @@ export default function ProjectFilters() {
         />
       </form>
 
-      <div className="border-black">
+      <div className="border-black flex-initial">
         <AppCheckbox
           label="Projects where I'm a member"
           isChecked={isMemberOnly}

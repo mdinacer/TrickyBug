@@ -39,10 +39,12 @@ export default function ProjectsPage() {
           </h1>
           <button
             type="button"
-            className=" font-Oswald uppercase font-thin ml-auto bg-slate-600 text-white py-2 px-5 lg:rounded-md"
+            className="px-2 py-1 bg-slate-600 text-white"
             onClick={() => setIsEdit(true)}
           >
-            Add Project
+            <p className="font-Oswald text-lg font-thin uppercase">
+              Add Project
+            </p>
           </button>
         </div>
         <div className="flex flex-col justify-between">

@@ -9,14 +9,14 @@ interface Props {
 
 export default function ActionsListItem({ action, onActionSelected }: Props) {
   return (
-    <div className=" flex flex-row justify-between border-b border-b-gray-400 items-end py-5">
+    <div className=" flex flex-col gap-y-3 lg:gap-y-0 lg:flex-row justify-between border-b border-b-gray-400 lg:items-end py-5">
       <div>
         <p className=" font-Oswald font-thin text-2xl">{action.title}</p>
         <p className=" font-Montserrat font-thin text-lg">
           {action.description}
         </p>
       </div>
-      <div className="grid grid-cols-3 max-w-md gap-x-10 ml-auto">
+      <div className="grid grid-cols-3 lg:max-w-md gap-x-10 ml-0 lg:ml-auto">
         <div>
           <p className=" font-Oswald text-base uppercase font-thin text-gray-500">
             Date
@@ -34,7 +34,7 @@ export default function ActionsListItem({ action, onActionSelected }: Props) {
             {action.author}
           </p>
         </div>
-        <div className="self-center">
+        <div className="self-end lg:self-center">
           <button
             type="button"
             title="edit"

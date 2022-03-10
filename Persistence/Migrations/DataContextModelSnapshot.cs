@@ -198,10 +198,6 @@ namespace Persistence.Migrations
                     b.Property<bool>("IsLeader")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("UserId", "ProjectId");
 
                     b.HasIndex("ProjectId");

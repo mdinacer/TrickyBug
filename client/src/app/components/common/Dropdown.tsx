@@ -68,7 +68,7 @@ export default function Dropdown({
       >
         {selectedItem ? (
           <p className={styles.dropdownButtonText}>
-            <span className="text-gray-500 opacity-50  capitalize ">
+            <span className="text-gray-500  text-xl  capitalize ">
               {title}{" "}
             </span>
             <span className="uppercase text-inherit">{selectedItem.name}</span>

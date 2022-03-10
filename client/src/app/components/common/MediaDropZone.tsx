@@ -24,7 +24,7 @@ export default function MediaDropZone(props: Props) {
   return (
     <div
       {...getRootProps()}
-      className={`h-full w-full text-white overflow-hidden`}
+      className={`h-full w-full text-inherit overflow-hidden`}
     >
       <div
         className={`${

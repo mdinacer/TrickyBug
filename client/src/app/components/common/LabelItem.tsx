@@ -14,8 +14,8 @@ export default function LabelItem({
   return (
     <p
       className={`${
-        isCol ? "flex-col items-start" : "flex-row items-center"
-      } flex w-full justify-between font-Montserrat border-b border-b-inherit`}
+        isCol ? "flex-col items-start" : "flex-col lg:flex-row lg:items-center"
+      } flex w-full justify-between font-Montserrat border-b border-b-inherit gap-y-2 lg:gap-y-0`}
     >
       <span className="text-xl uppercase font-Oswald font-thin min-w-[7rem] text-gray-500">
         {title}

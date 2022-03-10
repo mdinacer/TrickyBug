@@ -63,7 +63,7 @@ export default function ProjectRecentActions({
     );
   return (
     <div className="relative h-full flex flex-col overflow-hidden">
-      <div className="flex-initial flex flex-row items-end justify-between">
+      <div className="flex-initial flex flex-col lg:flex-row lg:items-end px-5 lg:px-0 justify-between">
         <p className="font-Oswald text-3xl font-thin uppercase leading-loose">
           Recent Actions
         </p>

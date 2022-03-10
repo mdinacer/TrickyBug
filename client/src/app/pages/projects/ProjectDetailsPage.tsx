@@ -94,14 +94,14 @@ export default function ProjectDetailsPage() {
           </button>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <div className=" w-full h-full p-10 bg-white text-black drop-shadow-md">
+          <div className=" w-full h-full px-5 py-10 lg:p-10 bg-white text-black drop-shadow-md">
             <ProjectHeader project={project} />
           </div>
 
-          <div className=" w-full h-auto p-10 bg-white text-black drop-shadow-md">
+          <div className=" w-full h-auto px-5 py-10 lg:p-10 bg-white text-black drop-shadow-md">
             <ProjectInfo project={project} />
           </div>
-          <div className=" w-full h-auto p-10 bg-white text-black drop-shadow-md">
+          <div className=" w-full h-auto px-5 py-10 lg:p-10 bg-white text-black drop-shadow-md">
             <ProjectMembers projectId={project.id} />
           </div>
         </div>
