@@ -10,15 +10,17 @@ interface Props {
 
 export default function CommentsContainer({ comments, ticketId }: Props) {
   return (
-    <>
-      <div className="flex flex-row justify-between items-end border-b-2 border-black pb-1 flex-initial">
+    <div className="h-full flex flex-col gap-y-5">
+      <div className="flex-initial px-5 lg:px-0">
         <CommentsContainerHeader commentsCount={comments.length} />
       </div>
-      <div className="flex-auto overflow-y-scroll overflow-x-hidden py-5 my-5 ">
+      <div className=" overflow-y-scroll overflow-x-hidden flex-auto h-full py-5 max-h-[60vh]">
         <CommentsList comments={comments} />
       </div>
 
-      <CommentForm ticketId={ticketId} />
-    </>
+      <div className=" flex-initial py-5">
+        <CommentForm ticketId={ticketId} />
+      </div>
+    </div>
   );
 }

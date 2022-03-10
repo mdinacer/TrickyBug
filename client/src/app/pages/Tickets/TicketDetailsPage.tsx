@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { PencilAltIcon, TrashIcon } from "@heroicons/react/solid";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import agent from "../../api/agent";
 import CommentsContainer from "../../components/comments/CommentsContainer";
 import LoadingComponent from "../../components/common/LoadingComponent";
 import TicketHeader from "../../components/ticketDetails/TicketHeader";
 import TicketInfo from "../../components/ticketDetails/TicketInfo";
+import TicketForm from "../../components/Tickets/TicketForm";
 import useComments from "../../hooks/useComments";
 import { ProjectTicketFull } from "../../models/ticket";
 import { useAppSelector } from "../../store/configureStore";
@@ -15,20 +17,28 @@ export default function TicketDetailsPage() {
   const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const { status: ticketStatus } = useAppSelector((state) => state.ticket);
-  const { comments, metaData, setTicketId } = useComments();
+  const { comments, setTicketId } = useComments();
+  const [isEdit, setIsEdit] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
+  const navigate = useNavigate();
+
+  const loadTicket = useCallback((id: number) => {
+    setLoading(true);
+    agent.Tickets.details(id)
+      .then((response) => {
+        setTicket(response);
+        setLoaded(true);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  }, []);
 
   useEffect(() => {
     if (id && !loaded && !loading) {
       setLoading(true);
-      agent.Tickets.details(parseInt(id))
-        .then((response) => {
-          setTicket(response);
-          setLoaded(true);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoading(false));
+      loadTicket(parseInt(id));
     }
-  }, [id, loaded, loading, ticket]);
+  }, [id, loadTicket, loaded, loading]);
 
   useEffect(() => {
     if (ticket) {
@@ -40,26 +50,93 @@ export default function TicketDetailsPage() {
     };
   }, [setTicketId, ticket]);
 
+  const handleDeleteTicket = (id: number) => {
+    agent.Tickets.delete(id).then(() => {
+      setIsDelete(false);
+      navigate("/projects");
+    });
+  };
+
   if (ticketStatus.includes("pending"))
     return <LoadingComponent message="Loading ticket..." />;
 
   if (!ticket) return <div>not found</div>;
-  return (
-    <div className=" min-h-screen w-full h-screen  bg-slate-600 pb-10 pt-16 flex flex-row items-center ">
-      <div className="w-1/3 h-full flex-initial px-10 py-5 flex flex-col gap-y-5">
-        <div className=" bg-slate-300 rounded-md overflow-hidden px-10 py-10">
-          <TicketHeader ticket={ticket} />
-        </div>
 
-        <div className=" bg-slate-300 rounded-md overflow-hidden px-10 py-10">
-          <TicketInfo ticket={ticket} />
+  if (isDelete)
+    return (
+      <div className="h-screen w-screen bg-slate-100 flex items-center justify-center">
+        <div className="bg-white h-auto max-w-lg w-full p-5 lg:p-10 rounded-lg drop-shadow-md">
+          <p className=" font-Oswald text-2xl uppercase font-thin border-b-2 border-b-red-500">
+            Attention
+          </p>
+
+          <p className=" font-Montserrat text-lg py-5">
+            This Ticket will be deleted permanently, do you want to proceed?
+          </p>
+          <div className="flex flex-row gap-x-5 mx-auto w-full justify-center lg:justify-end ">
+            <button
+              className="cursor-pointer border-slate-800 border-2 text-slate-800 py-1 px-5 uppercase font-Oswald text-xl font-thin"
+              type="button"
+              onClick={() => setIsDelete(false)}
+            >
+              No
+            </button>
+            <button
+              className="cursor-pointer bg-red-600 text-white py-1 px-5 uppercase font-Oswald text-xl font-thin"
+              type="button"
+              onClick={() => handleDeleteTicket(ticket.id)}
+            >
+              Yes
+            </button>
+          </div>
         </div>
       </div>
-      <div className="w-2/3 relative h-full flex-auto px-10 py-5 flex flex-col gap-y-5">
-        <div className=" bg-slate-300 flex-auto rounded-md overflow-hidden px-10 py-5 flex flex-col ">
-          <CommentsContainer ticketId={ticket.id} comments={comments} />
+    );
+  return (
+    <div className=" w-full h-full min-h-screen bg-slate-100 pt-16 lg:pt-20">
+      {isEdit ? (
+        <TicketForm
+          projectId={ticket.projectId}
+          ticketId={ticket.id}
+          onClose={() => {
+            loadTicket(ticket.id);
+            setIsEdit(false);
+          }}
+        />
+      ) : (
+        <div className="container mx-auto flex flex-col gap-y-5 py-10">
+          <div className="px-5 flex flex-row justify-end items-start gap-x-5 py-3">
+            <button
+              className="flex flex-row gap-x-2 items-center"
+              onClick={() => setIsEdit(true)}
+            >
+              <PencilAltIcon className="h-6 w-6" />
+              <p className=" font-Oswald text-lg font-thin uppercase">Edit</p>
+            </button>
+
+            <button
+              className="flex flex-row gap-x-2 items-center"
+              onClick={() => setIsDelete(true)}
+            >
+              <TrashIcon className="h-6 w-6 text-red-600" />
+              <p className=" font-Oswald text-lg font-thin uppercase">Delete</p>
+            </button>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div className="relative w-full h-full p-10 bg-white text-black drop-shadow-md">
+              <TicketHeader ticket={ticket} />
+            </div>
+
+            <div className=" w-full h-auto p-10 bg-white text-black drop-shadow-md">
+              <TicketInfo ticket={ticket} />
+            </div>
+          </div>
+
+          <div className=" w-full py-10 lg:p-10 bg-white text-black drop-shadow-md h-auto">
+            <CommentsContainer ticketId={ticket.id} comments={comments} />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

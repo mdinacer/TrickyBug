@@ -10,9 +10,9 @@ interface Props extends UseControllerProps {
 
 const styles = {
   inputContainer:
-    " border-x-2 border-x-slate-200 bg-slate-500 flex flex-row items-center ",
+    " border-x-2 border-x-slate-200 bg-slate-200 flex flex-row items-center ",
   inputStyle:
-    " font-Montserrat font-thin text-2xl text-white placeholder:capitalize placeholder:text-gray-300 placeholder:opacity-50 placeholder:font-Oswald pb-2 pt-3 px-5 w-full h-auto block bg-transparent focus-within:outline-none",
+    " font-Montserrat font-thin text-base lg:text-xl text-inherit placeholder:capitalize placeholder:text-gray-500  placeholder:font-Oswald pb-2 pt-3 px-5 w-full h-auto block bg-transparent focus-within:outline-none",
   inputValidationStyle:
     " h-auto font-Oswald text-xl leading-none w-full text-left font-thin px-5 py-0 text-gray-200 ",
 };

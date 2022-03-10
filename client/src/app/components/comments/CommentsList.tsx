@@ -7,11 +7,11 @@ interface Props {
 
 export default function CommentsList({ comments }: Props) {
   return (
-    <ul className="flex flex-col gap-y-2 pr-5">
+    <ul className="flex flex-col gap-y-5 h-auto px-5">
       {comments.map((comment, index) => (
         <li
           key={index}
-          className="w-full bg-slate-100 px-10 rounded-md h-auto py-5  flex flex-col justify-start items-start"
+          className="w-full  overflow-auto bg-gray-100 drop-shadow-md lg:px-10 px-5 lg:rounded-sm h-auto py-3  flex flex-col justify-start items-start"
         >
           <CommentsListItem comment={comment} />
         </li>

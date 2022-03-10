@@ -14,7 +14,6 @@ interface Props {
 
 export default function ProjectRecentTickets({
   projectId,
-  projectSlug,
   isPermitted,
 }: Props) {
   const [tickets, setTickets] = useState<ProjectTicket[]>([]);
@@ -54,7 +53,7 @@ export default function ProjectRecentTickets({
   if (isOpen && projectId)
     return (
       <TicketForm
-        projectSlug={projectSlug}
+        projectId={projectId}
         onClose={handleOnClose}
         ticketId={selectedTicketId}
       />

@@ -52,6 +52,7 @@ public class Edit
             
             if (ticket.Description != null && request.Ticket.Description.File != null)
             {
+                _mapper.Map(request.Ticket.Description, ticket.Description);
                 if (!string.IsNullOrEmpty(ticket.Description.PhotoId))
                 {
                     await _photoAccessor.DeletePhoto(ticket.Description.PhotoId);
@@ -69,7 +70,7 @@ public class Edit
             var result = await _context.SaveChangesAsync(cancellationToken) > 0;
 
             return !result
-                ? Result<TicketDto>.Failure("Failed to update project")
+                ? Result<TicketDto>.Failure("Failed to update ticket")
                 : Result<TicketDto>.Success(_mapper.Map<TicketDto>(ticket));
         }
     }

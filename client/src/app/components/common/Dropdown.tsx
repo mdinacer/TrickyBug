@@ -11,15 +11,15 @@ interface Props {
 }
 
 const styles = {
-  dropdownContainer: "relative border-x-2 border-x-slate-200 bg-slate-500",
+  dropdownContainer: "relative border-x-2 border-x-slate-200 bg-slate-200",
   dropdownButton:
     "pb-2 pt-3 px-5 font-Oswald font-thin inline-flex justify-between items-center w-full",
   dropdownButtonText:
     "flex flex-row items-center justify-between w-full gap-x-5 text-2xl",
-  dropdownButtonPlaceholder: "text-2xl text-gray-300",
+  dropdownButtonPlaceholder: "text-2xl text-gray-400",
   inputValidationStyle:
     "h-auto font-Oswald text-lg leading-none w-full font-thin px-5 py-0 text-gray-600",
-  dropdownButtonIcon: "w-8 h-8 ml-2 text-white",
+  dropdownButtonIcon: "w-8 h-8 ml-2 text-inherit",
   dropdownListContainer:
     "absolute bg-white text-base z-50 drop-shadow-md list-none divide-y  divide-gray-100 rounded shadow my-4  w-full px-5",
   dropdownList: "py-5 list-none flex flex-col gap-y-2 font-Montserrat",
@@ -68,10 +68,10 @@ export default function Dropdown({
       >
         {selectedItem ? (
           <p className={styles.dropdownButtonText}>
-            <span className="text-gray-300 opacity-50  capitalize ">
+            <span className="text-gray-500 opacity-50  capitalize ">
               {title}{" "}
             </span>
-            <span className="uppercase text-white">{selectedItem.name}</span>
+            <span className="uppercase text-inherit">{selectedItem.name}</span>
           </p>
         ) : (
           <p className={styles.dropdownButtonPlaceholder}>{title}</p>

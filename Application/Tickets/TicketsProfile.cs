@@ -15,10 +15,9 @@ public class TicketsProfile : Profile
             .ForMember(d => d.Author, o => { o.MapFrom(s => s.Author.DisplayName); })
             .ForMember(d => d.AssignedMember, o => { o.MapFrom(s => s.AssignedMember.DisplayName); })
             .ForMember(d => d.Project, o => { o.MapFrom(s => s.Project.Title); });
-        CreateMap<CreateTicketDto, ProjectTicket>()
-            .ForMember(d => d.Description, o => { o.Ignore(); });
+        CreateMap<CreateTicketDto, ProjectTicket>();
         CreateMap<UpdateTicketDto, ProjectTicket>()
-            .ForMember(d => d.Description, o => { o.Ignore(); });
+            .ForMember(d => d.Id, o => { o.Ignore(); });
 
 
         CreateMap<TicketDescription, TicketDescriptionDto>()

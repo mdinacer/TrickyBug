@@ -19,13 +19,13 @@ import AppTextArea from "../common/TextArea";
 import AppTextInput from "../common/TextInput";
 
 interface Props {
-  projectSlug: string;
+  projectId: string;
   ticketId?: number | null;
   isFullScreen?: boolean;
   onClose: () => void;
 }
 
-export default function TicketForm({ projectSlug, ticketId, onClose }: Props) {
+export default function TicketForm({ projectId, ticketId, onClose }: Props) {
   const [ticket, setTicket] = useState<ProjectTicketFull | null>(null);
   const isEdit = !!ticket;
   const [project, setProject] = useState<Project | null>(null);
@@ -56,9 +56,9 @@ export default function TicketForm({ projectSlug, ticketId, onClose }: Props) {
   }, []);
 
   const loadProject = useCallback(
-    async (slug: string) => {
+    async (id: string) => {
       try {
-        const project = await agent.Projects.details(slug);
+        const project = await agent.Projects.detailsById(id);
         setProject(project);
         setValue("projectId", project.id);
         await loadMembers(project.id);
@@ -80,10 +80,10 @@ export default function TicketForm({ projectSlug, ticketId, onClose }: Props) {
   }, []);
 
   useEffect(() => {
-    if (projectSlug) {
-      loadProject(projectSlug);
+    if (projectId) {
+      loadProject(projectId);
     }
-  }, [loadProject, projectSlug]);
+  }, [loadProject, projectId]);
 
   useEffect(() => {
     if (ticketId) {
@@ -121,15 +121,9 @@ export default function TicketForm({ projectSlug, ticketId, onClose }: Props) {
     };
 
     const flatObj = { ...flattenObj(obj), "description.file": file };
-
-    console.log("obj:", flatObj);
-
     if (!project) return;
-
-    const itemChanged = true; //ticket && ticket !== obj;
-
     try {
-      if (isEdit && itemChanged) {
+      if (isEdit) {
         await agent.Tickets.update(flatObj);
       }
 
@@ -144,7 +138,7 @@ export default function TicketForm({ projectSlug, ticketId, onClose }: Props) {
   }
 
   return (
-    <div className="lg:fixed top-0 left-0 h-full min-h-screen w-screen bg-slate-600 z-[5] px-5 lg:px-0 flex items-center  py-20">
+    <div className="lg:fixed top-0 left-0 h-full min-h-screen w-screen bg-slate-500 z-[5] px-5 lg:px-0 flex items-center  py-20">
       <div className="container mx-auto flex flex-col text-white max-w-4xl">
         <div className="flex flex-col lg:flex-row justify-between border-b border-b-white py-1 lg:items-end ">
           <p className="font-Oswald text-5xl uppercase">
@@ -159,7 +153,7 @@ export default function TicketForm({ projectSlug, ticketId, onClose }: Props) {
           onSubmit={handleSubmit(handleSubmitData)}
           className="w-full flex flex-col gap-y-5"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2  lg:gap-x-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 text-black  lg:gap-x-10">
             <div className="flex flex-col gap-y-5 py-5">
               <AppTextInput
                 type="text"
@@ -264,7 +258,7 @@ export default function TicketForm({ projectSlug, ticketId, onClose }: Props) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 lg:h-[200px]">
-            <div className="h-auto border-x-2 px-5 border-x-white text-white bg-slate-500 bg-opacity-50 flex-auto">
+            <div className="h-auto border-x-2 px-5 py-5 border-x-white text-white bg-slate-500 bg-opacity-50 flex-auto">
               <MediaDropZone control={control} name="file" />
             </div>
             <div className="flex flex-row h-full w-full border-x-2 px-5 border-x-white text-white bg-slate-500 bg-opacity-50">
@@ -285,9 +279,9 @@ export default function TicketForm({ projectSlug, ticketId, onClose }: Props) {
               </div>
             </div>
           </div>
-          <div className="flex flex-row gap-x-2 mx-auto w-full justify-end py-5">
+          <div className="flex flex-row gap-x-0 mx-auto w-full justify-center lg:justify-end py-5">
             <input
-              className="cursor-pointer border-slate-500 border-2 text-slate-300 py-1 px-5 uppercase font-Oswald text-xl font-thin"
+              className="cursor-pointer border-slate-800 border-2 text-slate-800 py-1 px-5 uppercase font-Oswald text-xl font-thin"
               type="button"
               value="Cancel"
               onClick={onClose}

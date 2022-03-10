@@ -10,11 +10,11 @@ interface Props extends UseControllerProps {
 
 const styles = {
   inputContainer:
-    "border-x-2 border-x-slate-200 h-full bg-slate-500 flex flex-row items-center",
+    "border-x-2 border-x-slate-200 h-full bg-slate-200 flex flex-col lg:flex-row items-center",
   inputStyle:
-    "font-Montserrat resize-none font-thin text-2xl text-white placeholder:text-gray-300 placeholder:font-Oswald pb-2 pt-3 px-5 w-full h-full block bg-transparent focus-within:outline-none",
+    "font-Montserrat resize-none font-thin text-base lg:text-xl text-inherit placeholder:text-gray-500 placeholder:font-Oswald pb-2 pt-3 px-5 w-full h-full block bg-transparent focus-within:outline-none",
   inputValidationStyle:
-    "h-auto font-Oswald text-xl leading-none w-full font-thin px-5 py-0 text-gray-200",
+    "h-auto font-Oswald text-xl leading-none w-full font-thin px-5 py-5 lg:py-0 text-gray-200",
 };
 
 export default function AppTextArea(props: Props) {

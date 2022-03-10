@@ -25,6 +25,12 @@ public class ProjectsController : BaseApiController
     {
         return HandleResult(await Mediator.Send(new Details.Query { Slug = slug }));
     }
+    
+    [HttpGet("{id}/getById")]
+    public async Task<IActionResult> GetProjectById(string id)
+    {
+        return HandleResult(await Mediator.Send(new DetailsById.Query { Id = id }));
+    }
 
     [HttpPost]
     public async Task<IActionResult> CreateProject([FromForm] CreateProjectDto projectDto)

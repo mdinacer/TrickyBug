@@ -95,8 +95,6 @@ function createFormData(item: any) {
     let formData = new FormData();
     for (const key in item) {
         formData.append(key, item[key])
-        console.log(item[key]);
-
     }
     return formData
 }
@@ -115,6 +113,7 @@ const Account = {
 const Projects = {
     list: (params: URLSearchParams) => requests.get('projects', params),
     details: (slug: string) => requests.get(`projects/${slug}`),
+    detailsById: (id: string) => requests.get(`projects/${id}/getById`),
     create: (project: any) => requests.postForm('projects', createFormData(project)),
     update: (project: any) => requests.putForm('projects', createFormData(project)),
     delete: (id: number) => requests.delete<void>(`projects/${id}`),
