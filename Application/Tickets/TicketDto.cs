@@ -16,6 +16,8 @@ public class TicketDto
     public string AuthorId { get; set; }
     public string Author { get; set; }
     public TicketStatus Status { get; set; }
+    public bool IsAuthor { get; set; }
+    public bool IsAssigned { get; set; }
 }
 
 public class TicketFullDto
@@ -38,6 +40,8 @@ public class TicketFullDto
     public List<TicketCommentDto> Comments { get; set; }
     public ProjectPhase? Phase { get; set; }
     public List<ProjectAction>? Actions { get; set; }
+    public bool IsAuthor { get; set; }
+    public bool IsAssigned { get; set; }
 }
 
 public class CreateTicketDto

@@ -35,7 +35,8 @@ public class Details
                 .ThenInclude(d => d.Photo)
                 .Include(p => p.Author)
                 .Include(p => p.Project)
-                .ProjectTo<TicketFullDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<TicketFullDto>(_mapper.ConfigurationProvider, 
+                    new { currentUsername = _userAccessor.GetUsername() })
                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (ticket != null)

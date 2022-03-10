@@ -105,13 +105,11 @@ export default function ProjectForm({ project, handleClose }: Props) {
                   label="Title"
                   placeholder="Title"
                   rules={{ required: "Title is required" }}
-                  fullWidth={!isMobile}
                 />
                 <AppTextArea
                   name="description"
                   placeholder="Description"
                   label="Description"
-                  fullWidth={!isMobile}
                   rows={7}
                   control={control}
                   rules={{ required: "Description is required" }}
@@ -138,6 +136,19 @@ export default function ProjectForm({ project, handleClose }: Props) {
                     )}
                   </div>
                 </div>
+                <div className="flex flex-row gap-x-0 mx-auto w-full justify-center py-5">
+                  <input
+                    className="cursor-pointer border-slate-800 border-2 text-slate-800 py-1 px-5 uppercase font-Oswald text-xl font-thin"
+                    type="button"
+                    value="Cancel"
+                    onClick={() => handleClose()}
+                  />
+                  <input
+                    className="cursor-pointer bg-slate-800 text-white py-1 px-5 uppercase font-Oswald text-xl font-thin"
+                    type="submit"
+                    value={isEdit ? "Update Project" : "Create Project"}
+                  />
+                </div>
               </div>
 
               <div>
@@ -149,19 +160,6 @@ export default function ProjectForm({ project, handleClose }: Props) {
                   setMembers={setMembers}
                 />
               </div>
-            </div>
-            <div className="flex flex-row gap-x-0 mx-auto w-full justify-center py-10">
-              <input
-                className="cursor-pointer border-slate-800 border-2 text-slate-800 py-1 px-5 uppercase font-Oswald text-xl font-thin"
-                type="button"
-                value="Cancel"
-                onClick={() => handleClose()}
-              />
-              <input
-                className="cursor-pointer bg-slate-800 text-white py-1 px-5 uppercase font-Oswald text-xl font-thin"
-                type="submit"
-                value={isEdit ? "Update Project" : "Create Project"}
-              />
             </div>
           </form>
         </div>

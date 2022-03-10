@@ -22,7 +22,7 @@ export default function ProjectRecentActions({
   const [selectedAction, setSelectedAction] = useState<ProjectAction | null>(
     null
   );
-  const [isOpen, setIsOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const loadProjectActions = useCallback(() => {
     agent.Projects.listRecentActions(projectId)
@@ -45,63 +45,68 @@ export default function ProjectRecentActions({
   const handleOnClose = () => {
     loadProjectActions();
     if (selectedAction) setSelectedAction(null);
-    setIsOpen(false);
+    setIsFormOpen(false);
   };
 
   function handleOnActionSelect(item: ProjectAction) {
     setSelectedAction(item);
-    setIsOpen(true);
+    setIsFormOpen(true);
   }
 
-  if (isOpen && projectId)
-    return (
-      <ActionForm
-        projectId={projectId}
-        onClose={handleOnClose}
-        action={selectedAction}
-      />
-    );
   return (
     <div className="relative h-full flex flex-col overflow-hidden">
-      <div className="flex-initial flex flex-col lg:flex-row lg:items-end px-5 lg:px-0 justify-between">
-        <p className="font-Oswald text-3xl font-thin uppercase leading-loose">
-          Recent Actions
-        </p>
-        <div className="flex flex-row items-end gap-x-2 self-start">
-          {isPermitted && (
-            <button
-              onClick={() => setIsOpen(true)}
-              className="px-2 py-1 bg-slate-600 text-white"
-              type="button"
-            >
-              <p className="font-Oswald text-lg font-thin uppercase">
-                Add Actioin
-              </p>
-            </button>
-          )}
-          <Link
-            className="px-2 py-1 bg-slate-600 text-white"
-            to={`/projects/${projectSlug}/actions/`}
-          >
-            <p className="font-Oswald text-lg font-thin uppercase">
-              View Actions
+      {!isFormOpen ? (
+        <div>
+          <div className="flex-initial flex flex-col lg:flex-row lg:items-end px-5 lg:px-0 justify-between">
+            <p className="font-Oswald text-3xl font-thin uppercase leading-loose">
+              Recent Actions
             </p>
-          </Link>
-        </div>
-      </div>
-
-      <div className="px-5">
-        {actions.length > 0 ? (
-          <ActionsList
-            onActionSelected={handleOnActionSelect}
-            actions={actions}
-          />
-        ) : (
-          <div className="h-40 w-full flex items-center justify-center">
-            <p className="font-Montserrat text-xl text-gray-400">EMPTY</p>
+            <div className="flex flex-row items-end gap-x-2 self-start">
+              {isPermitted && (
+                <button
+                  onClick={() => setIsFormOpen(true)}
+                  className="px-2 py-1 bg-slate-600 text-white"
+                  type="button"
+                >
+                  <p className="font-Oswald text-lg font-thin uppercase">
+                    Add Actioin
+                  </p>
+                </button>
+              )}
+              <Link
+                className="px-2 py-1 bg-slate-600 text-white"
+                to={`/projects/${projectSlug}/actions/`}
+              >
+                <p className="font-Oswald text-lg font-thin uppercase">
+                  View Actions
+                </p>
+              </Link>
+            </div>
           </div>
-        )}
-      </div>
+
+          <div className="px-5">
+            {actions.length > 0 ? (
+              <ActionsList
+                onActionSelected={handleOnActionSelect}
+                actions={actions}
+                isPermitted={isPermitted}
+              />
+            ) : (
+              <div className="h-40 w-full flex items-center justify-center">
+                <p className="font-Montserrat text-xl text-gray-400">EMPTY</p>
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="w-full h-full px-5 lg:px-0">
+          <ActionForm
+            projectId={projectId}
+            onClose={handleOnClose}
+            action={selectedAction}
+          />
+        </div>
+      )}
     </div>
   );
 }

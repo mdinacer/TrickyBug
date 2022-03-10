@@ -9,8 +9,9 @@ import {
   TicketStatus,
 } from "../../models/enums";
 import { ProjectMember } from "../../models/member";
-import { Project } from "../../models/project";
+import { Project, ProjectDetails } from "../../models/project";
 import { ProjectTicketFull } from "../../models/ticket";
+import { useAppSelector } from "../../store/configureStore";
 import { EnumToArray } from "../../util/enumToArray";
 import { flattenObj } from "../../util/flattenObject";
 import Dropdown from "../common/Dropdown";
@@ -26,9 +27,10 @@ interface Props {
 }
 
 export default function TicketForm({ projectId, ticketId, onClose }: Props) {
+  const { isAdmin } = useAppSelector((state) => state.account);
   const [ticket, setTicket] = useState<ProjectTicketFull | null>(null);
   const isEdit = !!ticket;
-  const [project, setProject] = useState<Project | null>(null);
+  const [project, setProject] = useState<ProjectDetails | null>(null);
   const projectLoaded = !!project;
   const [members, setMembers] = useState<{ name: string; value: string }[]>([]);
   const {
@@ -161,7 +163,6 @@ export default function TicketForm({ projectId, ticketId, onClose }: Props) {
                 label="Ticket Title"
                 placeholder="Ticket Title"
                 name="subject"
-                fullWidth
                 rules={{
                   required: "Subject is required",
                 }}
@@ -172,7 +173,6 @@ export default function TicketForm({ projectId, ticketId, onClose }: Props) {
                 label="Operating System"
                 placeholder="Operating System"
                 name="description.operatingSystem"
-                fullWidth
               />
 
               <AppTextInput
@@ -181,7 +181,6 @@ export default function TicketForm({ projectId, ticketId, onClose }: Props) {
                 label="Browser"
                 placeholder="Browser"
                 name="description.browser"
-                fullWidth
               />
 
               <AppTextArea
@@ -191,7 +190,6 @@ export default function TicketForm({ projectId, ticketId, onClose }: Props) {
                 label="Ticket Description"
                 placeholder="Ticket Description"
                 name="body"
-                fullWidth
                 rules={{
                   required: "Description is required",
                 }}
@@ -199,26 +197,25 @@ export default function TicketForm({ projectId, ticketId, onClose }: Props) {
             </div>
             <div className="flex flex-col gap-y-5 py-5">
               <div className=" w-full flex flex-col  gap-y-5 ">
-                <Dropdown
-                  title="Priority"
-                  fullWidth
-                  items={EnumToArray(TicketPriority)}
-                  onChange={(value) => handleOnChange("priority", value)}
-                  selectedValue={ticket?.priority}
-                />
-                {isEdit && (
+                {isEdit && (ticket.isAssigned || project?.isLeader) && (
+                  <Dropdown
+                    title="Priority"
+                    items={EnumToArray(TicketPriority)}
+                    onChange={(value) => handleOnChange("priority", value)}
+                    selectedValue={ticket?.priority}
+                  />
+                )}
+                {isEdit && (ticket.isAssigned || project?.isLeader) && (
                   <Dropdown
                     title="Status"
-                    fullWidth
                     items={EnumToArray(TicketStatus)}
                     onChange={(value) => handleOnChange("status", value)}
                     selectedValue={ticket?.status}
                   />
                 )}
-                {isEdit && (
+                {isEdit && (isAdmin || project?.isLeader) && (
                   <Dropdown
                     title="Assigned Member"
-                    fullWidth
                     items={members}
                     onChange={(value) =>
                       handleOnChange("assignedMemberId", value)
@@ -228,7 +225,6 @@ export default function TicketForm({ projectId, ticketId, onClose }: Props) {
                 )}
                 <Dropdown
                   title="Occurrence"
-                  fullWidth
                   items={EnumToArray(IssueOccurrence)}
                   onChange={(value) =>
                     handleOnChange("description.occurrence", value)
@@ -237,7 +233,6 @@ export default function TicketForm({ projectId, ticketId, onClose }: Props) {
                 />
                 <Dropdown
                   title="Severity"
-                  fullWidth
                   items={EnumToArray(IssueSeverity)}
                   onChange={(value) =>
                     handleOnChange("description.severity", value)
@@ -246,7 +241,6 @@ export default function TicketForm({ projectId, ticketId, onClose }: Props) {
                 />
                 <Dropdown
                   title="Nature"
-                  fullWidth
                   items={EnumToArray(IssueNature)}
                   onChange={(value) =>
                     handleOnChange("description.nature", value)

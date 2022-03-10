@@ -58,7 +58,6 @@ export default function LoginPage() {
               label="Email"
               name="email"
               placeholder="Email"
-              fullWidth
             />
 
             <AppTextInput
@@ -68,7 +67,6 @@ export default function LoginPage() {
               label="Password"
               name="password"
               placeholder="Password"
-              fullWidth
             />
 
             <input

@@ -2,9 +2,10 @@ import { lazy, useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import agent from "../../../api/agent";
 import { ProjectTicket } from "../../../models/ticket";
-import TicketForm from "../../Tickets/TicketForm";
+//import TicketForm from "../../Tickets/TicketForm";
 
 const TicketsList = lazy(() => import("../../Tickets/TicketsList"));
+const TicketForm = lazy(() => import("../../Tickets/TicketForm"));
 
 interface Props {
   projectId: string;
@@ -18,7 +19,6 @@ export default function ProjectRecentTickets({
 }: Props) {
   const [tickets, setTickets] = useState<ProjectTicket[]>([]);
   const [loaded, setLoaded] = useState(false);
-  const [selectedTicketId, setSelectedTicketId] = useState<number | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const loadProjectTickets = useCallback(() => {
@@ -41,23 +41,11 @@ export default function ProjectRecentTickets({
 
   const handleOnClose = () => {
     loadProjectTickets();
-    if (selectedTicketId) setSelectedTicketId(null);
     setIsOpen(false);
   };
 
-  function handleOnTicketSelect(id: number) {
-    setSelectedTicketId(id);
-    setIsOpen(true);
-  }
-
   if (isOpen && projectId)
-    return (
-      <TicketForm
-        projectId={projectId}
-        onClose={handleOnClose}
-        ticketId={selectedTicketId}
-      />
-    );
+    return <TicketForm projectId={projectId} onClose={handleOnClose} />;
   return (
     <div className="relative h-full flex flex-col overflow-hidden">
       <div className="flex-initial flex flex-col lg:flex-row lg:items-end justify-between px-5 lg:px-0">
@@ -91,10 +79,7 @@ export default function ProjectRecentTickets({
       </div>
       <div className="px-5">
         {tickets.length > 0 ? (
-          <TicketsList
-            tickets={tickets}
-            onActionSelected={handleOnTicketSelect}
-          />
+          <TicketsList tickets={tickets} />
         ) : (
           <div className="h-40 w-full flex items-center justify-center">
             <p className="font-Montserrat text-xl text-gray-400">EMPTY</p>

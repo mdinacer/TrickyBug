@@ -17,6 +17,8 @@ export interface ProjectTicket {
     authorId: string;
     author: string;
     status: TicketStatus;
+    isAuthor: boolean;
+    isAssigned: boolean;
 }
 
 export interface ProjectTicketFull {
@@ -36,7 +38,9 @@ export interface ProjectTicketFull {
     description: TicketDescription;
     comments: TicketComment[];
     actions?: ProjectAction[];
-    phase?: ProjectPhase
+    phase?: ProjectPhase;
+    isAuthor: boolean;
+    isAssigned: boolean;
 }
 
 export interface CreateTicket {

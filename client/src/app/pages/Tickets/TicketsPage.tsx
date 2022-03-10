@@ -45,6 +45,7 @@ export default function TicketsPage() {
         <h1 className="flex-initial font-Oswald text-7xl pb-10  uppercase">
           Tickets
         </h1>
+
         {!projectId && (
           <TicketsFilters params={ticketParams} setParams={handleChangParams} />
         )}

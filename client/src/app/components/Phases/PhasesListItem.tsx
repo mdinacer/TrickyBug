@@ -5,9 +5,14 @@ import { ProjectPhase } from "../../models/phase";
 interface Props {
   phase: ProjectPhase;
   onPhaseSelected: (item: ProjectPhase) => void;
+  isPermitted: boolean;
 }
 
-export default function PhasesListItem({ phase, onPhaseSelected }: Props) {
+export default function PhasesListItem({
+  phase,
+  onPhaseSelected,
+  isPermitted,
+}: Props) {
   return (
     <div className=" flex flex-col lg:flex-row justify-between border-b border-b-gray-400 gap-y-3 lg:gap-y-0 lg:items-end py-5">
       <div className="flex-auto">
@@ -37,17 +42,19 @@ export default function PhasesListItem({ phase, onPhaseSelected }: Props) {
           </div>
         )}
       </div>
-      <div className="px-10 self-center ml-auto flex-initial">
-        <button
-          type="button"
-          title="edit"
-          className="flex flex-row gap-x-2"
-          onClick={() => onPhaseSelected(phase)}
-        >
-          <PencilAltIcon className="h6 w-6" />
-          <p className=" font-Oswald text-lg font-thin">Edit</p>
-        </button>
-      </div>
+      {isPermitted && (
+        <div className="px-10 self-center ml-auto flex-initial">
+          <button
+            type="button"
+            title="edit"
+            className="flex flex-row gap-x-2"
+            onClick={() => onPhaseSelected(phase)}
+          >
+            <PencilAltIcon className="h6 w-6" />
+            <p className=" font-Oswald text-lg font-thin">Edit</p>
+          </button>
+        </div>
+      )}
     </div>
   );
 }

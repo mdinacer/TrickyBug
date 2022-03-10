@@ -58,6 +58,12 @@ public class ProjectsController : BaseApiController
     {
         return HandleResult(await Mediator.Send(new ListMembers.Query { Id = id }));
     }
+    
+    [HttpGet("{id}/isLeader")]
+    public async Task<IActionResult> GetIsLeader(string id)
+    {
+        return HandleResult(await Mediator.Send(new GetIsLeader.Query { Id = id }));
+    }
 
     [HttpGet("{id}/tickets")]
     public async Task<IActionResult> ListTickets(string id, [FromQuery] TicketParams ticketParams)

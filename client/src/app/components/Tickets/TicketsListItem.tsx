@@ -1,4 +1,3 @@
-import { PencilAltIcon } from "@heroicons/react/solid";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { TicketStatus, TicketPriority } from "../../models/enums";
@@ -6,10 +5,9 @@ import { ProjectTicket } from "../../models/ticket";
 
 interface Props {
   ticket: ProjectTicket;
-  onActionSelected: (id: number) => void;
 }
 
-export default function TicketsListItem({ ticket, onActionSelected }: Props) {
+export default function TicketsListItem({ ticket }: Props) {
   return (
     <Link
       to={`/tickets/${ticket.id}`}
@@ -48,13 +46,6 @@ export default function TicketsListItem({ ticket, onActionSelected }: Props) {
           <p className="font-Oswald text-xl font-thin uppercase">
             {TicketPriority[ticket.priority]}
           </p>
-        </div>
-
-        <div className=" self-center">
-          <button type="button" title="edit" className="flex flex-col">
-            <PencilAltIcon className="h6 w-6" />
-            <p className=" font-Oswald text-lg font-thin">Status</p>
-          </button>
         </div>
       </div>
     </Link>

@@ -62,8 +62,8 @@ export default function ActionForm({ projectId, action, onClose }: Props) {
   }
 
   return (
-    <div className="fixed top-0 left-0 h-screen w-screen bg-slate-600 z-[5] px-5 lg:px-0 flex items-center justify-center py-20">
-      <div className=" max-w-xl w-full text-white">
+    <div className="px-5 lg:px-0 flex items-center justify-center">
+      <div className=" max-w-5xl w-full ">
         <div>
           <div className="flex flex-row justify-between border-b border-b-white py-1 items-end ">
             <p className="font-Oswald text-5xl uppercase">
@@ -81,7 +81,7 @@ export default function ActionForm({ projectId, action, onClose }: Props) {
               name="title"
               placeholder="Title"
               label="Title"
-              fullWidth
+              
               control={control}
               rules={{ required: "Title is required" }}
             />
@@ -90,7 +90,7 @@ export default function ActionForm({ projectId, action, onClose }: Props) {
               name="description"
               placeholder="Description"
               label="Description"
-              fullWidth
+              
               rows={4}
               control={control}
               rules={{ required: "Description is required" }}

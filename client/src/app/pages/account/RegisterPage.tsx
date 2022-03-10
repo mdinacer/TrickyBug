@@ -43,7 +43,7 @@ export default function RegisterPage() {
                 label="Full Name"
                 name="displayName"
                 placeholder="Full Name"
-                fullWidth
+                
               />
 
               <AppTextInput
@@ -53,7 +53,7 @@ export default function RegisterPage() {
                 label="Username"
                 name="username"
                 placeholder="Username"
-                fullWidth
+                
               />
 
               <AppTextInput
@@ -63,7 +63,7 @@ export default function RegisterPage() {
                 label="Email"
                 name="email"
                 placeholder="Email"
-                fullWidth
+                
               />
 
               <AppTextInput
@@ -73,7 +73,7 @@ export default function RegisterPage() {
                 label="Password"
                 name="password"
                 placeholder="Password"
-                fullWidth
+                
               />
 
               <AppTextInput
@@ -83,7 +83,7 @@ export default function RegisterPage() {
                 label="Confirm your password"
                 name="password2"
                 placeholder="Confirm your password"
-                fullWidth
+                
               />
 
               <input

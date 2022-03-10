@@ -30,7 +30,6 @@ export default function TicketsFilters({ params, setParams }: Props) {
           label="search"
           placeholder="search"
           name="searchTerm"
-          fullWidth
         />
         <input
           className="cursor-pointer bg-slate-800 text-white py-1 px-5 uppercase font-Oswald text-xl font-thin"

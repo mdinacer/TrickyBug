@@ -1,4 +1,5 @@
 using Application.Core;
+using Application.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
@@ -18,10 +19,12 @@ public class List
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
+        private readonly IUserAccessor _userAccessor;
 
-        public Handler(DataContext context, IMapper mapper)
+        public Handler(DataContext context, IMapper mapper, IUserAccessor userAccessor)
         {
             _mapper = mapper;
+            _userAccessor = userAccessor;
             _context = context;
         }
 
@@ -30,8 +33,10 @@ public class List
             var query = _context.Tickets
                 .Include(p => p.Description)
                 .Include(p => p.Author)
+                .Include(p => p.AssignedMember)
                 .OrderBy(d => d.CreationDate)
-                .ProjectTo<TicketDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<TicketDto>(_mapper.ConfigurationProvider, 
+                    new { currentUsername = _userAccessor.GetUsername() })
                 .AsQueryable();
 
             if (request.Params.SearchTerm != null)

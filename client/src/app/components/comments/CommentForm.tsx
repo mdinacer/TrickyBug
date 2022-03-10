@@ -26,7 +26,7 @@ export default function CommentForm({ ticketId }: Props) {
     >
       <AppTextArea
         rows={4}
-        fullWidth
+        
         control={control}
         label="comment"
         placeholder="post a comment"

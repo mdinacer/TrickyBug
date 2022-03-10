@@ -20,7 +20,7 @@ export default function ProjectPhases({
   const [phases, setPhases] = useState<ProjectPhase[]>([]);
   const [selectedPhase, setSelectedPhase] = useState<ProjectPhase | null>(null);
   const [loaded, setLoaded] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const loadProjectPhases = useCallback(() => {
     agent.Projects.listRecentPhases(projectId)
@@ -44,62 +44,67 @@ export default function ProjectPhases({
   const handleOnClose = () => {
     loadProjectPhases();
     if (selectedPhase) setSelectedPhase(null);
-    setIsOpen(false);
+    setIsFormOpen(false);
   };
 
   function handleOnPhaseSelect(item: ProjectPhase) {
     setSelectedPhase(item);
-    setIsOpen(true);
+    setIsFormOpen(true);
   }
-
-  if (isOpen && projectId)
-    return (
-      <div className="fixed z-10 top-0 left-0 w-full h-auto">
-        <PhaseForm
-          projectId={projectId}
-          onClose={handleOnClose}
-          phase={selectedPhase}
-        />
-      </div>
-    );
 
   return (
     <div className="relative h-full flex flex-col overflow-hidden">
-      <div className="flex-initial flex flex-col lg:flex-row lg:items-end justify-between px-5 lg:px-0">
-        <p className="font-Oswald text-3xl font-thin uppercase leading-loose">
-          Recent Phases
-        </p>
-        <div className="flex flex-row items-end gap-x-2 self-start">
-          {isPermitted && (
-            <button
-              onClick={() => setIsOpen(true)}
-              className="px-2 py-1 bg-slate-600 text-white"
-              type="button"
-            >
-              <p className="font-Oswald text-lg font-thin uppercase">
-                Add Phase
-              </p>
-            </button>
-          )}
-          <Link
-            className="px-2 py-1 bg-slate-600 text-white"
-            to={`/projects/${projectSlug}/phases/`}
-          >
-            <p className="font-Oswald text-lg font-thin uppercase">
-              View Phases
+      {!isFormOpen ? (
+        <div>
+          <div className="flex-initial flex flex-col lg:flex-row lg:items-end justify-between px-5 lg:px-0">
+            <p className="font-Oswald text-3xl font-thin uppercase leading-loose">
+              Recent Phases
             </p>
-          </Link>
-        </div>
-      </div>
-      <div className="flex-auto h-full w-full px-5">
-        {phases.length > 0 ? (
-          <PhasesList phases={phases} onPhaseSelected={handleOnPhaseSelect} />
-        ) : (
-          <div className="h-40 w-full flex items-center justify-center">
-            <p className="font-Montserrat text-xl text-gray-400">EMPTY</p>
+            <div className="flex flex-row items-end gap-x-2 self-start">
+              {isPermitted && (
+                <button
+                  onClick={() => setIsFormOpen(true)}
+                  className="px-2 py-1 bg-slate-600 text-white"
+                  type="button"
+                >
+                  <p className="font-Oswald text-lg font-thin uppercase">
+                    Add Phase
+                  </p>
+                </button>
+              )}
+              <Link
+                className="px-2 py-1 bg-slate-600 text-white"
+                to={`/projects/${projectSlug}/phases/`}
+              >
+                <p className="font-Oswald text-lg font-thin uppercase">
+                  View Phases
+                </p>
+              </Link>
+            </div>
           </div>
-        )}
-      </div>
+          <div className="flex-auto h-full w-full px-5">
+            {phases.length > 0 ? (
+              <PhasesList
+                phases={phases}
+                onPhaseSelected={handleOnPhaseSelect}
+                isPermitted={isPermitted}
+              />
+            ) : (
+              <div className="h-40 w-full flex items-center justify-center">
+                <p className="font-Montserrat text-xl text-gray-400">EMPTY</p>
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="w-full h-full px-5 lg:px-0">
+          <PhaseForm
+            projectId={projectId}
+            onClose={handleOnClose}
+            phase={selectedPhase}
+          />
+        </div>
+      )}
     </div>
   );
 }

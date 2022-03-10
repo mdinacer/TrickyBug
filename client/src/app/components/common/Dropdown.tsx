@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 interface Props {
   title: string;
   items: { name: string; value: string | number }[];
-  fullWidth?: boolean;
+  //fullWidth?: boolean;
   onChange: (value: any) => void;
   selectedValue: any;
   addAllItem?: boolean;
@@ -30,7 +30,7 @@ const styles = {
 export default function Dropdown({
   title,
   items,
-  fullWidth = false,
+  //fullWidth = false,
   onChange,
   selectedValue,
 }: Props) {
@@ -57,7 +57,6 @@ export default function Dropdown({
   return (
     <div
       className={`
-    ${fullWidth ? "w-full" : "max-w-sm w-full"}
     ${!selectedValue ? "border-x-red-500" : "border-x-white"}  
     ${styles.dropdownContainer}`}
     >

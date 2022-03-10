@@ -12,7 +12,7 @@ public class ActionDto
     public string Author{ get; set; }
 }
 
-public class CreateActionDto
+public class CreateActionDto    
 {
     public string Title { get; set; }
     public string Description { get; set; }

@@ -12,6 +12,8 @@ import { ProjectTicketFull } from "../../models/ticket";
 import { useAppSelector } from "../../store/configureStore";
 
 export default function TicketDetailsPage() {
+  const { isAdmin } = useAppSelector((state) => state.account);
+  const [isLeader, setIsLeader] = useState(false);
   const { id } = useParams<{ id: string }>();
   const [ticket, setTicket] = useState<ProjectTicketFull | null>(null);
   const [loaded, setLoaded] = useState(false);
@@ -33,6 +35,14 @@ export default function TicketDetailsPage() {
       .finally(() => setLoading(false));
   }, []);
 
+  const getIsLeader = useCallback((projectId: string) => {
+    agent.Projects.getIsLeader(projectId)
+      .then((response) => {
+        setIsLeader(response);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   useEffect(() => {
     if (id && !loaded && !loading) {
       setLoading(true);
@@ -43,12 +53,13 @@ export default function TicketDetailsPage() {
   useEffect(() => {
     if (ticket) {
       setTicketId(ticket.id);
+      getIsLeader(ticket.projectId);
     }
 
     return () => {
       setTicketId(null);
     };
-  }, [setTicketId, ticket]);
+  }, [getIsLeader, setTicketId, ticket]);
 
   const handleDeleteTicket = (id: number) => {
     agent.Tickets.delete(id).then(() => {
@@ -106,21 +117,27 @@ export default function TicketDetailsPage() {
       ) : (
         <div className="container mx-auto flex flex-col gap-y-5 py-10">
           <div className="px-5 flex flex-row justify-end items-start gap-x-5 py-3">
-            <button
-              className="flex flex-row gap-x-2 items-center"
-              onClick={() => setIsEdit(true)}
-            >
-              <PencilAltIcon className="h-6 w-6" />
-              <p className=" font-Oswald text-lg font-thin uppercase">Edit</p>
-            </button>
+            {(isAdmin || ticket.isAuthor || isLeader || ticket.isAssigned) && (
+              <button
+                className="flex flex-row gap-x-2 items-center"
+                onClick={() => setIsEdit(true)}
+              >
+                <PencilAltIcon className="h-6 w-6" />
+                <p className=" font-Oswald text-lg font-thin uppercase">Edit</p>
+              </button>
+            )}
 
-            <button
-              className="flex flex-row gap-x-2 items-center"
-              onClick={() => setIsDelete(true)}
-            >
-              <TrashIcon className="h-6 w-6 text-red-600" />
-              <p className=" font-Oswald text-lg font-thin uppercase">Delete</p>
-            </button>
+            {(isAdmin || ticket.isAuthor || isLeader) && (
+              <button
+                className="flex flex-row gap-x-2 items-center"
+                onClick={() => setIsDelete(true)}
+              >
+                <TrashIcon className="h-6 w-6 text-red-600" />
+                <p className=" font-Oswald text-lg font-thin uppercase">
+                  Delete
+                </p>
+              </button>
+            )}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             <div className="relative w-full h-full p-10 bg-white text-black drop-shadow-md">
