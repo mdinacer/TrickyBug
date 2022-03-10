@@ -158,10 +158,11 @@ export default function ProjectDetailsPage() {
           />
         </div>
         <div className=" w-full py-10 lg:p-10 bg-white text-black drop-shadow-md h-auto">
+          {console.log(project)}
           <ProjectActions
             projectId={project.id}
             projectSlug={project.slug}
-            isPermitted={isPermitted}
+            isPermitted={isPermitted || project.isMember}
           />
         </div>
         <div className=" w-full py-10 lg:p-10 bg-white text-black drop-shadow-md h-auto">
@@ -173,6 +174,5 @@ export default function ProjectDetailsPage() {
         </div>
       </div>
     </div>
-    
   );
 }

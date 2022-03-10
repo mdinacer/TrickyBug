@@ -37,28 +37,13 @@ public class Details
                 .ThenInclude(m => m.User)
                 .Include(p => p.Photo)
                 .AsNoTracking()
+                .ProjectTo<ProjectDetailsDto>(_mapper.ConfigurationProvider,new { currentUsername = _userAccessor.GetUsername() })
                 .FirstOrDefaultAsync(x => x.Slug == request.Slug, cancellationToken);
 
 
             if (project != null)
             {
-                // var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x =>
-                //     x.UserName == _userAccessor.GetUsername(), cancellationToken);
-                //
-                // if (user == null) return Result<ProjectDetailsDto>.Failure("You must be authenticated");
-                //
-                // var projectMember = project.Members
-                //     .SingleOrDefault(pm => pm.ProjectId == project.Id && pm.UserId == user.Id);
-                //     
-                // var projectDto = _mapper.Map<ProjectDetailsDto>(project);
-                //
-                // if (projectMember != null)
-                // {
-                //     projectDto.IsMember = true;
-                //     projectDto.IsLeader = projectMember.IsLeader;
-                // }
-                var projectDto = _mapper.Map<ProjectDetailsDto>(project);
-                return Result<ProjectDetailsDto>.Success(projectDto);
+                return Result<ProjectDetailsDto>.Success(project);
             }
 
             return Result<ProjectDetailsDto>.Failure("Sorry, the requested project cannot be found.");
