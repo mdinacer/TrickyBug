@@ -51,14 +51,16 @@ export default function ProjectPhasesPage() {
   if (!project) return <div className="py-20">Not Found</div>;
 
   return (
-    <div className="h-full min-h-screen w-screen bg-slate-300 pb-10 pt-20  px-5">
-      <div className="container mx-auto flex flex-col  w-full rounded-md overflow-hidden">
-        <p className="text-2xl font-Oswald uppercase underline underline-offset-2 ">
-          Phases
-        </p>
-        <h1 className="flex-initial text-5xl font-Oswald mb-10 uppercase">
-          {project.title}
-        </h1>
+    <div className="w-full h-full min-h-screen bg-slate-100 pt-16 lg:pt-20">
+      <div className="container mx-auto flex flex-col gap-y-5 p-10 my-10 bg-white text-black drop-shadow-md">
+        <div className="flex lg:flex-row flex-col justify-between lg:items-end border-b-2 border-black pb-1 flex-initial">
+          <p className=" font-Oswald text-4xl uppercase font-thin">Phases</p>
+
+          <p className=" font-Oswald font-thin uppercase text-2xl">
+            {project.title}
+          </p>
+        </div>
+
         {phases.length > 0 ? (
           <ProjectPhasesList
             projectId={project.id}

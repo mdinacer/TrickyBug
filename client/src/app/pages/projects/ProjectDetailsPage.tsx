@@ -158,11 +158,11 @@ export default function ProjectDetailsPage() {
           />
         </div>
         <div className=" w-full py-10 lg:p-10 bg-white text-black drop-shadow-md h-auto">
-          {console.log(project)}
           <ProjectActions
             projectId={project.id}
             projectSlug={project.slug}
-            isPermitted={isPermitted || project.isMember}
+            isPermitted={isPermitted}
+            isMember={project.isMember}
           />
         </div>
         <div className=" w-full py-10 lg:p-10 bg-white text-black drop-shadow-md h-auto">

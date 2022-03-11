@@ -1,5 +1,5 @@
 import { PaginationParams } from "../models/pagingParams";
-import { TicketParams } from "../models/ticketParams";
+import { ProjectPhaseTicketParams, TicketParams } from "../models/ticketParams";
 
 export function getTicketsParams(ticketParams: TicketParams) {
     const params = new URLSearchParams();
@@ -36,5 +36,17 @@ export function getPaginationParams(paginationParams: PaginationParams) {
     if (paginationParams.searchTerm) {
         params.append("searchTerm", paginationParams.searchTerm);
     }
+    return params;
+}
+
+
+export function getProjectPhaseTicketParams(paginationParams: ProjectPhaseTicketParams) {
+    const params = new URLSearchParams();
+    params.append("pageNumber", paginationParams.pageNumber.toString());
+    params.append("pageSize", paginationParams.pageSize.toString());
+    if (paginationParams.phaseId) {
+        params.append("phaseId", paginationParams.phaseId);
+    }
+
     return params;
 }

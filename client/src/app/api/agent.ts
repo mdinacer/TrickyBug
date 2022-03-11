@@ -128,7 +128,7 @@ const Projects = {
 }
 
 const Tickets = {
-    list: (params: URLSearchParams) => requests.get<ProjectTicket[]>('tickets', params),
+    list: (params: URLSearchParams) => requests.get('tickets', params),
     details: (id: number) => requests.get<ProjectTicket>(`tickets/${id}`),
     create: (ticket: any) => requests.postForm(`tickets`, createFormData(ticket)),
     update: (ticket: any) => requests.putForm('tickets', createFormData(ticket)),

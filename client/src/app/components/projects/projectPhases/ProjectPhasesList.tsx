@@ -1,6 +1,7 @@
 import { ProjectPhase } from "../../../models/phase";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
+import { ClipboardListIcon } from "@heroicons/react/solid";
 
 interface Props {
   phases: ProjectPhase[];
@@ -16,75 +17,55 @@ export default function ProjectPhasesList({
     <ul className="list-none flex flex-col py-5 gap-y-6">
       {phases.map((phase) => (
         <li key={phase.id} className="list-item w-full">
-          <div className="flex flex-col lg:flex-row justify-between border-b px-5  border-b-black ">
-            <div className="py-1 max-w-sm w-full">
-              <p className=" font-Montserrat text-lg uppercase ">
-                {`${phase.id} - ${phase.title}`}
+          <div className=" flex flex-col lg:flex-row justify-between border-b border-b-gray-400 gap-y-3 lg:gap-y-0 lg:items-end py-5">
+            <div className="flex-auto">
+              <p className=" font-Oswald font-thin text-2xl ">{phase.title}</p>
+              <p className=" font-Montserrat font-thin text-lg max-w-3xl ">
+                {phase.description}
               </p>
-              <p className=" font-Montserrat text-sm">{phase.description}</p>
             </div>
-            <div className=" flex flex-col lg:flex-row gap-x-10 items-center max-w-md w-full">
-              <div className="flex flex-row gap-x-3 items-end max-w-md w-full">
-                <span className=" font-Montserrat text-base uppercase min-w-[5rem]">
-                  Start:
-                </span>
-                <p className="font-Oswald text-xl font-thin  w-full max-w-xs">
+            <div className="grid grid-cols-2 max-w-md gap-x-10 ml-0 lg:ml-auto flex-initial">
+              <div>
+                <p className=" font-Oswald text-base uppercase font-thin text-gray-500">
+                  Start
+                </p>
+                <p className="font-Oswald text-xl font-thin">
                   {format(new Date(phase.startDate), "dd/MM/yy")}
                 </p>
               </div>
 
-              <div className="flex flex-row gap-x-3 items-end max-w-md w-full">
-                <span className=" font-Montserrat text-base uppercase min-w-[5rem]">
-                  End:
-                </span>
-                {phase.endDate !== "0001-01-01T00:00:00" ? (
-                  <p className="font-Oswald text-xl font-thin">
+              {phase.endDate && (
+                <div className="">
+                  <p className=" font-Oswald text-base uppercase font-thin text-gray-500">
+                    End
+                  </p>
+                  <p className="font-Oswald text-xl font-thin lg:ml-auto">
                     {format(new Date(phase.endDate), "dd/MM/yy")}
                   </p>
-                ) : (
-                  <p className="font-Oswald text-xl uppercase font-thin ">
-                    Actual
-                  </p>
-                )}
-              </div>
+                </div>
+              )}
             </div>
-
-            <div className=" flex flex-row justify-between font-bold lg:font-normal  items-center gap-x-5 lg:gap-x-10 py-5 lg:py-0 uppercase text-base underline lg:no-underline underline-offset-2 lg:text-sm font-Montserrat">
+            <div className="px-10 self-bottom ml-auto flex-initial">
               <Link
                 state={{ fromPhase: true }}
                 to={{
                   pathname: `/projects/${projectSlug}/actions`,
-                  search: `?startDate=${
-                    phase.startDate
-                      ? new Date(phase.startDate).toLocaleDateString()
-                      : null
-                  }&endDate=${
-                    phase.endDate
-                      ? new Date(phase.endDate).toLocaleDateString()
-                      : null
-                  }`,
+                  search: `?phaseId=${phase.id}`,
                 }}
-                className="uppercase"
+                className="flex flex-row gap-x-2"
               >
-                View Actions
+                <ClipboardListIcon className="h6 w-6" />
+                <p className=" font-Oswald text-lg font-thin">View Actions</p>
               </Link>
               <Link
-                state={{ fromPhase: true }}
                 to={{
-                  pathname: `/tickets`,
-                  search: `?projectId=${projectId}&startDate=${
-                    phase.startDate
-                      ? new Date(phase.startDate).toLocaleDateString()
-                      : null
-                  }&endDate=${
-                    phase.endDate
-                      ? new Date(phase.endDate).toLocaleDateString()
-                      : null
-                  }`,
+                  pathname: `/projects/${projectSlug}/tickets`,
+                  search: `?phaseId=${phase.id}`,
                 }}
-                className="uppercase"
+                className="flex flex-row gap-x-2"
               >
-                View Tickets
+                <ClipboardListIcon className="h6 w-6" />
+                <p className=" font-Oswald text-lg font-thin">View Tickets</p>
               </Link>
             </div>
           </div>

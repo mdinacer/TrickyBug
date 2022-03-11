@@ -104,7 +104,7 @@ export default function TicketDetailsPage() {
       </div>
     );
   return (
-    <div className=" w-full h-full min-h-screen bg-slate-100 pt-16 lg:pt-20">
+    <div className="w-full h-full min-h-screen bg-slate-100 pt-16 lg:pt-20">
       {isEdit ? (
         <TicketForm
           projectId={ticket.projectId}

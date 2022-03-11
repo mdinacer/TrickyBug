@@ -107,6 +107,17 @@ function App() {
                   </Suspense>
                 }
               />
+
+              <Route
+                path="tickets"
+                element={
+                  <Suspense fallback={<div />}>
+                    <PrivateRoute>
+                      <ProjectTicketsPage />
+                    </PrivateRoute>
+                  </Suspense>
+                }
+              />
             </Route>
           </Route>
 
@@ -197,6 +208,10 @@ const ProjectPhasesPage = lazy(
 
 const ProjectActionsPage = lazy(
   () => import("../pages/projects/ProjectActionsPage")
+);
+
+const ProjectTicketsPage = lazy(
+  () => import("../pages/projects/ProjectTicketsPage")
 );
 
 const TicketsPage = lazy(() => import("../pages/Tickets/TicketsPage"));

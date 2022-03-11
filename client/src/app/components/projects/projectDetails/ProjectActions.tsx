@@ -10,12 +10,14 @@ interface Props {
   projectId: string;
   projectSlug: string;
   isPermitted: boolean;
+  isMember: boolean;
 }
 
 export default function ProjectRecentActions({
   projectId,
   projectSlug,
   isPermitted,
+  isMember,
 }: Props) {
   const [actions, setActions] = useState<ProjectAction[]>([]);
   const [loaded, setLoaded] = useState(false);
@@ -62,7 +64,7 @@ export default function ProjectRecentActions({
               Recent Actions
             </p>
             <div className="flex flex-row items-end gap-x-2 self-start">
-              {isPermitted && (
+              {(isPermitted || isMember) && (
                 <button
                   onClick={() => setIsFormOpen(true)}
                   className="px-2 py-1 bg-slate-600 text-white"

@@ -5,7 +5,11 @@ import LoadingComponent from "../../components/common/LoadingComponent";
 import LoadingComponentSmall from "../../components/common/LoadingComponentSmall";
 import useTickets from "../../hooks/useTickets";
 import { TicketParams } from "../../models/ticketParams";
-import { setPageNumber, setTicketParams } from "../../slices/ticketSlice";
+import {
+  resetTicketParams,
+  setPageNumber,
+  setTicketParams,
+} from "../../slices/ticketSlice";
 import { useAppDispatch } from "../../store/configureStore";
 
 const TicketsFilters = lazy(
@@ -28,10 +32,12 @@ export default function TicketsPage() {
   useEffect(() => {
     if (projectId) {
       dispatch(setTicketParams({ projectId }));
+    } else {
+      dispatch(resetTicketParams());
     }
   }, [dispatch, projectId]);
   useEffect(() => {
-    if (startDate && endDate) {
+    if (startDate) {
       dispatch(setTicketParams({ startDate, endDate }));
     }
   }, [dispatch, endDate, startDate]);
@@ -46,8 +52,16 @@ export default function TicketsPage() {
           Tickets
         </h1>
 
-        {!projectId && (
+        {!projectId ? (
           <TicketsFilters params={ticketParams} setParams={handleChangParams} />
+        ) : (
+          <div>
+            <p>
+              <span>Showing Project's tickets</span>
+              {startDate && <span>Starting from: </span>}
+              {endDate && <span>Ending at: </span>}
+            </p>
+          </div>
         )}
 
         <div className="flex-auto">

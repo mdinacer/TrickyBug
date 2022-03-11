@@ -10,6 +10,12 @@ export interface TicketParams {
     projectId?: string | null
 }
 
+export interface ProjectPhaseTicketParams {
+    phaseId: string | null;
+    pageNumber: number,
+    pageSize: number,
+}
+
 export class TicketParamsInitial implements TicketParams {
     status = null;
     priority = null;

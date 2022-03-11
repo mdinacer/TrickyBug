@@ -1,79 +1,77 @@
 import { format } from "date-fns";
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import agent from "../../api/agent";
 import LoadingComponent from "../../components/common/LoadingComponent";
-import { ProjectAction } from "../../models/action";
-import { PaginationParams } from "../../models/pagingParams";
+import { TicketStatus, TicketPriority } from "../../models/enums";
+import { MetaData } from "../../models/pagination";
 import { Project } from "../../models/project";
-import { getPaginationParams } from "../../util/queryParams";
+import { ProjectTicket } from "../../models/ticket";
+import { ProjectPhaseTicketParams } from "../../models/ticketParams";
+import { getProjectPhaseTicketParams } from "../../util/queryParams";
 
 export default function ProjectActionsPage() {
   const { slug } = useParams<{ slug: string }>();
+  const [searchParams] = useSearchParams();
+  const phaseId = searchParams.get("phaseId");
   const [project, setProject] = useState<Project | undefined>(undefined);
-  const [loaded, setLoaded] = useState(false);
-  const [actions, setActions] = useState<ProjectAction[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [paginationParams, setPaginationParams] = useState<PaginationParams>({
-    searchTerm: null,
+  const [projectLoaded, setProjectLoaded] = useState(false);
+  const [ticketsLoaded, setTicketsLoaded] = useState(false);
+  const [tickets, setTickets] = useState<ProjectTicket[]>([]);
+  const [projectLoading, setProjectLoading] = useState(false);
+  const [ticketsLoading, setTicketsLoading] = useState(false);
+  const [ticketParams, setTicketParams] = useState<ProjectPhaseTicketParams>({
     pageNumber: 1,
     pageSize: 10,
+    phaseId: null,
   });
+  const [metaData, setMetaData] = useState<MetaData | null>(null);
 
-  const loadProject = useCallback((slug: string) => {
-    setLoading(true);
-    agent.Projects.details(slug)
-      .then((response) => {
-        setProject(response);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  }, []);
-
-  useEffect(() => {
-    setLoading(true);
-    if (slug) {
-      loadProject(slug);
-    }
-    return () => {
-      setProject(undefined);
-    };
-  }, [loadProject, slug]);
-
-  const loadActions = useCallback(
-    (id: string) => {
-      setLoading(true);
-      const params = getPaginationParams(paginationParams);
-      agent.Projects.listActions(id, params)
-        .then((response) => {
-          setActions(response);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => {
-          setLoaded(true);
-          setLoading(false);
-        });
+  const loadTickets = useCallback(
+    async (id: string) => {
+      try {
+        setTicketsLoading(true);
+        const params = getProjectPhaseTicketParams(ticketParams);
+        const result = await agent.Projects.listTickets(id, params);
+        setTickets(result);
+        console.log(result.metadata);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setTicketsLoading(false);
+        setTicketsLoaded(true);
+      }
     },
-    [paginationParams]
+    [ticketParams]
+  );
+
+  const loadProject = useCallback(
+    async (slug: string) => {
+      try {
+        setProjectLoading(true);
+        const result = await agent.Projects.details(slug);
+        setProject(result);
+        setProjectLoaded(true);
+        if (phaseId) {
+          setTicketParams({ ...ticketParams, phaseId });
+        }
+        await loadTickets(result.id);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setProjectLoading(false);
+      }
+    },
+    [loadTickets, phaseId, ticketParams]
   );
 
   useEffect(() => {
-    if (project && !loaded) {
-      loadActions(project.id);
+    if (slug && !projectLoading && !projectLoaded) {
+      loadProject(slug);
     }
+  }, [loadProject, projectLoading, projectLoaded, slug]);
 
-    return () => {
-      setActions([]);
-    };
-  }, [loadActions, loaded, project]);
-
-  useEffect(() => {
-    if (project && paginationParams) {
-      loadActions(project.id);
-    }
-  }, [loadActions, project, paginationParams]);
-
-  if (loading)
+  if (ticketsLoading && !ticketsLoaded)
     return (
       <div className="py-20 w-screen h-screen bg-slate-300 flex  items-center justify-center">
         <LoadingComponent message={"Loading Tickets..."} />
@@ -85,46 +83,57 @@ export default function ProjectActionsPage() {
     <div className="w-full h-full min-h-screen bg-slate-100 pt-16 lg:pt-20">
       <div className="container mx-auto flex flex-col gap-y-5 p-10 my-10 bg-white text-black drop-shadow-md">
         <div className="flex lg:flex-row flex-col justify-between lg:items-end border-b-2 border-black pb-1 flex-initial">
-          <p className=" font-Oswald text-4xl uppercase font-thin">Actions</p>
+          <p className=" font-Oswald text-4xl uppercase font-thin">Tickets</p>
 
           <p className=" font-Oswald font-thin uppercase text-2xl">
             {project.title}
           </p>
         </div>
 
-        {actions.length > 0 ? (
+        {tickets.length > 0 ? (
           <ul className="list-none flex flex-col py-5 gap-y-5">
-            {actions.map((action) => (
-              <li key={action.id} className="list-item  ">
-                <div className=" flex flex-col gap-y-3 lg:gap-y-0 lg:flex-row justify-between border-b border-b-gray-400 lg:items-end py-5">
-                  <div>
-                    <p className=" font-Oswald font-thin text-2xl">
-                      {action.title}
+            {tickets.map((ticket) => (
+              <li key={ticket.id} className="list-item  ">
+                <Link
+                  to={`/tickets/${ticket.id}`}
+                  className=" flex flex-col gap-y-5 lg:gap-y-0 lg:flex-row justify-between border-b border-b-gray-400 items-end py-5"
+                >
+                  <div className="">
+                    <p className=" font-Oswald font-thin leading-loose text-2xl">
+                      {ticket.subject}
                     </p>
-                    <p className=" font-Montserrat font-thin text-lg">
-                      {action.description}
+                    <p className=" font-Montserrat font-thin text-lg pr-5 ">
+                      {ticket.body}
                     </p>
                   </div>
-                  <div className="grid grid-cols-3 lg:max-w-md gap-x-10 ml-0 lg:ml-auto">
+                  <div className="grid grid-flow-col max-w-xl gap-x-10 ml-auto">
                     <div>
                       <p className=" font-Oswald text-base uppercase font-thin text-gray-500">
-                        Date
+                        Created
                       </p>
                       <p className="font-Oswald text-xl font-thin">
-                        {format(new Date(action.actionDate), "dd/MM/yy")}
+                        {format(new Date(ticket.creationDate), "dd/MM/yy")}
                       </p>
                     </div>
 
-                    <div className="">
+                    <div>
                       <p className=" font-Oswald text-base uppercase font-thin text-gray-500">
-                        By
+                        Status
                       </p>
-                      <p className="font-Oswald text-xl font-thin lg:ml-auto">
-                        {action.author}
+                      <p className="font-Oswald text-xl font-thin uppercase">
+                        {TicketStatus[ticket.status]}
+                      </p>
+                    </div>
+                    <div>
+                      <p className=" font-Oswald text-base uppercase font-thin text-gray-500">
+                        Priority
+                      </p>
+                      <p className="font-Oswald text-xl font-thin uppercase">
+                        {TicketPriority[ticket.priority]}
                       </p>
                     </div>
                   </div>
-                </div>
+                </Link>
               </li>
             ))}
           </ul>

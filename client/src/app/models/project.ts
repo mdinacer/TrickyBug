@@ -29,10 +29,6 @@ export interface ProjectDetails {
     isActive: boolean;
     photoId: string;
     photo: string;
-    // tickets: ProjectTicket[];
-    // phases: ProjectPhase[];
-    // actions: ProjectAction[];
-    // members: ProjectMember[];
     ticketsCount: number,
     actualPhase: string
     isLeader: boolean,

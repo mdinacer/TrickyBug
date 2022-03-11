@@ -66,7 +66,7 @@ public class ProjectsController : BaseApiController
     }
 
     [HttpGet("{id}/tickets")]
-    public async Task<IActionResult> ListTickets(string id, [FromQuery] TicketParams ticketParams)
+    public async Task<IActionResult> ListTickets(string id, [FromQuery] ProjectPhaseTicketParams ticketParams)
     {
         return HandleResult(await Mediator.Send(new ListTickets.Query { Id = id, Params = ticketParams }));
     }

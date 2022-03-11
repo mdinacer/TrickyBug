@@ -12,3 +12,11 @@ public class TicketParams : PaginationParams
     public DateTime? EndDate { get; set; }
     public string? SearchTerm { get; set; }
 }
+
+public class ProjectPhaseTicketParams : PaginationParams
+{
+    public int? PhaseId { get; set; }
+}
+
+
+

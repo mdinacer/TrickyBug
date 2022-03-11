@@ -16,6 +16,7 @@ interface Props {
 export default function ProjectRecentTickets({
   projectId,
   isPermitted,
+  projectSlug,
 }: Props) {
   const [tickets, setTickets] = useState<ProjectTicket[]>([]);
   const [loaded, setLoaded] = useState(false);
@@ -67,8 +68,7 @@ export default function ProjectRecentTickets({
           <Link
             className="px-2 py-1 bg-slate-600 text-white"
             to={{
-              pathname: `/tickets`,
-              search: `?projectId=${projectId}`,
+              pathname: `/projects/${projectSlug}/tickets`,
             }}
           >
             <p className="font-Oswald text-lg font-thin uppercase">

@@ -119,6 +119,7 @@ export const ticketSlice = createSlice({
         },
         resetTicketParams: (state) => {
             state.ticketParams = initParams();
+            state.ticketsLoaded = false;
         },
         setTicket: ticketsAdapter.addOne,
         updateTicket: ticketsAdapter.updateOne,

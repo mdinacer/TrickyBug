@@ -14,7 +14,7 @@ public class ListTickets
     public class Query : IRequest<Result<PagedList<TicketDto>>>
     {
         public string Id { get; set; }
-        public TicketParams Params { get; set; }
+        public ProjectPhaseTicketParams Params { get; set; }
     }
 
     public class Handler : IRequestHandler<Query, Result<PagedList<TicketDto>>>
@@ -40,29 +40,22 @@ public class ListTickets
                 .OrderBy(d => d.CreationDate)
                 .ProjectTo<TicketDto>(_mapper.ConfigurationProvider,new { currentUsername = _userAccessor.GetUsername() })
                 .AsQueryable();
-            
-            if (request.Params.SearchTerm != null)
+
+            if (request.Params.PhaseId != null)
             {
-                query = query.Where(t => t.Subject.Contains(request.Params.SearchTerm));
+                var phase = await _context.Phases.FindAsync(request.Params.PhaseId);
+
+                if (phase != null)
+                {
+                    query = query.Where(t =>
+                        t.CreationDate.Date >= phase.StartDate.Date);
+                    if (phase.EndDate != null)
+                        query = query.Where(t =>
+                            t.CreationDate.Date <= phase.EndDate.Value.Date);
+                }
             }
 
-            if (request.Params.Status != null)
-            {
-                query = query.Where(t => t.Status == request.Params.Status);
-            }
-
-            if (request.Params.Priority != null)
-            {
-                query = query.Where(t => t.Priority == request.Params.Priority);
-            }
-
-            if (request.Params.StartDate != null)
-                query = query.Where(t =>
-                    t.CreationDate.Date >= request.Params.StartDate.Value.Date);
-            
-            if (request.Params.EndDate != null)
-                query = query.Where(t =>
-                    t.CreationDate.Date <= request.Params.EndDate.Value.Date);
+         
 
             return Result<PagedList<TicketDto>>.Success(await PagedList<TicketDto>.CreateAsync(query,
                 request.Params.PageNumber,

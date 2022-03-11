@@ -98,7 +98,7 @@ export default function ActionForm({ projectId, action, onClose }: Props) {
 
             <div className="flex flex-row gap-x-2 mx-auto w-full justify-end py-5">
               <input
-                className="cursor-pointer border-slate-500 border-2 text-slate-300 py-1 px-5 uppercase font-Oswald text-xl font-thin"
+                className="cursor-pointer border-slate-800 border-2 text-slate-800 py-1 px-5 uppercase font-Oswald text-xl font-thin"
                 type="button"
                 value="Cancel"
                 onClick={onClose}
