@@ -54,6 +54,23 @@ function App() {
           <Route index element={<HomePage />} />
 
           <Route
+            path="about"
+            element={
+              <Suspense fallback={<div />}>
+                <AboutPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="contact"
+            element={
+              <Suspense fallback={<div />}>
+                <ContactPage />
+              </Suspense>
+            }
+          />
+
+          <Route
             path="admin"
             element={
               <Suspense fallback={<div />}>
@@ -231,5 +248,7 @@ const TicketDetailsPage = lazy(
 );
 
 const AdminPanel = lazy(() => import("../pages/admin/AdminPanel"));
+const AboutPage = lazy(() => import("../pages/about/About"));
+const ContactPage = lazy(() => import("../pages/Contact/Contact"));
 
 export default App;

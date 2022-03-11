@@ -26,7 +26,8 @@ public static class DataSeed
                     DisplayName = "Bob Marley",
                     UserName = "bob",
                     Email = "bob@test.com",
-                    Title = "Projects Manager"
+                    Title = "Projects Manager",
+                    IsActive = true
                     
                 },
                 new()
@@ -34,21 +35,24 @@ public static class DataSeed
                     DisplayName = "Jane Dark",
                     UserName = "jane",
                     Email = "jane@test.com",
-                    Title = "UI/UX Designer"
+                    Title = "UI/UX Designer",
+                    IsActive = true
                 },
                 new()
                 {
                     DisplayName = "Tom Cruise",
                     UserName = "tom",
                     Email = "tom@test.com",
-                    Title = "Frontend Developer"
+                    Title = "Frontend Developer",
+                    IsActive = true
                 },
                 new()
                 {
                     DisplayName = "Jack Bower",
                     UserName = "jack",
                     Email = "jack@test.com",
-                    Title = "Backend Developer"
+                    Title = "Backend Developer",
+                    IsActive = true
                 },
             };
 
