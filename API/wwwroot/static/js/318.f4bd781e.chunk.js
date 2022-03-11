@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[318],{2318:function(n,e,r){r.r(e),r.d(e,{default:function(){return u}});var t=r(184);function u(){return(0,t.jsx)("div",{className:"bg-red-600 py-20",children:(0,t.jsx)("div",{children:"Profile"})})}}}]);
+//# sourceMappingURL=318.f4bd781e.chunk.js.map
