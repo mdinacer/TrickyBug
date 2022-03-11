@@ -48,7 +48,7 @@ export default function ProjectsPage() {
           <ProjectFilters />
         </div>
 
-        <div className="relative container mx-auto flex-auto lg:p-10 py-10 ">
+        <div className="relative container mx-auto flex-auto lg:p-10 lg:py-16 py-10 ">
           {projectsLoaded ? (
             <ProjectsList projects={projects} />
           ) : (

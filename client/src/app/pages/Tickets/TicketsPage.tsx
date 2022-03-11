@@ -63,7 +63,7 @@ export default function TicketsPage() {
           </div>
         )}
 
-        <div className="flex-auto">
+        <div className="flex-auto lg:py-16">
           {ticketsLoaded ? (
             <TicketsGrid tickets={tickets} />
           ) : (
