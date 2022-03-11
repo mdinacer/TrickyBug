@@ -42,9 +42,9 @@ export default function HomePage() {
           </div>
           <div className="max-w-lg py-10">
             <p className=" text-white font-Montserrat text-lg text-center px-5">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-              quisquam aperiam, ab officia excepturi cumque magni quo dicta
-              nobis atque.
+              Allows your entire staff and visitors to report defects and
+              concerns, as well as suggest changes, enabling for quick solutions
+              to avoid downtime and a bad user experience.
             </p>
           </div>
           {!user ? (
