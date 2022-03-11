@@ -10,4 +10,5 @@ public class AppUser : IdentityUser
     public string Title { get; set; }
     public List<RefreshToken> RefreshTokens { get; set; } = new();
     public List<ProjectMember> Projects { get; set; } = new();
+    public bool IsActive { get; set; } = true;
 }

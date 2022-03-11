@@ -7,7 +7,7 @@ import useMediaQuery from "../../util/mediaQuery";
 
 export default function Header() {
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.account);
+  const { user, isAdmin } = useAppSelector((state) => state.account);
   const isMobile = useMediaQuery("(max-width: 1024px)");
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
@@ -29,7 +29,7 @@ export default function Header() {
         </Link>
 
         {!isMobile && (
-          <ul className=" list-none flex flex-row gap-x-5 ">
+          <ul className=" list-none flex flex-row gap-x-5 items-center ">
             {links.map((link, index) => (
               <li
                 key={index}
@@ -45,6 +45,21 @@ export default function Header() {
                 </Link>
               </li>
             ))}
+            {isAdmin && (
+              <li
+                className={`${
+                  pathname === "/admin" ? "text-red-500" : "text-inherit"
+                } hover:scale-110 transition-all duration-300`}
+              >
+                <Link
+                  onClick={() => setOpen(false)}
+                  to={"/admin"}
+                  className={"font-Oswald text-xl uppercase font-thin"}
+                >
+                  Admin Panel
+                </Link>
+              </li>
+            )}
           </ul>
         )}
 
@@ -182,6 +197,17 @@ export default function Header() {
                   </Link>
                 </li>
               ))}
+              {isAdmin && (
+                <li className="list-item">
+                  <Link
+                    onClick={() => setOpen(false)}
+                    to={"/admin"}
+                    className={"font-Oswald text-4xl uppercase font-thin"}
+                  >
+                    Admin Panel
+                  </Link>
+                </li>
+              )}
 
               <li className="list-item">
                 {user ? (

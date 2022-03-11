@@ -1,7 +1,6 @@
 import { lazy, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import AppPagination from "../../components/common/AppPagination";
-import LoadingComponent from "../../components/common/LoadingComponent";
 import LoadingComponentSmall from "../../components/common/LoadingComponentSmall";
 import useTickets from "../../hooks/useTickets";
 import { TicketParams } from "../../models/ticketParams";

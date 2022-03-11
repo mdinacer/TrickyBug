@@ -99,6 +99,21 @@ function createFormData(item: any) {
     return formData
 }
 
+const Admin = {
+    listUsers: () => requests.get('Account/listAll'),
+    listRoles: () => requests.get('admin/getRoles'),
+    listUserRoles: (id: string) => requests.get(`admin/${id}/getUserRoles`),
+    addRole: (id: string, role: any) => requests.post(`admin/${id}/addUserRole`, {role}),
+    removeRole: (id: string, role: any) => requests.post(`admin/${id}/removeUserRole`, { role }),
+    // login: (values: any) => requests.post<AppUser>('Account/login', values),
+    // register: (values: any) => requests.postForm('account/register', createFormData(values)),
+    // currentUser: () => requests.get<AppUser>('account'),
+    // fbLogin: (accessToken: string) => requests.post<AppUser>(`/account/fbLogin?accessToken=${accessToken}`, {}),
+    // refreshToken: () => requests.post<AppUser>('/account/refreshToken', {}),
+    // verifyEmail: (token: string, email: string) => requests.post<void>(`/account/verifyEmail?token=${token}&email=${email}`, {}),
+    // resendEmailConfirm: (email: string) => requests.get(`/account/resendEmailConfirmationLink?email=${email}`)
+}
+
 const Account = {
     listAll: () => requests.get<AppUser[]>('Account/listAll'),
     login: (values: any) => requests.post<AppUser>('Account/login', values),
@@ -170,6 +185,7 @@ const Comments = {
 }
 
 const agent = {
+    Admin,
     Account,
     Actions,
     Comments,

@@ -18,6 +18,7 @@ public class TicketDto
     public TicketStatus Status { get; set; }
     public bool IsAuthor { get; set; }
     public bool IsAssigned { get; set; }
+    public bool IsActive { get; set; }
 }
 
 public class TicketFullDto

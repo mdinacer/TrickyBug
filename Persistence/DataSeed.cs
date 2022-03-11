@@ -1,5 +1,6 @@
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistence;
 
@@ -71,5 +72,30 @@ public static class DataSeed
                 }
             }
         }
+
+
+        // var projects = await context.Projects.Where(p => !p.IsActive).ToListAsync();
+        //
+        // if (projects.Any())
+        // {
+        //     foreach (var project in projects)
+        //     {
+        //         project.IsActive = true;
+        //     }
+        //
+        //     await context.SaveChangesAsync();
+        // }
+        //
+        // var inactiveUsers = await context.Users.Where(p => !p.IsActive).ToListAsync();
+        //
+        // if (inactiveUsers.Any())
+        // {
+        //     foreach (var user in inactiveUsers)
+        //     {
+        //         user.IsActive = true;
+        //     }
+        //
+        //     await context.SaveChangesAsync();
+        // }
     }
 }

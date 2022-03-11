@@ -8,7 +8,7 @@ public class Project
     public string Description { get; set; }
     public DateTime CreationDate { get; set; } = DateTime.UtcNow;
     public DateTime? LastUpdate { get; set; }
-    public bool isActive { get; set; }
+    public bool IsActive { get; set; } = true;
     public string PhotoId { get; set; }
     public Photo Photo { get; set; }
     public List<ProjectTicket> Tickets { get; set; } = new();

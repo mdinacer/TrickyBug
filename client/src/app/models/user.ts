@@ -5,7 +5,9 @@ export interface AppUser {
     image: string;
     roles: string[]
     title: string
+    isActive: boolean
 }
+
 
 export interface AppUserFull {
     id: string;
@@ -13,6 +15,7 @@ export interface AppUserFull {
     username: string;
     image: string;
     title: string
+    isActive: boolean
 }
 
 export interface RegisterUser {

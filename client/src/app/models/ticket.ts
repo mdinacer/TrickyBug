@@ -1,6 +1,6 @@
 import { ProjectAction } from "./action";
 import { TicketComment } from "./comment";
-import { IssueNature, IssueOccurrence, IssueSeverity, TicketPriority, TicketStatus } from "./enums";
+import { TicketPriority, TicketStatus } from "./enums";
 import { ProjectPhase } from "./phase";
 import { CreateDescription, TicketDescription, UpdateDescription } from "./ticketDescription";
 
@@ -19,6 +19,7 @@ export interface ProjectTicket {
     status: TicketStatus;
     isAuthor: boolean;
     isAssigned: boolean;
+    isActive: boolean
 }
 
 export interface ProjectTicketFull {
@@ -41,6 +42,7 @@ export interface ProjectTicketFull {
     phase?: ProjectPhase;
     isAuthor: boolean;
     isAssigned: boolean;
+    isActive: boolean
 }
 
 export interface CreateTicket {

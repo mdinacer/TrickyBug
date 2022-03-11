@@ -38,25 +38,15 @@ public class AccountController : ControllerBase
             BaseAddress = new Uri("https://graph.facebook.com")
         };
     }
+    
 
-    [AllowAnonymous]
+   
     [HttpGet("listAll")]
     public async Task<ActionResult<List<UserFullDto>>> ListUsers()
     {
-        var list = new List<UserFullDto>();
+        var users = await _userManager.Users.OrderBy(u => u.DisplayName).ToListAsync();
 
-        foreach (var user in _userManager.Users)
-        {
-            list.Add(new UserFullDto
-            {
-                Id = user.Id,
-                DisplayName = user.DisplayName,
-                Username = user.UserName,
-                Title = user.Title
-            });
-        }
-
-        return list;
+        return users.Select(user => new UserFullDto { Id = user.Id, DisplayName = user.DisplayName, Username = user.UserName, Title = user.Title, IsActive = user.IsActive}).ToList();
     }
 
     [AllowAnonymous]
@@ -267,7 +257,8 @@ public class AccountController : ControllerBase
             //Image = user?.Photos?.FirstOrDefault(x => x.IsMain)?.Url,
             Token = await _tokenService.CreateToken(user),
             Username = user.UserName,
-            Title = user.Title
+            Title = user.Title,
+            IsActive = user.IsActive
         };
     }
 }

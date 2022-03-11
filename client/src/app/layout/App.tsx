@@ -53,6 +53,17 @@ function App() {
         <Route path="/">
           <Route index element={<HomePage />} />
 
+          <Route
+            path="admin"
+            element={
+              <Suspense fallback={<div />}>
+                <PrivateRoute roles={["Admin"]}>
+                  <AdminPanel />
+                </PrivateRoute>
+              </Suspense>
+            }
+          />
+
           <Route path="projects">
             <Route
               index
@@ -218,5 +229,7 @@ const TicketsPage = lazy(() => import("../pages/Tickets/TicketsPage"));
 const TicketDetailsPage = lazy(
   () => import("../pages/Tickets/TicketDetailsPage")
 );
+
+const AdminPanel = lazy(() => import("../pages/admin/AdminPanel"));
 
 export default App;
