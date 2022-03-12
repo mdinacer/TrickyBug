@@ -20,8 +20,8 @@ export default function AppPagination({ metaData, onPageChange }: Props) {
   return (
     <div className=" border-x-2 border-x-inherit px-10 text-inherit w-auto h-auto">
       {metaData && metaData.totalPages > 1 && (
-        <div className="flex flex-row justify-between items-center">
-          <p className="font-Oswald font-thin text-xl">
+        <div className="flex flex-col lg:flex-row justify-between items-center gap-y-2 lg:gap-y-0">
+          <p className="font-Oswald font-thin text-lg lg:text-xl">
             Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
             {(currentPage - 1) * itemsPerPage > totalItems
               ? totalItems

@@ -1,6 +1,6 @@
 export default function Spinner() {
   return (
-    <div className="relative h-20 w-20 mx-auto -translate-x-1/2 -translate-y-1/2">
+    <div className="relative h-20 w-20 mx-auto">
       <div
         className={`${styles.baseStyle} ${styles.outer} animate-spin-slow`}
       ></div>

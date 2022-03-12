@@ -46,6 +46,11 @@ export default function HomePage() {
               concerns, as well as suggest changes, enabling for quick solutions
               to avoid downtime and a bad user experience.
             </p>
+            <p className=" text-white font-Montserrat text-sm text-center px-5 py-5 text-opacity-75">
+              For this demo you can create an account, or use one of the
+              available users (Bob, Tom, Jane, Jack) with this pattern
+              (username@test.com | Pa$$w0rd)
+            </p>
           </div>
           {!user ? (
             <div className="p-10 flex flex-row justify-around">

@@ -14,7 +14,7 @@ export default function CommentsContainer({ comments, ticketId }: Props) {
       <div className="flex-initial px-5 lg:px-0">
         <CommentsContainerHeader commentsCount={comments.length} />
       </div>
-      <div className=" overflow-y-scroll overflow-x-hidden flex-auto h-full py-5 max-h-[60vh]">
+      <div className=" overflow-y-scroll overflow-x-hidden flex-auto h-full py-5 max-h-[60vh] overscroll-none">
         <CommentsList comments={comments} />
       </div>
 

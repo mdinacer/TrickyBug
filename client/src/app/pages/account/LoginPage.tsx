@@ -40,16 +40,16 @@ export default function LoginPage() {
   }, [setValue, state?.email]);
 
   return (
-    <div className="py-20 h-screen w-screen flex items-center justify-center  bg-gray-300 ">
-      <div className="h-auto p-20 w-full max-w-xl drop-shadow-md rounded-md flex items-center justify-center">
-        <div className="max-w-lg w-full ">
+    <div className="py-20 h-screen w-screen flex items-center justify-center  bg-gray-100 ">
+      <div className="h-auto lg:p-20 p-5 w-full  drop-shadow-md rounded-md flex items-center justify-center">
+        <div className="w-full lg:max-w-xl ">
           <p className=" font-Oswald text-7xl text-center pb-5 uppercase">
             Sing In
           </p>
 
           <form
             onSubmit={handleSubmit(submitForm)}
-            className="flex flex-col gap-y-2 mx-auto"
+            className="flex flex-col gap-y-2  w-full"
           >
             <AppTextInput
               autoComplete="off"

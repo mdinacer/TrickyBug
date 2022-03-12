@@ -29,7 +29,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="h-full min-h-screen w-screen bg-slate-100 pt-20 flex">
-      <div className="flex-auto lg:container mx-auto h-auto flex flex-col">
+      <div className="flex-auto container lg:px-10 mx-auto h-auto flex flex-col">
         <div className=" w-full flex flex-col lg:flex-row justify-between lg:items-center py-5 px-5 lg:px-0">
           <h1 className="flex-initial font-Oswald text-5xl lg:text-7xl pb-5 lg:pb-10 uppercase">
             projects

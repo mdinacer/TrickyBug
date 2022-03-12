@@ -63,7 +63,7 @@ axios.interceptors.response.use(async response => {
                 break;
 
             // case 404:
-            //     toast.error("Element not found")
+            //     history.push('/not-found', data);
             //     break;
 
             case 500:
@@ -103,7 +103,7 @@ const Admin = {
     listUsers: () => requests.get('Account/listAll'),
     listRoles: () => requests.get('admin/getRoles'),
     listUserRoles: (id: string) => requests.get(`admin/${id}/getUserRoles`),
-    addRole: (id: string, role: any) => requests.post(`admin/${id}/addUserRole`, {role}),
+    addRole: (id: string, role: any) => requests.post(`admin/${id}/addUserRole`, { role }),
     removeRole: (id: string, role: any) => requests.post(`admin/${id}/removeUserRole`, { role }),
     // login: (values: any) => requests.post<AppUser>('Account/login', values),
     // register: (values: any) => requests.postForm('account/register', createFormData(values)),
@@ -156,10 +156,11 @@ const Members = {
     //details: (id: number) => requests.get<ProjectTicket>(`projectMembers/${id}`),
     create: (id: string, member: any) => requests.postForm(`projectMembers/${id}/add`, createFormData(member)),
     update: (id: string, member: any) => requests.putForm(`projectMembers/${id}/edit`, createFormData(member)),
-    delete: (id: string, memberId: string) => requests.delete<void>(`projectMembers/${id}/delete`, { data: { memberId } }),
+    setLeader: (id: string, userId: any) => requests.patch<void>(`projectMembers/${id}/setLeader`, { userId }),
+    delete: (id: string, userId: any) => requests.delete<void>(`projectMembers/${id}/delete`, { data: { userId } }),
     createRange: (id: string, members: any[]) => requests.post(`projectMembers/${id}/addRange`, members),
     updateRange: (id: string, members: any[]) => requests.put(`projectMembers/${id}/editRange`, members),
-    deleteRange: (id: string, membersId: string[]) => axios.delete(`projectMembers/${id}/deleteRange`, { data: [...membersId] }).then(responseBody),
+    deleteRange: (id: string, membersId: any[]) => axios.delete(`projectMembers/${id}/deleteRange`, { data: [...membersId] }),
 }
 
 const Phases = {

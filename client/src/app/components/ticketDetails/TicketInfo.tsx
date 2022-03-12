@@ -3,9 +3,10 @@ import LabelItem from "../common/LabelItem";
 
 interface Props {
   ticket: ProjectTicketFull;
+  onShow: () => void;
 }
 
-export default function TicketInfo({ ticket }: Props) {
+export default function TicketInfo({ ticket, onShow }: Props) {
   return (
     <div className="flex flex-col gap-y-3 border-b-black">
       <LabelItem title="Priority" value={ticket.priority} />
@@ -47,7 +48,10 @@ export default function TicketInfo({ ticket }: Props) {
           Screenshot
         </p>
         {ticket.description.photo ? (
-          <button className="text-lg uppercase font-Oswald font-thin">
+          <button
+            onClick={onShow}
+            className="text-lg uppercase font-Oswald font-thin"
+          >
             View
           </button>
         ) : (

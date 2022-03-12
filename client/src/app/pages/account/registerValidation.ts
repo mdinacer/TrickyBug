@@ -3,6 +3,7 @@ import * as yup from "yup";
 export const registerValidationSchema = yup.object({
   displayName: yup.string().required("Email is required"),
   username: yup.string().required("Email is required"),
+  title: yup.string().required("Title is required"),
   email: yup.string().email().required("Email is required"),
   password: yup
     .string()

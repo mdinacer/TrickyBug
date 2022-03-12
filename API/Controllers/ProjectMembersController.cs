@@ -24,6 +24,12 @@ public class ProjectMembersController : BaseApiController
         return HandleResult(await Mediator.Send(new Edit.Command { Member = projectMember }));
     }
     
+    [HttpPatch("{id}/setLeader")]
+    public async Task<IActionResult> SetLeader(string id, SetLeaderMemberDto member)
+    {
+        return HandleResult(await Mediator.Send(new SetLeader.Command {Id = id, MemberId = member.UserId }));
+    }
+    
     [HttpPut("{id}/editRange")]
     public async Task<IActionResult> EditMembers(string id, List<UpdateProjectMemberDto> members)
     {
@@ -33,9 +39,9 @@ public class ProjectMembersController : BaseApiController
     //
     // [Authorize(Policy = "IsActivityHost")]
     [HttpDelete("{id}/delete")]
-    public async Task<IActionResult> DeleteMember(string id, string memberId)
+    public async Task<IActionResult> DeleteMember(string id, DeleteProjectMemberDto member)
     {
-        return HandleResult(await Mediator.Send(new Delete.Command { Id = id, MemberId = memberId }));
+        return HandleResult(await Mediator.Send(new Delete.Command { Id = id, MemberId = member.UserId }));
     }
     
     [HttpDelete("{id}/deleteRange")]

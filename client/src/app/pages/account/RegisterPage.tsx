@@ -23,8 +23,8 @@ export default function RegisterPage() {
       .catch((err) => console.log(err));
   }
   return (
-    <div className="py-20 h-screen w-screen flex items-center justify-center bg-gray-300">
-      <div className="h-auto p-20 w-full max-w-2xl  drop-shadow-md rounded-md flex items-center justify-center">
+    <div className="py-10 h-screen w-screen flex items-center justify-center bg-gray-100">
+      <div className="h-auto p-5 lg:p-20 w-full lg:max-w-xl  drop-shadow-md rounded-md flex items-center justify-center">
         {!registerSuccess ? (
           <div className="max-w-lg w-full ">
             <p className=" font-Oswald text-7xl text-center pb-10 uppercase">
@@ -43,7 +43,6 @@ export default function RegisterPage() {
                 label="Full Name"
                 name="displayName"
                 placeholder="Full Name"
-                
               />
 
               <AppTextInput
@@ -53,7 +52,15 @@ export default function RegisterPage() {
                 label="Username"
                 name="username"
                 placeholder="Username"
-                
+              />
+
+              <AppTextInput
+                autoComplete="off"
+                type="text"
+                control={control}
+                label="Title"
+                name="title"
+                placeholder="Title (ex: Designer, Developer ...)"
               />
 
               <AppTextInput
@@ -63,7 +70,6 @@ export default function RegisterPage() {
                 label="Email"
                 name="email"
                 placeholder="Email"
-                
               />
 
               <AppTextInput
@@ -73,7 +79,6 @@ export default function RegisterPage() {
                 label="Password"
                 name="password"
                 placeholder="Password"
-                
               />
 
               <AppTextInput
@@ -83,7 +88,6 @@ export default function RegisterPage() {
                 label="Confirm your password"
                 name="password2"
                 placeholder="Confirm your password"
-                
               />
 
               <input

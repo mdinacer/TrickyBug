@@ -28,3 +28,13 @@ public class UpdateProjectMemberDto
     public string ProjectId { get; set; }
     public bool IsLeader { get; set; }
 }
+
+public class SetLeaderMemberDto
+{
+    public string UserId { get; set; }
+}
+
+public class DeleteProjectMemberDto
+{
+    public string UserId { get; set; }
+}

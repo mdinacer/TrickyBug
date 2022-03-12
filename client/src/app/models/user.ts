@@ -21,6 +21,7 @@ export interface AppUserFull {
 export interface RegisterUser {
     displayName: string;
     username: string;
+    title: string;
     email: string;
     password: string;
 }

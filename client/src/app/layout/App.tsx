@@ -9,6 +9,8 @@ import ProjectFormPage from "../pages/projects/ProjectFormPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { HomeIcon } from "@heroicons/react/solid";
+import ServerErrorPage from "../errors/ServerError";
+import NotFoundPage from "../errors/NotFound";
 
 function App() {
   const { user } = useAppSelector((state) => state.account);
@@ -52,7 +54,14 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<HomePage />} />
-
+          <Route
+            path="/server-error"
+            element={
+              <Suspense fallback={<div />}>
+                <ServerErrorPage />
+              </Suspense>
+            }
+          />
           <Route
             path="about"
             element={
@@ -215,6 +224,7 @@ function App() {
             />
           </Route>
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );

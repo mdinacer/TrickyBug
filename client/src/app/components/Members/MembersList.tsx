@@ -12,7 +12,10 @@ export default function MembersList({ members }: Props) {
           key={member.userId}
           className=" py-1 rounded-md   flex items-center"
         >
-          <LabelItem title={member.userName} value={member.title} />
+          <LabelItem
+            title={`${member.userName} ${member.isLeader ? " - leader" : ""}`}
+            value={member.title}
+          />
         </li>
       ))}
     </ul>

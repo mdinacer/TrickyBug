@@ -150,7 +150,7 @@ export default function ProjectForm({ project, handleClose }: Props) {
                   />
                 </div>
               </div>
-
+              {/* 
               <div>
                 <p className="font-Oswald text-3xl font-thin pb-4">Members</p>
                 <MembersForm
@@ -159,7 +159,7 @@ export default function ProjectForm({ project, handleClose }: Props) {
                   members={members}
                   setMembers={setMembers}
                 />
-              </div>
+              </div> */}
             </div>
           </form>
         </div>

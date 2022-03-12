@@ -1,4 +1,9 @@
-import { PencilAltIcon, TrashIcon } from "@heroicons/react/solid";
+import {
+  PencilAltIcon,
+  TrashIcon,
+  XCircleIcon,
+  XIcon,
+} from "@heroicons/react/solid";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import agent from "../../api/agent";
@@ -22,6 +27,7 @@ export default function TicketDetailsPage() {
   const { comments, setTicketId } = useComments();
   const [isEdit, setIsEdit] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+  const [isViewImage, setIsViewImage] = useState(false);
   const navigate = useNavigate();
 
   const loadTicket = useCallback((id: number) => {
@@ -103,8 +109,32 @@ export default function TicketDetailsPage() {
         </div>
       </div>
     );
+
+  if (isViewImage)
+    return (
+      <div className="relative w-screen h-screen bg-slate-100 flex items-center justify-center pt-20 pb-5">
+        <div className="absolute top-16 right-0 p-3 lg:p-10 ">
+          <button
+            className=" lg:scale-100 lg:hover:scale-110 bg-black bg-opacity-40 rounded-full p-3"
+            type="button"
+            title="close preview"
+            onClick={() => setIsViewImage(false)}
+          >
+            <XIcon className="w-6 h-6 text-white" />
+          </button>
+        </div>
+        <div className=" overflow-auto  w-full h-full px-5 lg:px-14">
+          <img
+            src={ticket.description.photo}
+            width="auto"
+            alt="screenshot"
+            className=" object-center object-cover lg:object-contain w-full h-full"
+          />
+        </div>
+      </div>
+    );
   return (
-    <div className="w-full h-full min-h-screen bg-slate-100 pt-16 lg:pt-20">
+    <div className="w-full h-full min-h-screen bg-slate-100 pt-16 lg:pt-20 px-2">
       {isEdit ? (
         <TicketForm
           projectId={ticket.projectId}
@@ -127,7 +157,7 @@ export default function TicketDetailsPage() {
               </button>
             )}
 
-            {(isAdmin || ticket.isAuthor || isLeader) && (
+            {/* {(isAdmin || ticket.isAuthor || isLeader) && (
               <button
                 className="flex flex-row gap-x-2 items-center"
                 onClick={() => setIsDelete(true)}
@@ -137,7 +167,7 @@ export default function TicketDetailsPage() {
                   Delete
                 </p>
               </button>
-            )}
+            )} */}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             <div className="relative w-full h-full p-10 bg-white text-black drop-shadow-md">
@@ -145,7 +175,7 @@ export default function TicketDetailsPage() {
             </div>
 
             <div className=" w-full h-auto p-10 bg-white text-black drop-shadow-md">
-              <TicketInfo ticket={ticket} />
+              <TicketInfo onShow={() => setIsViewImage(true)} ticket={ticket} />
             </div>
           </div>
 
