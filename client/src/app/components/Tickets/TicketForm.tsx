@@ -197,14 +197,12 @@ export default function TicketForm({ projectId, ticketId, onClose }: Props) {
             </div>
             <div className="flex flex-col gap-y-5 py-5">
               <div className=" w-full flex flex-col  gap-y-5 ">
-                {isEdit && (ticket.isAssigned || project?.isLeader) && (
-                  <Dropdown
-                    title="Priority"
-                    items={EnumToArray(TicketPriority)}
-                    onChange={(value) => handleOnChange("priority", value)}
-                    selectedValue={ticket?.priority}
-                  />
-                )}
+                <Dropdown
+                  title="Priority"
+                  items={EnumToArray(TicketPriority)}
+                  onChange={(value) => handleOnChange("priority", value)}
+                  selectedValue={ticket?.priority}
+                />
                 {isEdit && (ticket.isAssigned || project?.isLeader) && (
                   <Dropdown
                     title="Status"

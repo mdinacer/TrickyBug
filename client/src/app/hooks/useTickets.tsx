@@ -13,7 +13,7 @@ export default function useTickets() {
     if (!ticketsLoaded) {
       dispatch(fetchTicketsAsync());
     }
-  }, [dispatch, tickets, ticketsLoaded]);
+  }, [dispatch, ticketsLoaded]);
   return {
     tickets,
     ticketParams,

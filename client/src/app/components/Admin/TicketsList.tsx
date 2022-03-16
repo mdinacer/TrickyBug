@@ -12,7 +12,7 @@ export default function AdminTicketsList() {
         <ul className="list-none">
           {tickets.map((ticket) => (
             <li key={ticket.id}>
-              <div className=" flex flex-col gap-y-5 lg:gap-y-0 lg:flex-row justify-between border-b border-b-gray-400 items-end py-5">
+              <div className=" flex flex-col gap-y-5 lg:gap-y-0 lg:flex-row justify-between border-b border-b-gray-400 lg:items-end py-5">
                 <div className="">
                   {!ticket.isActive && (
                     <p className="font-Oswald text-base font-thin text-gray-500">
@@ -28,7 +28,7 @@ export default function AdminTicketsList() {
                     {ticket.body}
                   </p>
                 </div>
-                <div className="grid grid-flow-col max-w-xl gap-x-10 ml-auto">
+                <div className="grid grid-flow-col max-w-xl gap-x-10 mx-auto  lg:ml-auto lg:mr-0">
                   <div>
                     <p className=" font-Oswald text-base uppercase font-thin text-gray-500">
                       Created
@@ -55,7 +55,7 @@ export default function AdminTicketsList() {
                     </p>
                   </div>
                 </div>
-                <div className="px-10 self-end ml-auto flex-initial">
+                <div className="px-10 self-end  flex-initial">
                   <button
                     type="button"
                     title="edit"

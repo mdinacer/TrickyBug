@@ -100,6 +100,7 @@ export default function ProjectForm({ project, handleClose }: Props) {
                   Project Info
                 </p>
                 <AppTextInput
+                
                   control={control}
                   name="title"
                   label="Title"
@@ -144,6 +145,7 @@ export default function ProjectForm({ project, handleClose }: Props) {
                     onClick={() => handleClose()}
                   />
                   <input
+
                     className="cursor-pointer bg-slate-800 text-white py-1 px-5 uppercase font-Oswald text-xl font-thin"
                     type="submit"
                     value={isEdit ? "Update Project" : "Create Project"}

@@ -20,7 +20,7 @@ export default function AdminPanel() {
   return (
     <div className=" w-full h-full min-h-screen bg-slate-100 pt-16 lg:pt-20">
       <div className="container mx-auto flex flex-col gap-y-5 py-10">
-        <h1 className="flex-initial text-4xl lg:text-5xl font-Oswald mb-5 uppercase">
+        <h1 className="flex-initial text-3xl text-center lg:text-5xl font-Oswald mb-5 uppercase">
           Administration Panel
         </h1>
 
